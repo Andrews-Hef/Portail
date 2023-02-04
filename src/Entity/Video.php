@@ -21,14 +21,14 @@ class Video
     #[ORM\Column]
     private ?int $qualite = null;
 
-    #[ORM\ManyToOne(inversedBy: 'videos')]
-    private ?type $types = null;
-
     #[ORM\ManyToMany(targetEntity: Categorie::class, mappedBy: 'videos')]
     private Collection $categories;
 
     #[ORM\OneToMany(mappedBy: 'videoscom', targetEntity: Commentaire::class)]
     private Collection $commentaires;
+
+    #[ORM\ManyToOne(inversedBy: 'typesrelationvideo')]
+    private ?TypeVideo $typeVideo = null;
 
     public function __construct()
     {
@@ -65,17 +65,6 @@ class Video
         return $this;
     }
 
-    public function getTypes(): ?type
-    {
-        return $this->types;
-    }
-
-    public function setTypes(?type $types): self
-    {
-        $this->types = $types;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Categorie>
@@ -130,6 +119,18 @@ class Video
                 $commentaire->setVideoscom(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTypeVideo(): ?TypeVideo
+    {
+        return $this->typeVideo;
+    }
+
+    public function setTypeVideo(?TypeVideo $typeVideo): self
+    {
+        $this->typeVideo = $typeVideo;
 
         return $this;
     }
