@@ -1,17 +1,71 @@
-    <nav class="navbar navbar-expand-sm bg-body-tertiary">
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Accueil</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="#">Règlement du jeu</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="#">Jouer</a>
-                    </li>
-                </ul>
-                </div>
-            </div>
-        </nav>
+<nav class="navbar fixed-top navbarcss" >
+  <div class="container-fluid" style="height:100%;">
+      <button class="navbar-toggler noStyle buttonNavbar" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" style="height:100%;">
+        <i class="bi bi-list listIcon"></i>
+      </button>
+            <a class="navbar-brand mb-lg-0 me-auto mb-2"  href="#">        
+              <img role="img" title="Wakanim" src="../image/youtube.png" style="width:70px">
+            </a>
+
+       <form class="d-flex" role="search" style="width:50% height:100%;">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="height:100%;">
+        <button class="btn btn-outline-success" type="submit" style="height:100%;">Search</button>
+      </form>
+     
+    <button type="button" style="height:100%;">S'INSCRIRE</button>      
+    <button type="button" style="height:100%;">CONNEXION</button>
+    
+
+
+
+
+    <div class="offcanvas offcanvas-end text-bg-dark" style="top:8%; left:0px;" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">CATALOGUE</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">BOUTIQUE</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">RÉSERVATION</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              GENRES
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark">
+              <li><a class="dropdown-item" href="#">ACTION</a></li>
+              <li><a class="dropdown-item" href="#">HORREUR</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              CATÉGORIES
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark">
+              <li><a class="dropdown-item" href="#">FILM</a></li>
+              <li><a class="dropdown-item" href="#">CINÉMA</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+</nav>

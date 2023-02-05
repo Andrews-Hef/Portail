@@ -1,0 +1,82 @@
+.offcanvas.offcanvas-end {
+  top: 0;
+  right: 0;
+  width: var(--bs-offcanvas-width);
+  border-left: var(--bs-offcanvas-border-width) solid var(--bs-offcanvas-border-color);
+  transform: translateX(-100%);
+  border-left-color: black;
+}
+
+.offcanvas-backdrop.show {
+  opacity: .5;
+  top:8%;
+}
+
+nav{
+  border-bottom: solid;
+  border-bottom-color: black;
+  background-color: white;
+  z-index:1100;
+  height:8%;
+  height:8%; border-bottom: solid;
+  border-bottom-color: black;
+  border-bottom-width: 1px;
+}
+
+.noStyle{
+  border-color:white;
+}
+
+.listIcon{
+  font-size: 150%;
+  float:left;
+  text-align: left;
+}
+
+/* .buttonNavbar{
+  float:left;
+  text-align: left; 
+} */
+
+.titreNavbar{
+}
+
+.rightDivNavbar{
+  display: inline-block;
+  vertical-align: top;
+  font-size: 1rem;
+  height: 100%;
+  text-align: right;
+  width: 50%;
+  right:0;
+}
+
+
+.leftDivNavbar{
+  float:left;
+  height: 100%;
+  overflow: hidden;
+  margin-left: 0;
+  width: 50%;
+  text-align: left;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
