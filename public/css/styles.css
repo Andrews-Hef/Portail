@@ -1,7 +1,8 @@
 body{
   color:red;
-  background-color: turquoise;
+  background-color: lightgray;
 }
+
 
 .monbandeau {
   height: 200px;
@@ -70,3 +71,4 @@ body{
   border-bottom-color: #EEEEEE;
   background-color: #FAFAFA;
 }
+

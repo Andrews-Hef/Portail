@@ -9,54 +9,46 @@
 {% block body %}                        {# mettre les styles dans le fichier css #}
 
 {# Div contenant le bandeau de la page #}
-<div class="monbandeau" >
-    <p>Le bandeau qui va contenir l'image du site #PasEncoreResponsive</p>
-</div>    
+<div class="monbandeau" style="margin-top:%;top:8%;"></div>    
                                 
-<div class="container">
-    
+<div class="container" style="margin-top:6%;">
     <div class="row mt-5">
+
       {% for videos in videos %}
         {% set url = path('accueil') %}
         
         <div class="col-md-6 ml-auto mr-auto col-sm-1 col-lg-4 card__content " style="background-color: #f8f5f000!important;">
           <div class="card mb-3 slow-transition zoom " style="background-color: #f8f5f000!important;">
-            <div class="card-header text-center  " style="background-colorrgb(251	, 253, 238)">
-              <h4 style="margin-bottom:-5px; color:black;">{{ videos.typeVideo.libelleTypeVideo }}
-                {{ videos.typeVideo.libelleTypeVideo }}</h4>
+
+            <div class="card-header text-center" style="background-colorrgb(251	, 253, 238)">
+              <h4 style="margin-bottom:-5px; color:black;">{{ videos.typeVideo.libelleTypeVideo }}</h4>
                 <h2> 
                 {% for categories in videos.categories %}
-            {{ categories.libelleCategorie }}
-            {% endfor %} 
-            </h2>
-
-
+                    {{ categories.libelleCategorie }}
+                {% endfor %} 
+                </h2>
             </div>
+
             <div class="card-body  " style="background-color:#1d447bb3; height:50%">
               <h4 class="card-title">
                 <a href="{{url}}">
                   {{ videos.titre }}
                 </a>
               </h4>
-
-
             </div>
-            <a href="">
-              <div class="row">
+
+            <div class="row">
                 <div class="col" style="background-color: #1d447bb3; margin-left:12px; margin-right:12px;">
-                  <a href="{{url}}"><img src="{{videos.titre}}" alt="imagevideos" style="height:auto; width:30%;display:block; float:left"></a>
-
-                  <a href="{{url}}" class="bouton" style="float: right; margin-top:20%;" href="#" role="button">
-                    cliquer ici
-                  </a>
-
-
+                    <a href="{{url}}"><img src="{{videos.titre}}" alt="imagevideos" style="height:auto; width:30%;display:block; float:left"></a>
+                    <a href="{{url}}" class="bouton" style="float: right; margin-top:20%;" href="#" role="button">cliquez ici</a>
                 </div>
-              </div>
+            </div>
 
           </div>
         </div> 
+
         {% endfor %} 
+
     </div>
 </div>  
 {% endblock %}

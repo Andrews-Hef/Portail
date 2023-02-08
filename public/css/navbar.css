@@ -18,7 +18,7 @@ nav{
   background-color: white;
   z-index:1100;
   height:8%;
-  height:8%; border-bottom: solid;
+  border-bottom: solid;
   border-bottom-color: black;
   border-bottom-width: 1px;
 }
