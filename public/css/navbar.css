@@ -12,15 +12,21 @@
   top:8%;
 }
 
-nav{
+.shownav{
+  position: fixed;
   border-bottom: solid;
   border-bottom-color: black;
   background-color: white;
   z-index:1100;
-  height:8%;
+  height:8%!important;
   border-bottom: solid;
   border-bottom-color: black;
   border-bottom-width: 1px;
+  margin-top: -8%;
+}
+
+body.navfix .shownav {
+  width: 100%!important;
 }
 
 .noStyle{

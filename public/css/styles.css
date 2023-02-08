@@ -10,6 +10,9 @@ body{
   background-size: cover;
   border: 2px solid darkgray;
   color: #000; text-shadow: 1px 1px 0 #fff;
+  display: block;
+  margin-top: 8%!important;
+
 }
 
 .modal.left .modal-dialog,
