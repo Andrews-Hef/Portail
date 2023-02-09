@@ -17,7 +17,7 @@ body{
   text-size-adjust: 100%;
   padding-top:8%;
   width: inherit;
-
+  top: 56px;
   overflow: hidden;
 }
 
