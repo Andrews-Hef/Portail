@@ -16,6 +16,8 @@ body{
   box-sizing:inherit;
   text-size-adjust: 100%;
   padding-top:8%;
+  width: inherit;
+
   overflow: hidden;
 }
 
