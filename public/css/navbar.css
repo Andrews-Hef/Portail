@@ -9,7 +9,7 @@
 
 .offcanvas-backdrop.show {
   opacity: .5;
-  top:8%;
+  top:5%;
 }
 
 .shownav{
@@ -18,12 +18,40 @@
   border-bottom-color: black;
   background-color: white;
   z-index:1100;
-  height:8%!important;
+  height:56px!important;
   border-bottom: solid;
   border-bottom-color: black;
   border-bottom-width: 1px;
-  margin-top: -8%;
+  display:flex;
+  top:0;
+  padding:0;
 }
+
+
+.fLuidStyle{
+  padding:0;
+  height: 100%;
+  position: relative;
+}
+
+.buttonNavbar{
+  height:100%;
+  border-color:white;
+  display: block;
+    height: 100%;
+    font-family: Geomanist,sans-serif;
+    text-transform: uppercase;
+    font-weight: 500;
+    background-color: #e8e8e8;
+    color: #e3474b;
+    border-radius: 0;
+    text-decoration: none;
+    transition: background-color .3s;
+    border-left: 1px solid #fff;
+    -webkit-tap-highlight-color: transparent;
+}
+
+
 
 body.navfix .shownav {
   width: 100%!important;

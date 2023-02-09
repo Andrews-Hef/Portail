@@ -5,14 +5,20 @@ body{
 
 
 .monbandeau {
-  height: 200px;
-  background-image: url(https://www.mozilla.org/media/img/logos/firefox/logo-quantum.9c5e96634f92.png);
+  height: 320px;
+  background-image: url(../css/img/wakanim.png);
   background-size: cover;
   border: 2px solid darkgray;
   color: #000; text-shadow: 1px 1px 0 #fff;
   display: block;
-  margin-top: 8%!important;
-
+  position:relative;
+  /* margin-top: 8%!important; */
+  box-sizing:inherit;
+  text-size-adjust: 100%;
+  padding-top:8%;
+  width: inherit;
+  top: 56px;
+  overflow: hidden;
 }
 
 .modal.left .modal-dialog,
