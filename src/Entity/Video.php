@@ -30,6 +30,9 @@ class Video
     #[ORM\ManyToOne(inversedBy: 'typesrelationvideo')]
     private ?TypeVideo $typeVideo = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $url = null;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -131,6 +134,18 @@ class Video
     public function setTypeVideo(?TypeVideo $typeVideo): self
     {
         $this->typeVideo = $typeVideo;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(?string $url): self
+    {
+        $this->url = $url;
 
         return $this;
     }
