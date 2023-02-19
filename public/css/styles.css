@@ -1,80 +1,171 @@
 body{
-  color:red;
-  background-color: lightgray;
+  color:white;
+  background-color: #293473;
 }
 
-
+/* bandeau à changer par une div et une vraie image <img>*/
 .monbandeau {
   height: 320px;
   background-image: url(../css/img/portailfond2.png);
   border: none;
   color: #000; text-shadow: 1px 1px 0 #fff;
-
-  /* margin-top: 8%!important; */
   text-size-adjust: 100%;
   overflow: hidden;
 }
 
-.modal.left .modal-dialog,
-.modal.right .modal-dialog {
-  position: fixed;
-  margin: auto;
-  width: 320px;
-  height: 100%;
-  -webkit-transform: translate3d(0%, 0, 0);
-      -ms-transform: translate3d(0%, 0, 0);
-       -o-transform: translate3d(0%, 0, 0);
-          transform: translate3d(0%, 0, 0);
+
+
+/* div abonnement page accueil */
+.achat{
+  box-sizing: inherit;
+  background-color: #fff;
+  box-shadow: 0 0 16px 0 rgb(0 0 0 / 20%);
+  letter-spacing: normal;
 }
 
-.modal.left .modal-content,
-.modal.right .modal-content {
-  height: 100%;
-  overflow-y: auto;
+.textDemonstrationSpan{
+  display: block;
+  text-transform: uppercase;
+  color: #000;
 }
 
-.modal.left .modal-body,
-.modal.right .modal-body {
-  padding: 0;
+.textDemonstrationP{
+  color:black;
 }
 
-/*Left*/
-.modal.left.fade .modal-dialog{
-  left: -320px;
-  -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
-     -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
-       -o-transition: opacity 0.3s linear, left 0.3s ease-out;
-          transition: opacity 0.3s linear, left 0.3s ease-out;
+.demonstration {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  width: 100%;
+  padding-right: calc(var(--bs-gutter-x) * .5);
+  padding-left: calc(var(--bs-gutter-x) * .5);
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1320px;
+  margin-top:3%;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.2);
+  border-color: black;
+  border: solid;
+  border-color: black;
+  border-width: 2px;
+  margin-bottom:30px;
+  display: block;
+  background-color: #fff;
 }
 
-.modal.left.fade.in .modal-dialog{
-  left: 0;
-}
-      
-/*Right*/
-.modal.right.fade .modal-dialog {
-  right: -320px;
-  -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
-     -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
-       -o-transition: opacity 0.3s linear, right 0.3s ease-out;
-          transition: opacity 0.3s linear, right 0.3s ease-out;
+
+
+
+/* Cards */
+.grid-wrapper {
+  /* display: grid; peut être a ajouter quand slider*/
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
+  align-items: center;
 }
 
-.modal.right.fade.in .modal-dialog {
-  right: 0;
+.box {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* ----- MODAL STYLE ----- */
-.modal-content {
-  border-radius: 0;
-  border: none;
+.card {
+    max-width: 280px; 
+    margin: 50px 10px; 
+}
+  
+.card-container {
+    display: -ms-grid;
+    display: grid;
+    -webkit-perspective: 700px;
+            perspective: 700px;
+    max-width: 280px;
+    display: inline-block;
+  }
+  
+.card-title p, h4, h5 {
+    font-family: 'Nunito' !important;
+    text-align: center;
+    color: white;
+}
+  
+.card-text {
+    font-family: 'Nunito' !important;
+    text-align: center;
+    color: white;
+}
+  
+.card-flip {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-rows: 1fr;
+    -ms-grid-columns: 1fr;
+        grid-template: 1fr / 1fr;
+        grid-template-areas: "frontAndBack";
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+    -webkit-transition: all 0.7s ease;
+    transition: all 0.7s ease;
+}
+  
+.card-flip div {
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+}
+  
+.front {
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+    grid-area: frontAndBack;
+    background-color: #383428 !important;
+    margin-top:0;
 }
 
-.modal-header {
-  border-bottom-color: #EEEEEE;
-  background-color: #FAFAFA;
+.back {
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+    grid-area: frontAndBack;
+    -webkit-transform: rotateY(-180deg);
+            transform: rotateY(-180deg);
+    background-color: #383428 !important;
+    margin-top:0;
+
+}
+  
+.card-container:hover .card-flip {
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
 }
 
-.textcolor-white {
-  color:white!important;
+.btn {
+    color: #383428 !important;
+}
+
+.btn:hover {
+    color: white !important;
+}
+
+.rating {
+    text-decoration: none;
+    color: #ff9800 !important;
+}
+
+.rating:hover {
+    text-decoration: none;
+    color: #ffcc80 !important;
+}
+  
+.movie {
+    position: fixed;
+    z-index: -1;
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    bottom: 0;
 }
