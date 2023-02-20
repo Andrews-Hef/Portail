@@ -1,6 +1,6 @@
 body{
   color:white;
-  background-color: #293473;
+  background: linear-gradient(to bottom right, #0c0c0c 0%, #26272e 100%);
 }
 
 /* bandeau à changer par une div et une vraie image <img>*/
@@ -11,6 +11,12 @@ body{
   color: #000; text-shadow: 1px 1px 0 #fff;
   text-size-adjust: 100%;
   overflow: hidden;
+  border-color: black;
+  border: solid;
+  border-color: black;
+  border-width: 4px;
+  margin-bottom: -20px;
+    background-size: cover;
 }
 
 
@@ -58,7 +64,7 @@ body{
 
 /* Cards */
 .grid-wrapper {
-  /* display: grid; peut être a ajouter quand slider*/
+  /* display: grid; peut être a ajouter quand slider */
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 20px;
   align-items: center;
@@ -142,11 +148,11 @@ body{
 }
 
 .btn {
-    color: #383428 !important;
+    /* color: #383428; */
 }
 
 .btn:hover {
-    color: white !important;
+    /* color: white !important; */
 }
 
 .rating {
@@ -168,4 +174,222 @@ body{
     width: 100%;
     height: auto;
     bottom: 0;
+}
+
+.dropdown-menu {
+  min-width: 110px !important;
+}
+.dropdown-item{
+  min-width: 110px !important;
+}
+.dropdown-item:hover{
+  color:white;
+  background-color: #000;
+}
+.reduc{
+  min-width: 110px !important;
+}
+
+
+
+
+
+
+
+/*  achat div  */
+.workshopbody {
+  font-family: "Montserrat", helvetica, arial, sans-serif;
+  font-size: 14px;
+  color: #ffff;
+  line-height: 1.5;
+  font-weight: 400;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  box-sizing: inherit;
+  transition: .4s;
+}
+
+
+a {
+  text-decoration: none;
+}
+
+.movie-card {
+  background-image: url(http://www.clayton.edu/Portals/537/images/Graphics/Workshops/Square_25.jpeg);
+  background-size: 60%;
+  background-repeat: no-repeat;
+  width: 100%;
+  max-width: 90%;
+  height: 25em;
+  display: block;
+  margin: 5vh auto;
+  border-radius: 8px;
+  box-shadow: 0px 8px 12px 0px rgba(0, 0, 0, 0.25);
+}
+
+.movie-card:nth-child(2) {
+  background-image: url("http://www.clayton.edu/Portals/537/images/Graphics/Workshops/Square_33.jpeg");
+ background-size: 70%;
+ 
+}
+
+.movie-card:nth-child(3) {
+  background-image: url("http://www.clayton.edu/Portals/537/images/Graphics/Workshops/Square_20.jpeg");
+}
+
+.movie-card:nth-child(4) {
+  background-image: url("http://www.clayton.edu/Portals/537/images/Graphics/Workshops/Square_19.jpeg");
+}
+
+.movie-card:nth-child(5) {
+  background-image: url("http://www.clayton.edu/Portals/537/images/Graphics/Workshops/how-to-use-sticky-notes-for-school-planner-organization-color-coding-tips-easy-set-up-a-new-planner-diy-weekly-spread-homework-college-university.jpg");
+}
+
+.movie-card:nth-child(6) {
+  background-image: url("http://www.clayton.edu/Portals/537/images/Graphics/Workshops/Square_27.jpeg");
+}
+
+.movie-card:nth-child(7) {
+  background-image: url("http://www.clayton.edu/Portals/537/images/Graphics/Workshops/Square_02.jpg");
+}
+
+.movie-card:nth-child(8) {
+  background-image: url("http://www.clayton.edu/Portals/537/images/Graphics/Workshops/tim-gouw-68319-unsplash.jpg");
+}
+
+.movie-card:nth-child(9) {
+  background-image: url("http://www.clayton.edu/Portals/537/images/Graphics/Workshops/chris-liverani-552021-unsplash.jpg");
+}
+
+
+.movie-card:nth-child(12) {
+  background-image: url("http://www.clayton.edu/Portals/537/images/Graphics/Workshops/account-calculate-calculating-220301.jpg");
+}
+.movie-card:nth-child(13) {
+  background-image: url("http://www.clayton.edu/Portals/537/images/Graphics/Workshops/highlight.jpg");
+}
+
+
+
+
+.movie-card:nth-child(11) {
+  background-image: url("http://www.clayton.edu/Portals/537/images/Graphics/Workshops/good-free-photos-773344-unsplash.jpg");
+}
+
+
+
+
+
+
+
+.color-overlay {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background: linear-gradient(to bottom right, rgb(0, 0, 0) 0%, #2d2e3a 100%);
+  background-blend-mode: multiply;
+}
+
+
+
+.movie-content {
+  width: 45%;
+  display: block;
+  position: relative;
+  float: right;
+  padding-right: 20px;
+  padding-top: 10px;
+}
+.movie-content .movie-title {
+  color: #ffffff;
+  margin-bottom: .5em;
+  opacity: .95;
+    font-family: "Montserrat", helvetica, arial, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1;
+  font-weight: 400;
+  font-size: 1.3em;
+}
+.movie-content .movie-info {
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+  font-size: 1.15em;
+  color: orange;
+  line-height: 1.4;
+  margin: 0;
+  font-weight: 700;
+  opacity: .9;
+}
+.movie-content .movie-header {
+  margin-bottom: 1em;
+}
+.movie-content .movie-desc {
+  font-weight: 300;
+  opacity: .84;
+  margin-bottom: 10%;
+}
+
+.btn {
+  padding: .5em 2em;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 2px solid #ffffff;
+}
+
+.btn::before {
+
+  vertical-align: middle;
+  font-size: 1.5em;
+  padding-right: .4em;
+}
+
+.btn-outline:hover {
+  border-color: #2a9fff;
+  color: #2a9fff;
+  box-shadow: 0px 1px 8px 0px rgba(245, 199, 0, 0.2);
+}
+
+
+
+@media (max-width: 1000px) {
+  .movie-content {
+    width: 55%;
+    max-width: 95%;
+  }
+}
+@media (max-width: 800px) {
+  .movie-card {
+    width: 95%;
+    background-size: 60%;
+    max-width: 95%;
+  }
+}
+@media (max-width: 600px) {
+  .movie-card, .movie-card:nth-child(2), .movie-card:nth-child(3), .movie-card:nth-child(4), .movie-card:nth-child(5), .movie-card:nth-child(6), .movie-card:nth-child(7), .movie-card:nth-child(8), .movie-card:nth-child(9) {
+    background-position: 70% 0%;
+    background-size: cover;
+    height: 420px;
+  
+  }
+
+  .color-overlay {
+    background: linear-gradient(to bottom, rgba(42, 159, 255, 0.2) 0%, #212120 70%, #212120 100%);
+  }
+
+  .movie-content {
+    margin-top: 4.2em;
+    width: 90%;
+  }
+
+  .movie-share {
+    display: block;
+    width: 100%;
+  }
 }

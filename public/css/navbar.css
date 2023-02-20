@@ -27,19 +27,34 @@
   padding:0;
 }
 
-
+.buttonIcon{
+  background-color: black;
+}
 
 .iconTaille{
   font-size: 30px;
   padding-bottom: 10px;
+  color:#fff;
 }
 
 .listIcon{
   font-size: 150%;
   float:left;
   text-align: left;
+  color:#fff;
 }
 
+.offcanvasStyle{
+  border-color: white;
+  border-top: solid;
+  color:white;
+  border-width: 4px;
+}
+
+.li5{
+  padding-left: 5px;
+  padding-top: 5px;
+}
 
 element.style {
   padding-right: 0;
@@ -66,22 +81,32 @@ element.style {
 }
 
 .boutonNav{
-  --bs-btn-color: white;
+  color:white;
+  --bs-btn-color: black;
   --bs-btn-border-color: white;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: white;
-  --bs-btn-hover-border-color: white;
+  --bs-btn-hover-color: black;
+  --bs-btn-hover-border-color: black;
   --bs-btn-focus-shadow-rgb: 25,135,84;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: white;
-  --bs-btn-active-border-color: white;
+  --bs-btn-active-color: #black;
+  --bs-btn-active-bg: black;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: white;
+  --bs-btn-disabled-color: black;
   --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: white;
   --bs-gradient: none;
 }
 
+.boutonNav:hover{
+  background-color: white;
+  color:black;
+}
 
+.logo:hover{
+  color:#3b3b3a;
+}
 
-
+.whiteArrow{
+  color:white;
+}
+.whiteArrow:hover{
+  color:#3b3b3a;
+}

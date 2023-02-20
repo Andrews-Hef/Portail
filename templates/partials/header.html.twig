@@ -1,18 +1,14 @@
-
-
-
-
 <nav class="navbar navbar-expand-lg" style="background-color:black;">
   <!-- Container wrapper -->
   <div class="container-fluid">
     <!-- Toggle button -->
     <button
-      class=""
+      class="buttonIcon"
       type="button"
       data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
       aria-expanded="false"
       aria-label="Toggle navigation">
-       <i class="bi bi-list listIcon"></i>
+       <i class="bi bi-list listIcon" style="height:40px"></i>
     </button>
 
     <!-- Collapsible wrapper -->
@@ -20,8 +16,8 @@
       <!-- Navbar brand -->
       <a class="navbar-brand mt-2 mt-lg-0" href="#">
         <img
-          src="../css/img/portailtitre2.png"
-          height="50"
+          src="../css/img/LOGO4.png"
+          height="45"
           alt="MDB Logo"
           loading="lazy"
           style="padding-left:3px;"
@@ -62,7 +58,7 @@
       </a>
 
       <!-- Notifications -->
-      <div class="dropdown">
+      {# <div class="dropdown">
         <a
           class="text-reset me-3 dropdown-toggle hidden-arrow"
           href="#"
@@ -73,21 +69,22 @@
         >
           <i class="fas fa-bell"></i>
           <span class="badge rounded-pill badge-notification bg-danger">1</span>
-        </a>
+        </a> #}
 
       </div>
       <!-- Avatar -->
-      <div class="dropdown" style="padding-right:20px;">
+      <div class="dropdown d-inline-block" style="padding-right:20px;">
         <a
-          class="dropdown-toggle d-flex align-items-center hidden-arrow"
+          class="dropdown-toggle d-flex align-items-center hidden-arrow whiteArrow"
           href="#"
-          id="navbarDropdownMenuAvatar"
-          role="button"
-          data-mdb-toggle="dropdown"
-          aria-expanded="false"
+          role="button" data-bs-toggle="dropdown" aria-expanded="false"
         >
-          <i class="bi bi-person-circle iconTaille"></i>
+          <i class="bi bi-person-circle logo iconTaille"></i>
         </a>
+        <ul class="dropdown-menu ddropdown-menu-end w-50" style="right: 10px; left: auto;">
+          <li class="reduc"><a class="dropdown-item textcolor-white" href="#" >Inscription</a></li>
+          <li class="reduc"> <a class="dropdown-item textcolor-white" href="#" >Connexion</a></li>
+        </ul>
       </div>
     </div>
     <!-- Right elements -->
@@ -95,6 +92,13 @@
   <!-- Container wrapper -->
 </nav>
 
+{# <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle textcolor-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              GENRES
+            </a>
+            
+          </li>
+ #}
 
 
 
@@ -125,19 +129,16 @@
 
 
 
-
-
-    <div class="offcanvas offcanvas-end text-bg-dark" style="top:76px; left:0px;" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+    <div class="offcanvas offcanvas-end offcanvasStyle" style="top:76px; left:0px; background-color:black;" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-close-white" style="padding-left:0;" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
-      <div class="offcanvas-body">
+      <div class="offcanvas-body" style="padding-top:0;">
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button class="btn" type="submit">Search</button>
       </form>
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 li5">
           <li class="nav-item">
             <a class="nav-link active textcolor-white" aria-current="page" href="#">CATALOGUE</a>
           </li>
