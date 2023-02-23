@@ -18,11 +18,13 @@ class AccueilController extends AbstractController
     $videos = $repoVideo->findAll();
     $categories = $repoCategorie->findAll();
     $typesVideos = $repoTypeVideo->findAll();
+    $allFilm = $repoVideo->findVideoAllFilm();
 
       return $this->render('accueil/index.html.twig', [
         'videos' => $videos,
         'categories' => $categories,
         'typesVideo' => $typesVideos,
+        'allFilm' => $allFilm,
         'controller_name' => 'AccueilController',
 
       ]);

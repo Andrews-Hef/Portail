@@ -21,6 +21,20 @@ class VideoRepository extends ServiceEntityRepository
         parent::__construct($registry, Video::class);
     }
 
+    public function findVideoAllFilm(){
+      $followeeIds = [(1),(11),(20),(16),(51),(44),(17)];
+      $query = $this->createQueryBuilder('e')
+        ->addSelect('r') // to make Doctrine actually use the join
+        ->leftJoin('e.typeVideo', 'r')
+        ->andWhere('r.libelleTypeVideo = :film ')
+        ->andWhere('e.id in (:listId) ')
+        ->setParameter('film', 'film')
+        ->setParameter('listId',  array_values($followeeIds))
+        ->setMaxResults(15)
+        ->getQuery();
+
+    return $query->getResult();
+    }
     public function save(Video $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
