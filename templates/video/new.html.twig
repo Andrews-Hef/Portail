@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}new video
+{% endblock %}
+
+{% block body %}
+  {# display form with basic design #}
+  <div class="container">
+    <hl class="mt-4">add a video to the catalog</h1>
+    {{ form_start(form) }}
+
+    <div class="form-errors">
+      {{ form_errors(form) }}
+
+      </div>
+      <div class="row">
+        {{  form_end(form) }}
+      </div>
+    {% endblock %}

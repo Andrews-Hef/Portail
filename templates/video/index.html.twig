@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Toutes nos videos{% endblock %}
+
+{% block body %}
+    <div class="container">
+    <h1>Videos</h1>
+
+    {% for video in videos %}
+        <div>
+         <p> {{video.titre}}</p>
+        
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}
