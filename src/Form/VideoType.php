@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 class VideoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -17,12 +17,9 @@ class VideoType extends AbstractType
         $builder
             ->add('titre')
             ->add('qualite')
-            ->add('TypeVideo', ChoiceType::class, [
-                'choices'  => [
-                    'Film' => typeVideo.libelleTypeVideo ,
-                    'Anime' => 3,
-                    'Serie' =>2 ,
-                ],
+            ->add('TypeVideo', EntityType::class, [
+               'class'=>  TypeVideo::class,
+               'choice_label' => 'libelleTypeVideo',
             ])
             ->add('url')
             //j'ai supprimé les champs choix type video et categorie pour les remettre plus tard
