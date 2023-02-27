@@ -26,9 +26,39 @@ class VideoRepository extends ServiceEntityRepository
       $query = $this->createQueryBuilder('e')
         ->addSelect('r') // to make Doctrine actually use the join
         ->leftJoin('e.typeVideo', 'r')
-        ->andWhere('r.libelleTypeVideo = :film ')
-        ->andWhere('e.id in (:listId) ')
-        ->setParameter('film', 'film')
+        ->andWhere('r.libelleTypeVideo = :Film')
+        ->andWhere('e.id in (:listId)')
+        ->setParameter('Film', 'Film')
+        ->setParameter('listId',  array_values($followeeIds))
+        ->setMaxResults(15)
+        ->getQuery();
+
+    return $query->getResult();
+    }
+
+    public function findVideoAllSerie(){
+      $followeeIds = [(43),(40),(31),(8),(6),(35),(55)];
+      $query = $this->createQueryBuilder('e')
+        ->addSelect('r') // to make Doctrine actually use the join
+        ->leftJoin('e.typeVideo', 'r')
+        ->andWhere('r.libelleTypeVideo = :Serie')
+        ->andWhere('e.id in (:listId)')
+        ->setParameter('Serie', 'Série')
+        ->setParameter('listId',  array_values($followeeIds))
+        ->setMaxResults(15)
+        ->getQuery();
+
+    return $query->getResult();
+    }
+
+    public function findVideoAllAnime(){
+      $followeeIds = [(67),(61),(41),(39),(38),(15),(14)];
+      $query = $this->createQueryBuilder('e')
+        ->addSelect('r') // to make Doctrine actually use the join
+        ->leftJoin('e.typeVideo', 'r')
+        ->andWhere('r.libelleTypeVideo = :Anime')
+        ->andWhere('e.id in (:listId)')
+        ->setParameter('Anime', 'Animé')
         ->setParameter('listId',  array_values($followeeIds))
         ->setMaxResults(15)
         ->getQuery();

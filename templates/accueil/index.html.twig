@@ -1,15 +1,24 @@
 {% extends 'base.html.twig' %}
-{% block title %}videos
+{% block title %}
+  videos
 {% endblock %}
-{% block stylesheets %}{% endblock %}
-{% block javascripts %}{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
 {% block body %}
 
-	<div class="divimage"><img class="img-fluid imageDiv" src="../css/img/portaildiv2.png" alt></div>
+  {# début image bannière #}
+	<div class="divimage"><img class="img-fluid imageDiv" src="../css/img/portaildiv2.png">
+  </div>
+  {# fin image bannière #}
 
+  {# Début div présentation magasin #}
 	<div class="workshopbody">
-		<div
-			id="movie-card-list">
+		<div id="movie-card-list">
 			<div class="movie-card">
 				<div class="color-overlay">
 					<div class="movie-share">&nbsp;</div>
@@ -21,7 +30,7 @@
 						</div>
 						<br>
 						<p class="movie-desc">Abonnez-vous à Portail Prime pour pouvoir profiter de toutes nos vidéos sans pub et en qualité HD, où que vous soyez et quand vous voulez ! Profitez donc de nos offres qui vous permettrons de prendre un portail vers de nouvelles aventures
-														        et de nouvelles dimensions.</p>
+																												        et de nouvelles dimensions.</p>
 						<a class="btn btn-outline" href="https://claytonstate.qualtrics.com/jfe/form/SV_9FScuNt5Fdv5yXb" target="_blank">Magasin</a>
 					</div>
 					<div class="movie-content" style="float:right !important; width:45%;">
@@ -32,56 +41,186 @@
 			</div>
 		</div>
 	</div>
+  {# Fin div présentation magasin #}
 
+  {# Début texte show slider cards #}
 	<div class="container-fluid" style="padding-right: 90px; padding-left: 90px; margin-top:-10px;">
 		<p class="textMoment">Films du moments</p>
 	</div>
+  {# Fin texte show slider cards #}
 
 
-	<div class="container-fluid" style="padding-right: 90px; padding-left: 90px; margin-top:-10px;">
+  {# Début slider cards #}
+  <div class="container-fluid" style="padding-right: 90px; padding-left: 90px; margin-top:-10px; height:450px;">
+      <div class="slider-wrap">
+        <div class="slider sliderBarStyle">
+          <div class="slider-inner">
+            {% for allFilm in allFilm %}
+              <div class="item">
+                <div class="media-element">
+                  <div class="card-container box">
+                    <div class="card-flip">
+                      <!-- Début Card Front -->
+                      <div class="card front">
+                        <img src="{{ allFilm.image }}" class="card-img-top img-fluid unselect" alt="movie-poster" draggable="false" style="height:339px;">
+                        <div class="card-block">
+                          <h5 class="card-title">{{ allFilm.titre }}</h5>
+                          <p class="card-text"> {{ allFilm.typeVideo.libelleTypeVideo }} </p>
+                          <p class="card-text">{{ allFilm.annee }}</p>
+                        </div>
+                      </div>
+                      <!-- Fin Card Front -->
 
+                      <!-- Début Card Back -->
+                      <div class="card back">
+                        <div class="card-block text-center cardblocktaille">
+                          <h4 class="card-title souligne">Description</h4>
+                          <p class="card-text">
+                              {{ allFilm.description }}
+                          </p>
+                        </div>
+                        <div class="card-block text-center">
+                          <a href="#" class="btn orange" style="margin-bottom:15px; margin-top:15px;">Watch</a>
+                        </div>
+                      </div>
 
-{# <h2 class="section-title">Individual elements</h2> #}
-
-<div class="media-scroller snaps-inline">
-{% for allFilm in allFilm %}
-  <div class="media-element">
-    <div class="card-container box">
-					<div
-						class="card-flip">
-						<!-- Card Front -->
-						<div class="card front">
-							<img src="https://i.ibb.co/jT8pwN0/Blood-Prison.jpg" class="card-img-top img-fluid" alt="movie-poster">
-							<div class="card-block">
-								<h5 class="card-title">{{ allFilm.titre }}</h5>
-								<p class="card-text">{{ allFilm.typeVideo.libelleTypeVideo }}</p>
-								<p class="card-text">
-									<small class="text-muted">2011</small>
-								</p>
-							</div>
-						</div>
-						<!-- End Card Front -->
-
-						<!-- Card Back -->
-						<div class="card back">
-							<div class="card-header warning-color"></div>
-							<div class="card-block text-center">
-								<h4 class="card-title">Rating</h4>
-								<p class="card-text">
-									<a href="#" class="rating">7,52/10</a>
-								</p>
-								<a href="#" class="btn orange">Watch</a>
-							</div>
-							<img class="movie" src="https://i.ibb.co/2Kqn5L9/Blood-Prison.png" alt="back-img">
-						</div>
-						<!-- End Card Back -->
-					</div>
-				</div>
+                      <!-- Fin Card Back -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="progress-bar sliderBarStyle">
+            <div class="prog-bar-inner sliderBarStyle"></div>
+          </div>
+        </div>
+    </div>
   </div>
-  {% endfor %}
+  {# Fin slider cards #}
 
-</div>
-</div>
-</div>
+
+
+
+  {# Début texte show slider cards #}
+	<div class="container-fluid" style="padding-right: 90px; padding-left: 90px; margin-top:-10px; padding-top:80px;">
+		<p class="textMoment">Animés du moment</p>
+	</div>
+  {# Fin texte show slider cards #}
+
+  {# Début slider cards #}
+  <div class="container-fluid" style="padding-right: 90px; padding-left: 90px; margin-top:-10px;">
+    <div class="workshopbody">
+      <div class="slider-wrap">
+        <div class="slider sliderBarStyle">
+          <div class="slider-inner">
+            {% for allAnime in allAnime %}
+              <div class="item">
+                <div class="media-element">
+                  <div class="card-container box">
+                    <div class="card-flip">
+                      <!-- Début Card Front -->
+                      <div class="card front">
+                        <img src="{{ allAnime.image }}" class="card-img-top img-fluid unselect" alt="movie-poster" draggable="false">
+                        <div class="card-block">
+                          <h5 class="card-title">{{ allAnime.titre }}</h5>
+                          <p class="card-text"> {{ allAnime.typeVideo.libelleTypeVideo }} </p>
+                          <p class="card-text"> <small class="text-muted">2011</small> </p>
+                        </div>
+                      </div>
+                      <!-- Fin Card Front -->
+
+                      <!-- Début Card Back -->
+                      <div class="card back">
+                        <div class="card-header warning-color"></div>
+                        <div class="card-block text-center">
+                          <h4 class="card-title">Rating</h4>
+                          <p class="card-text">
+                            <a href="#" class="rating">
+                              7,52/10
+                            </a>
+                          </p>
+                          <a href="#" class="btn orange">Watch</a>
+                        </div>
+                        <img class="movie unselect" src="https://i.ibb.co/2Kqn5L9/Blood-Prison.png" draggable="false" alt="back-img">
+                      </div>
+
+                      <!-- Fin Card Back -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="progress-bar sliderBarStyle">
+            <div class="prog-bar-inner sliderBarStyle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {# Fin slider cards #}
+
+
+
+
+ {# Début texte show slider cards #}
+	<div class="container-fluid" style="padding-right: 90px; padding-left: 90px; margin-top:-10px; padding-top:80px;">
+		<p class="textMoment">Séries du moment</p>
+	</div>
+  {# Fin texte show slider cards #}
+
+  {# Début slider cards #}
+  <div class="container-fluid" style="padding-right: 90px; padding-left: 90px; margin-top:-10px;">
+    <div class="workshopbody">
+      <div class="slider-wrap">
+        <div class="slider sliderBarStyle">
+          <div class="slider-inner">
+            {% for allSerie in allSerie %}
+              <div class="item">
+                <div class="media-element">
+                  <div class="card-container box">
+                    <div class="card-flip">
+                      <!-- Début Card Front -->
+                      <div class="card front">
+                        <img src="{{ allSerie.image }}" class="card-img-top img-fluid unselect" alt="movie-poster" draggable="false">
+                        <div class="card-block">
+                          <h5 class="card-title">{{ allSerie.titre }}</h5>
+                          <p class="card-text"> {{ allSerie.typeVideo.libelleTypeVideo }} </p>
+                          <p class="card-text"> <small class="text-muted">2011</small> </p>
+                        </div>
+                      </div>
+                      <!-- Fin Card Front -->
+
+                      <!-- Début Card Back -->
+                      <div class="card back">
+                        <div class="card-header warning-color"></div>
+                        <div class="card-block text-center">
+                          <h4 class="card-title">Rating</h4>
+                          <p class="card-text">
+                            <a href="#" class="rating">
+                              7,52/10
+                            </a>
+                          </p>
+                          <a href="#" class="btn orange">Watch</a>
+                        </div>
+                        <img class="movie unselect" src="https://i.ibb.co/2Kqn5L9/Blood-Prison.png" draggable="false" alt="back-img">
+                      </div>
+
+                      <!-- Fin Card Back -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="progress-bar sliderBarStyle">
+            <div class="prog-bar-inner sliderBarStyle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {# Fin slider cards #}
 {% endblock %}
 
