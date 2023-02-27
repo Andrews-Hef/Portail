@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Toutes nos videos{% endblock %}
+
+{% block body %}
+
+<div style='padding-top:70px;'><p>C'est le haut du panier</p></div>
+
+  <video
+    id="{{ video.titre }}"
+    class="video-js vjs-default-skin"
+    controls
+    preload="auto"
+    width="640"
+    height="264"
+    poster="{{ video.image }}"
+    data-setup='{}'
+  >
+    <source src="{{ video.url }}" type="video/mp4" />
+  </video>
+
+  <p> {{video.titre}}</p>
+
+{% endblock %}

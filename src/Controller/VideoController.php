@@ -23,6 +23,18 @@ class VideoController extends AbstractController
         ]);
     }
 
+    #[Route('/video/{id}',name:'video.show')]
+    public function showFilm(Video $video, VideoRepository $repoVideo, Int $id): Response
+    {
+
+        $video = $repoVideo->findOneBy(["id" => $id ]);
+        return $this->render('video/showVideo.html.twig',[
+            'video' => $video
+        ]);
+        
+
+    }
+
     #[Route('/video/new', name: 'video.new', methods: ['get', 'post'])]
     public function new(Request $request,EntityManagerInterface $manager): Response{
         //create a new video 
