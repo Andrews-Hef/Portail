@@ -30,7 +30,9 @@ class VideoController extends AbstractController
         //bind form with videoType reference
         $form = $this->createForm(VideoType::class,$video);
 
+        //send request to the database
         $form->handleRequest($request);
+        //if is submitt is clicked and all valid in form
         if($form->isSubmitted() && $form->isValid()) {
             $video = $form->getData();
             //manager send new video "object" in the database
@@ -45,5 +47,41 @@ class VideoController extends AbstractController
             'form'=>$form->createView(),
         ]);
 
+    }
+
+    #[Route('/video/edit/{id}', name: 'video.edit', methods: ['get', 'post'])]
+    public function edit(VideoRepository $repoVideo,Int $id,EntityManagerInterface $manager,Request $request): Response{
+
+        $video = $repoVideo->findOneBy(["id" => $id ]);
+        $form = $this->createForm(VideoType::class,$video);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $video = $form->getData();
+            //manager send new video "object" in the database
+            $manager->persist($video);
+            $manager->flush();
+            
+            $this->addFlash("success","Video updated successfully");
+
+           return $this->redirectToRoute("video.index");
+        }
+
+        return $this->render('video/edit.html.twig',[
+            'form'=>$form->createView(),
+        ]);
+    }
+
+    #[Route('/video/delete/{id}', name: 'video.del', methods:['GET'])]
+    public function delete(EntityManagerInterface $manager,Video $video) :Response{
+
+        if(!$video){
+            $this->addFlash("Warning ","Video have not been deleted :( ");
+            return $this->redirectToRoute("video.index");
+        }
+        $manager->remove($video);
+        $manager->flush();
+        $this->addFlash("success","Video delete successfully :)");
+        return $this->redirectToRoute("video.index");
     }
 }
