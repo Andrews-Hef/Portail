@@ -3,6 +3,12 @@
 {% block title %}Toutes nos videos{% endblock %}
 
 {% block body %}
+ <br><br><br><br>
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
     <div class="container">
     <h1>Videos</h1>
 

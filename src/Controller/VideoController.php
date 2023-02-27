@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class VideoController extends AbstractController
 {
-    #[Route('/video', name: 'app_video')]
+    #[Route('/video',name:'video.index')]
     public function index(VideoRepository $repoVideo): Response
     {
         $videos = $repoVideo->findAll();
@@ -37,13 +37,13 @@ class VideoController extends AbstractController
             $manager->persist($video);
             $manager->flush();
             
-            $this->redirectToRoute('app_video');
-        }else{
-            
-        }
+            $this->addFlash("success","Video added successfully");
 
+           return $this->redirectToRoute("video.index");
+        }
         return $this->render('video/new.html.twig',[
             'form'=>$form->createView(),
         ]);
+
     }
 }
