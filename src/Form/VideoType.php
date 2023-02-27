@@ -22,6 +22,9 @@ class VideoType extends AbstractType
                'choice_label' => 'libelleTypeVideo',
             ])
             ->add('url')
+            ->add("annee")
+            ->add("image")
+            ->add("description")
             //j'ai supprimé les champs choix type video et categorie pour les remettre plus tard
             ->add('submit',SubmitType::class,[
                 'attr'=>[
