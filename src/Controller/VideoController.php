@@ -23,8 +23,8 @@ class VideoController extends AbstractController
         ]);
     }
 
-    #[Route('/video/{id}',name:'video.show')]
-    public function showFilm(Video $video, VideoRepository $repoVideo, Int $id): Response
+    #[Route('/video/show/{id}',name:'video.show')]
+    public function showFilm(VideoRepository $repoVideo, Int $id): Response
     {
 
         $video = $repoVideo->findOneBy(["id" => $id ]);
