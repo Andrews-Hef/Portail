@@ -23,19 +23,17 @@ class VideoController extends AbstractController
         ]);
     }
 
-    #[Route('/video/{id}',name:'video.show')]
-    public function showFilm(Video $video, VideoRepository $repoVideo, Int $id): Response
+    #[Route('/video/show/{id}',name:'video.show')]
+    public function showFilm(VideoRepository $repoVideo, int $id): Response
     {
 
         $video = $repoVideo->findOneBy(["id" => $id ]);
         return $this->render('video/showVideo.html.twig',[
             'video' => $video
         ]);
-        
-
     }
 
-    #[Route('/video/new', name: 'video.new', methods: ['get', 'post'])]
+    #[Route('/video/new', name:'video.new', methods: ['get', 'post'])]
     public function new(Request $request,EntityManagerInterface $manager): Response{
         //create a new video 
         $video = new Video();
@@ -58,7 +56,6 @@ class VideoController extends AbstractController
         return $this->render('video/new.html.twig',[
             'form'=>$form->createView(),
         ]);
-
     }
 
     #[Route('/video/edit/{id}', name: 'video.edit', methods: ['get', 'post'])]
