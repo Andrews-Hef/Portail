@@ -6,7 +6,7 @@ body {
 /* bandeau à changer par une div et une vraie image <img>*/
 .monbandeau {
   height: 320px;
-  background-image: url(../css/img/portailfond2.png);
+  background-image: url(../img/portailfond2.png);
   border: none;
   color: #000;
   text-shadow: 1px 1px 0 #fff;
@@ -469,6 +469,7 @@ h5 {
 .card-block {
   background-color: #000;
   border: solid 2px #ffffff;
+  height:101px;
 }
 
 .btn {

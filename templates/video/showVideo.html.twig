@@ -1,8 +1,16 @@
-{% extends 'base.html.twig' %}
+{% extends 'base2.html.twig' %}
 
-{% block title %}Toutes nos videos{% endblock %}
+{% block title %}new video
+{% endblock %}
+
+{% block header %}
+{% include 'partials/header2.html.twig' %}
+{% endblock %}
+
+
 
 {% block body %}
+
 
 <div style='padding-top:70px;'><p>C'est le haut du panier</p></div>
 
@@ -21,4 +29,8 @@
 
   <p> {{video.titre}}</p>
 
-{% endblock %}
+
+<img src="../img/LOGO4.png" height="45" style="padding-left:3px;"/>
+<img src="../../img/OUI.png" height="45" style="padding-left:3px;"/>
+
+    {% endblock %}
