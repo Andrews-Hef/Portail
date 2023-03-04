@@ -22,6 +22,16 @@ class VideoRepository extends ServiceEntityRepository
     }
 
     public function findVideoAllFilm(){
+      $query = $this->createQueryBuilder('e')
+        ->addSelect('r') // to make Doctrine actually use the join
+        ->leftJoin('e.typeVideo', 'r')
+        ->andWhere('r.libelleTypeVideo = :Film')
+        ->setParameter('Film', 'Film')
+        ->getQuery();
+    return $query->getResult();
+    }
+
+    public function findVideoAllFilmDemo(){
       $followeeIds = [(1),(11),(20),(16),(51),(44),(17)];
       $query = $this->createQueryBuilder('e')
         ->addSelect('r') // to make Doctrine actually use the join
@@ -32,11 +42,20 @@ class VideoRepository extends ServiceEntityRepository
         ->setParameter('listId',  array_values($followeeIds))
         ->setMaxResults(15)
         ->getQuery();
-
     return $query->getResult();
     }
 
     public function findVideoAllSerie(){
+      $query = $this->createQueryBuilder('e')
+        ->addSelect('r') // to make Doctrine actually use the join
+        ->leftJoin('e.typeVideo', 'r')
+        ->andWhere('r.libelleTypeVideo = :Serie')
+        ->setParameter('Serie', 'Série')
+        ->getQuery();
+    return $query->getResult();
+    }
+
+    public function findVideoAllSerieDemo(){
       $followeeIds = [(43),(40),(31),(8),(6),(35),(55)];
       $query = $this->createQueryBuilder('e')
         ->addSelect('r') // to make Doctrine actually use the join
@@ -47,11 +66,21 @@ class VideoRepository extends ServiceEntityRepository
         ->setParameter('listId',  array_values($followeeIds))
         ->setMaxResults(15)
         ->getQuery();
-
     return $query->getResult();
     }
 
     public function findVideoAllAnime(){
+      $followeeIds = [(67),(61),(41),(39),(38),(15),(14)];
+      $query = $this->createQueryBuilder('e')
+        ->addSelect('r') // to make Doctrine actually use the join
+        ->leftJoin('e.typeVideo', 'r')
+        ->andWhere('r.libelleTypeVideo = :Anime')
+        ->setParameter('Anime', 'Animé')
+        ->getQuery();
+    return $query->getResult();
+    }
+
+    public function findVideoAllAnimeDemo(){
       $followeeIds = [(67),(61),(41),(39),(38),(15),(14)];
       $query = $this->createQueryBuilder('e')
         ->addSelect('r') // to make Doctrine actually use the join
@@ -62,9 +91,9 @@ class VideoRepository extends ServiceEntityRepository
         ->setParameter('listId',  array_values($followeeIds))
         ->setMaxResults(15)
         ->getQuery();
-
     return $query->getResult();
     }
+    
     public function save(Video $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

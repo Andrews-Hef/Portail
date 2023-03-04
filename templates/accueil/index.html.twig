@@ -45,7 +45,7 @@
 
   {# Début texte show slider cards #}
 	<div class="container-fluid" style="padding-right: 90px; padding-left: 90px; margin-top:-10px;">
-		<p class="textMoment">Films du moments</p>
+		<p class="textMoment">Films du moments</p> 
 	</div>
   {# Fin texte show slider cards #}
 
@@ -75,9 +75,11 @@
                       <div class="card back">
                         <div class="card-block text-center cardblocktaille">
                           <h4 class="card-title souligne">Description</h4>
+                          <a href="/video/show/{{ allFilm.id }}">
                           <p class="card-text">
                               {{ allFilm.description }}
                           </p>
+                          </a>
                         </div>
                         <div class="card-block text-center">
                           <a href="/video/show/{{ allFilm.id }}" class="btn orange" style="margin-bottom:15px; margin-top:15px;">Watch</a>
@@ -163,7 +165,7 @@
 
 
  {# Début texte show slider cards #}
-	<div class="container-fluid" style="padding-right: 90px; padding-left: 90px; margin-top:-10px; padding-top:80px;">
+	<div class="container-fluid" style="padding-right: 90px; padding-left: 90px; margin-top:-10px; padding-top:40px;">
 		<p class="textMoment">Séries du moment</p>
 	</div>
   {# Fin texte show slider cards #}
