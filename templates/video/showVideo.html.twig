@@ -18,19 +18,31 @@
   <p>C'est le haut du panier</p></div>
   
   {# Iframe vidéo #}
-  <div class='m-5 d-flex justify-content-center'>
+  <div class='m-5 d-flex justify-content-center mb-2'>
+
     {% if video.url == null %}
-      <p> Aucun trailer n'est disponible pour ce film </p>
+
+        {# Affiche l'affiche du film #}
+        <div> 
+          <img src="../{{ video.image }}" height="339px"/><br>
+        </div>
+      </div>
+        {# Affiche un message temporaire au cas où le film n'a pas de trailer #}
+        <div class='text-center'>
+          <p> Aucun trailer n'est disponible pour ce film </p>
+        </div>
+
       {% else %}
+
       <iframe 
-      width="963" {# Value de base d'une vidéo Youtube #}
-      height="542" {# Value de base d'une vidéo Youtube #}
-      src="{{ video.url }}"  {# url de la bdd (Youtube : Portail) #}
-      title="{{ video.titre }}" {# Titre de la vidéo/film/série (Optionnel) #}
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-      allowfullscreen
-      >
-      </iframe>  
+        width="963" {# Value de base d'une vidéo Youtube #}
+        height="542" {# Value de base d'une vidéo Youtube #}
+        src="{{ video.url }}"  {# url de la bdd (Youtube : Portail) #}
+        title="{{ video.titre }}" {# Titre de la vidéo/film/série (Optionnel) #}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        allowfullscreen
+      ></iframe>  
+
     {% endif %}
     
   
