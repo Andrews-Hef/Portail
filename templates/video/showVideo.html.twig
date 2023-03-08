@@ -12,25 +12,35 @@
 {% block body %}
 
 
-<div style='padding-top:70px;'><p>C'est le haut du panier</p></div>
+<div style='padding-top:70px;'>
 
-  <video
-    id="{{ video.titre }}"
-    class="video-js vjs-default-skin"
-    controls
-    preload="auto"
-    width="640"
-    height="264"
-    poster="{{ video.image }}"
-    data-setup='{}'
-  >
-    <source src="{{ video.url }}" type="video/mp4" />
-  </video>
+  {# Texte temporaire #}
+  <p>C'est le haut du panier</p></div>
+  
+  {# Iframe vidéo #}
+  <div class='m-5 d-flex justify-content-center'>
+    {% if video.url == null %}
+      <p> Aucun trailer n'est disponible pour ce film </p>
+      {% else %}
+      <iframe 
+      width="963" {# Value de base d'une vidéo Youtube #}
+      height="542" {# Value de base d'une vidéo Youtube #}
+      src="{{ video.url }}"  {# url de la bdd (Youtube : Portail) #}
+      title="{{ video.titre }}" {# Titre de la vidéo/film/série (Optionnel) #}
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+      allowfullscreen
+      >
+      </iframe>  
+    {% endif %}
+    
+  
+  </div>    
+  
+  {# Titre de la vidéo #}
+  <p class='text-center'> {{video.titre}}</p>
+  
 
-  <p> {{video.titre}}</p>
-
-
-<img src="../img/LOGO4.png" height="45" style="padding-left:3px;"/>
+<img src="../../img/LOGO4.png" height="45" style="padding-left:3px;"/>
 <img src="../../img/OUI.png" height="45" style="padding-left:3px;"/>
 
     {% endblock %}
