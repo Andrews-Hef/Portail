@@ -1,0 +1,70 @@
+{% for videos in videos %}
+	<div class="card-container box">
+		<div
+			class="card-flip">
+			<!-- Début Card Front -->
+			<div class="card front">
+				<img src="{{ videos.image }}" class="card-img-top img-fluid unselect" alt="movie-poster" draggable="false" style="height:339px;">
+				<div class="card-block" style="height:101px;">
+					<h5 class="card-title">{{ videos.titre }}</h5>
+					<p class="card-text">
+						{{ videos.typeVideo.libelleTypeVideo }}
+					</p>
+					<p class="card-text">{{ videos.annee }}</p>
+				</div>
+			</div>
+			<!-- Fin Card Front -->
+
+			<!-- Début Card Back -->
+			<div class="card back">
+				<div class="card-block text-center cardblocktaille">
+					<h4 class="card-title souligne">Description</h4>
+					<p class="card-text">
+						{{ videos.description }}
+					</p>
+				</div>
+				<div class="card-block text-center">
+					<a href="/video/show{{ videos.id }}" class="btn orange" style="margin-bottom:15px; margin-top:15px;">Watch</a>
+				</div>
+
+				<!-- Fin Card Back -->
+			</div>
+		</div>
+	</div>
+{% endfor %}
+
+
+    {# On crée des variables personnalisées #}
+    {% set queryParams = app.request.query.all %}
+    {% set queryString = queryParams|filter((v, k) => k != "page" and k != "ajax")|url_encode %}
+
+
+    <ul class="pagination">
+        <li class="{{ (page == 1) ? 'disabled' : '' }}">
+            <a href="?page=1&{{queryString}}">
+                <i class="fas fa-step-backward"></i>
+            </a>
+        </li>    
+        <li class="{{ (page == 1) ? 'disabled' : '' }}">
+            <a href="{{ (page > 1) ? '?page=' ~ (page - 1) : '' }}&{{queryString}}">
+                <i class="fas fa-angle-left"></i>
+            </a>
+        </li>
+        {% set pages = (total / limit)|round(0, 'ceil') %}
+        {% for item in 1..pages %}
+            <li class="{{ (page == item) ? 'active' : '' }}">
+                <a href="?page={{ item }}&{{queryString}}">{{ item }}</a>
+            </li>
+        {% endfor %}
+        <li class="{{ (page == pages) ? 'disabled' : '' }}">
+            <a href="{{ (page < pages) ? '?page=' ~ (page + 1) : '' }}&{{queryString}}">
+                <i class="fas fa-angle-right"></i>
+            </a>
+        </li>
+        <li class="{{ (page == pages) ? 'disabled' : '' }}">
+            <a href="?page={{ pages }}&{{queryString}}">
+                <i class="fas fa-step-forward"></i>
+            </a>
+        </li>
+
+    </ul>

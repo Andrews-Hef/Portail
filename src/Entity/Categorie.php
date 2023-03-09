@@ -18,7 +18,7 @@ class Categorie
     #[ORM\Column(length: 255)]
     private ?string $libelleCategorie = null;
 
-    #[ORM\ManyToMany(targetEntity: video::class, inversedBy: 'categories')]
+    #[ORM\ManyToMany(targetEntity: Video::class, inversedBy: 'categories')]
     private Collection $videos;
 
     public function __construct()

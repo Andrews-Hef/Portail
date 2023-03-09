@@ -31,6 +31,55 @@ class VideoRepository extends ServiceEntityRepository
     return $query->getResult();
     }
 
+    /**
+     * Returns all Annonces per page
+     * @return void 
+     */
+    public function findAllVideoCategories($page, $limit, $filters = null, $typeFilters = null){
+      $query = $this->createQueryBuilder('e')
+      ->leftJoin('e.categories', 'r')
+      ->leftJoin('e.typeVideo', 'a');
+      if($filters != null){
+        $query->andWhere('r.id IN (:cats)')
+          ->setParameter(':cats', array_values($filters))
+          ->groupBy('e.id')
+          ->having('COUNT(r.id) = :some_count')
+          ->setParameter('some_count', count(array_values($filters)));
+      }
+      if($typeFilters != null){
+        $query->andWhere('a.id IN (:type)')
+        ->setParameter(':type', array_values($typeFilters));
+      }
+      $query->setFirstResult(($page * $limit) - $limit)
+      ->setMaxResults($limit)
+    ;
+    return $query->getQuery()->getResult();
+    }
+
+    /**
+     * Returns number of Annonces
+     * @return void 
+     */
+    public function getTotalAnnonces($filters = null, $typeFilters = null){
+      $query = $this->createQueryBuilder('a')
+          ->select('COUNT(a)')
+          ->leftJoin('a.categories', 'r')
+          ->leftJoin('a.typeVideo', 'e');
+      // On filtre les données
+      if($filters != null){
+        $query->andWhere('r.id IN (:cats)')
+          ->setParameter(':cats', array_values($filters));
+      }
+      if($typeFilters != null){
+        $query->andWhere('e.id IN (:type)')
+        ->setParameter(':type', array_values($typeFilters));
+      }
+
+      return $query->getQuery()->getSingleScalarResult();
+  }
+
+
+
     public function findVideoAllFilmDemo(){
       $followeeIds = [(1),(11),(20),(16),(51),(44),(17)];
       $query = $this->createQueryBuilder('e')

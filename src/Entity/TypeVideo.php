@@ -18,7 +18,7 @@ class TypeVideo
     #[ORM\Column(length: 255)]
     private ?string $libelleTypeVideo = null;
 
-    #[ORM\OneToMany(mappedBy: 'typeVideo', targetEntity: video::class)]
+    #[ORM\OneToMany(mappedBy: 'typeVideo', targetEntity: Video::class)]
     private Collection $typesrelationvideo;
 
     public function __construct()

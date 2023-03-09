@@ -1,0 +1,89 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  background-color: #1a1a1a;
+  margin-top: 20px;
+}
+
+.image-gallery {
+  width: 400px;
+}
+
+.image-gallery-list {
+  border: 0px solid #ccc;
+  height: 350px;
+  overflow-y: auto;
+  background-color: #575757;
+  color: #cdcdcd;
+}
+
+.image-gallery-ul {
+  list-style-type: none;
+  padding: 10px;
+}
+
+.left{
+  float:left;
+}
+
+
+.boxes {
+  width: 40%;
+  height: 400px;
+  background: orange;
+  float: left;
+  padding: 2em;
+  -webkit-box-sizing: border-box;
+}
+
+/* target an HTML element with the ID of "second-div" */
+.boxes2 {
+  /* float:right; */
+  width: 40%;
+  height: 400px;
+  float: left;
+  padding: 2em;
+  background: #4a4b63;
+  -webkit-box-sizing: border-box;
+}
+
+.boxes3 {
+  /* float:right; */
+  width: 20%;
+  height: 400px;
+  float: left;
+  padding: 2em;
+  -webkit-box-sizing: border-box;
+}
+
+
+
+
+
+
+
+/* Cards */
+.grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
+  align-items: center;
+
+
+}
+
+
+.container {
+  margin-inline: auto;
+  inline-size: min(100% -4rem, 70rem);
+}
+
+.box {
+  display: grid;
+  max-width: 250px;
+}
+
+.card {
+  max-width: 280px;
+  margin: 50px 10px;
+}

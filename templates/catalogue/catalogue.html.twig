@@ -1,23 +1,27 @@
 {% extends 'base.html.twig' %}
+
+{# On crée des variables personnalisées #}
+{% set queryParams = app.request.query.all %}
+
 {% block title %}
 	videos
 {% endblock %}
 
 {% block stylesheets %}
 	<link rel="stylesheet" href="../css/styleCatalogue.css">
+	<link rel="stylesheet" href="../css/catalogue.css">
 {% endblock %}
 
-{% block javascripts %}{% endblock %}
 
 {% block body %}
 
 
-  {# début image bannière #}
+	{# début image bannière #}
 	<div class="divimage"><img class="img-fluid imageDiv" src="../img/portaildiv2.png">
-  </div>
-  {# fin image bannière #}
+	</div>
+	{# fin image bannière #}
 
-  {# Début div présentation magasin #}
+	{# Début div présentation magasin #}
 	<div class="workshopbody">
 		<div id="movie-card-list">
 			<div class="movie-card">
@@ -31,7 +35,7 @@
 						</div>
 						<br>
 						<p class="movie-desc">Abonnez-vous à Portail Prime pour pouvoir profiter de toutes nos vidéos sans pub et en qualité HD, où que vous soyez et quand vous voulez ! Profitez donc de nos offres qui vous permettrons de prendre un portail vers de nouvelles aventures
-																												        et de nouvelles dimensions.</p>
+																																			        et de nouvelles dimensions.</p>
 						<a class="btn btn-outline" href="https://claytonstate.qualtrics.com/jfe/form/SV_9FScuNt5Fdv5yXb" target="_blank">Magasin</a>
 					</div>
 					<div class="movie-content" style="float:right !important; width:45%;">
@@ -42,47 +46,130 @@
 			</div>
 		</div>
 	</div>
-  {# Fin div présentation magasin #}
+	{# Fin div présentation magasin #}
 
 
-	<div class="container-fluid" style="padding-right: 90px; padding-left: 90px; margin-top:-10px;">
-			<div class="grid-wrapper">
 
-				{% for videos in videos %}
-					<div class="card-container box">
-						<div
-							class="card-flip">
-							<!-- Début Card Front -->
-							<div class="card front">
-								<img src="{{ videos.image }}" class="card-img-top img-fluid unselect" alt="movie-poster" draggable="false" style="height:339px;">
-								<div class="card-block" style="height:101px;">
-									<h5 class="card-title">{{ videos.titre }}</h5>
-									<p class="card-text">
-										{{ videos.typeVideo.libelleTypeVideo }}
-									</p>
-									<p class="card-text">{{ videos.annee }}</p>
-								</div>
-							</div>
-							<!-- Fin Card Front -->
 
-							<!-- Début Card Back -->
-							<div class="card back">
-								<div class="card-block text-center cardblocktaille">
-									<h4 class="card-title souligne">Description</h4>
-									<p class="card-text">
-										{{ videos.description }}
-									</p>
-								</div>
-								<div class="card-block text-center">
-									<a href="/video/show{{ videos.id }}" class="btn orange" style="margin-bottom:15px; margin-top:15px;">Watch</a>
-								</div>
+<div class="container-fluid" style="padding-right: 90px; padding-left: 90px; margin-top:-10px;">
+  <div class="boxes3">
+    <form class="d-flex left" role="search">
+      <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn" type="submit">Search</button>
+    </form>
+  </div>
 
-								<!-- Fin Card Back -->
-							</div>
-						</div>
-					</div>
-				{% endfor %}
-			</div>
+	<div id="first-div boxes" class="boxes">
+    Catégories de film
+    <hr>
+		<ul class="image-gallery-ul">
+      <form id="typeFilters">
+        {% for type in typesVideos %}
+          {# On vérifie si la catégorie est dans les paramètres #}
+          {% if queryParams is not empty and queryParams.typesVideos is defined %}
+            {% set checked = (type.id in queryParams.typesVideos) ? "checked" : "" %}
+          {% else %}
+            {% set checked = "" %}
+          {% endif %}
+
+          <p><input type="checkbox" name="typesVideos[]" id="type{{type.id}}" value="{{type.id}}" {{checked}}>
+            <label for="type{{type.id}}">{{type.libelleTypeVideo}}</label> 
+          </p>
+        {% endfor %}
+        <input type="hidden" name="page" value="{{page}}">
+      </form>
+    </ul>
+	</div>
+
+
+
+  <div id="second-div boxes2" class="boxes2">
+    Catégories de film
+    <hr>
+    
+    <ul class="image-gallery-ul">
+      <form id="filters">
+        {% for categorie in categories %}
+          {# On vérifie si la catégorie est dans les paramètres #}
+          {% if queryParams is not empty and queryParams.categories is defined %}
+            {% set checked = (categorie.id in queryParams.categories) ? "checked" : "" %}
+          {% else %}
+            {% set checked = "" %}
+          {% endif %}
+
+          <p><input type="checkbox" name="categories[]" id="cat{{categorie.id}}" value="{{categorie.id}}" {{checked}}>
+            <label for="cat{{categorie.id}}">{{categorie.libelleCategorie}}</label> 
+          </p>
+        {% endfor %}
+        {% if total < 10 %}
+          <input type="hidden" name="page" value="1">
+        {% else %}
+        <input type="hidden" name="page" value="{{page}}">
+        {% endif %}
+      </form>
+    </ul>
+    
+  </div></div>
+
+
+
+	<div class="container-fluid" style="padding-right: 90px; padding-left: 90px; padding-top: 430px !important">
+		<div class="grid-wrapper" id="content">
+			 {% include "catalogue/_content.html.twig" %}
 		</div>
-	{% endblock %}
+	</div>
 
+  
+{% endblock %}
+
+
+   {% block javascripts %} 
+<script>
+window.onload = () => {
+    const FiltersForm = document.querySelector("#filters");
+    const TypesForm = document.querySelector("#typeFilters");
+
+    // On boucle sur les input
+    document.querySelectorAll("#filters input, #typeFilters input").forEach(input => {
+        input.addEventListener("change", () => {
+            // Ici on intercepte les clics
+            // On récupère les données du formulaire
+            const Form = new FormData(FiltersForm);
+            const Form2 = new FormData(TypesForm);
+            // On fabrique la "queryString"
+            const Params = new URLSearchParams();
+
+            Form.forEach((value, key) => {
+                Params.append(key, value);
+            });
+            
+            Form2.forEach((value, key) => {
+                Params.append(key, value);
+            });
+
+            // On récupère l'url active
+            const Url = new URL(window.location.href);
+          Params.set('page', 1)
+            // On lance la requête ajax
+            fetch(Url.pathname + "?" + Params.toString() + "&ajax=1", {
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest"
+                }
+            }).then(response => 
+                response.json()
+            ).then(data => {
+                // On va chercher la zone de contenu
+                const content = document.querySelector("#content");
+
+                // On remplace le contenu
+                content.innerHTML = data.content;
+
+                // On met à jour l'url
+                history.pushState({}, null, Url.pathname + "?" + Params.toString());
+            }).catch(e => alert(e));
+
+        });
+    });
+}
+  </script>
+  {% endblock %}
