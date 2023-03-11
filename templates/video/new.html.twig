@@ -1,21 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}new video
+{% block title %}New video{% endblock %}
+
+{% block stylesheets %}
+ <link rel="stylesheet" href="/css/edit.css"  type="text/css">
 {% endblock %}
 
 {% block body %}
 
-  <br><br><br><br>{# space to be visible #}
-  {# display form with basic design #}
-  <div class="container">
-    <hl class="mt-4">add a video to the catalog</h1>
-    {{ form_start(form) }}
+  <br><br><br><br>
 
-    <div class="form-errors">
-      {{ form_errors(form) }}
+   <div class="container ">
+      <div class="card border primary" id="card">
+        <div class="card-header">
+          <hl class="mt-6">New video to the database</h1>
+        </div>
 
-      </div>
-      <div class="row">
-        {{  form_end(form) }}
-      </div>
-    {% endblock %}
+        <div class="container">
+
+          {{ form_start(form) }}
+
+          <div class="form-errors">
+            {{ form_errors(form) }}
+          </div>
+          <div class="row">
+            {{  form_end(form) }}
+          </div>
+        </div>
+    </div>
+    
+{% endblock %}

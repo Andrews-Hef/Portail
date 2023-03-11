@@ -10,6 +10,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+
 class VideoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -21,10 +24,10 @@ class VideoType extends AbstractType
                'class'=>  TypeVideo::class,
                'choice_label' => 'libelleTypeVideo',
             ])
-            ->add('url')
+            ->add('url',UrlType::class)
             ->add("annee")
             ->add("image")
-            ->add("description")
+            ->add("description",TextareaType::class)
             //j'ai supprimé les champs choix type video et categorie pour les remettre plus tard
             ->add('submit',SubmitType::class,[
                 'attr'=>[
