@@ -12,12 +12,12 @@
 {% block body %}
 
 
-<div style='padding-top:70px;'>
+<div style='padding-top:70px;'> {# Début Container #}
 
   {# Texte temporaire #}
   <p>C'est le haut du panier</p></div>
   
-  {# Iframe vidéo #}
+  {# Affichage du synopsis et de l'iframe vidéo #}
   <div class='m-5 d-flex justify-content-center mb-2'>
 
     {% if video.url == null %}
@@ -33,25 +33,50 @@
         </div>
 
       {% else %}
+      <div>
+        <iframe 
+          width="963" {# Value de base d'une vidéo Youtube 963 #}
+          height="542" {# Value de base d'une vidéo Youtube 542 #}
+          src="{{ video.url }}"  {# url de la bdd (Youtube : Portail) #}
+          title="{{ video.titre }}" {# Titre de la vidéo/film/série (Optionnel) #}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          allowfullscreen
+        ></iframe> 
+      </div> 
+      <div class='mx-5'>
 
-      <iframe 
-        width="963" {# Value de base d'une vidéo Youtube #}
-        height="542" {# Value de base d'une vidéo Youtube #}
-        src="{{ video.url }}"  {# url de la bdd (Youtube : Portail) #}
-        title="{{ video.titre }}" {# Titre de la vidéo/film/série (Optionnel) #}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-        allowfullscreen
-      ></iframe>  
-
+        <h3 class='text-center'> Synopsys </h3>
+          <hr> {# Barre Horizontale #}
+        <p> {{ video.description }} </p>
+          <hr> {# Barre Horizontale #}
+        <p class='text-center'> Année de réalisation : {{ video.annee }} </p>
+        
+      </div>
     {% endif %}
     
-  
-  </div>    
+    
+  </div>  
+  {# Fin Affichage #}  
   
   {# Titre de la vidéo #}
-  <p class='text-center'> {{video.titre}}</p>
+  <h2 class='text-center'> {{video.titre}}</h2>
   
 
+  {# Ajouter un if pour le s de commentaire / avec ou sans / sans 0-1 || avec 2 - + #}
+
+
+  <div class="mx-5">
+    <h3> Commentaire </h3>
+
+    <form methode="POST">
+      <p> {# {{ user.prenom}} {{ user.nom }} #}  test <p>
+      <textarea name="commentaire" placeholder="Votre commentaire"></textarea><br>
+      <input type="submit" value="Poster mon commentaire" name="submit_commentaire"/>
+    </form>
+
+  </div>
+
+</div> {# Fin Container #}
 <img src="../../img/LOGO4.png" height="45" style="padding-left:3px;"/>
 <img src="../../img/OUI.png" height="45" style="padding-left:3px;"/>
 

@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Form\VideoType;
+use App\Form\CommentaireType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\VideoRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Video;
+use App\Entity\Commentaire;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -93,4 +95,30 @@ class VideoController extends AbstractController
         $this->addFlash("success","Video delete successfully :)");
         return $this->redirectToRoute("video.index");
     }
+
+    #[Route('/video/commentaire', name:'video.commentaire', methods: ['get', 'post'])]
+    public function newCom(Request $request,EntityManagerInterface $manager): Response{
+        
+        $commentaire = new Video();
+        
+        $form = $this->createForm(CommentaireType::class,$commentaire);
+
+        //send request to the database
+        $form->handleRequest($request);
+        //if is submitt is clicked and all valid in form
+        if($form->isSubmitted() && $form->isValid()) {
+            $commentaire = $form->getData();
+            //manager send new video "object" in the database
+            $manager->persist($commentaire);
+            $manager->flush();
+            
+            $this->addFlash("success","Commentaire added successfully");
+
+           return $this->redirectToRoute("video.index");
+        }
+        return $this->render('video/commentaire.html.twig',[
+            'form'=>$form->createView(),
+        ]);
+    }
+
 }
