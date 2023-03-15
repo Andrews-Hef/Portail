@@ -26,12 +26,26 @@ class VideoController extends AbstractController
     }
 
     #[Route('/video/show/{id}',name:'video.show')]
-    public function showFilm(VideoRepository $repoVideo, Int $id): Response
+    public function showFilm(VideoRepository $repoVideo, Int $id, Request $request, EntityManagerInterface $manager): Response
     {
-
         $video = $repoVideo->findOneBy(["id" => $id ]);
+        $commentaire = new Commentaire();
+        $commentaire->setVideoscom($video);
+
+        $form = $this->createForm(CommentaireType::class, $commentaire);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $video = $form->getData();
+            $manager->persist($commentaire);
+            $manager->flush();
+
+            return $this->redirectToRoute('video.show', ['id' => $id]);
+        }
+
         return $this->render('video/showVideo.html.twig',[
-            'video' => $video
+            'video' => $video,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -94,31 +108,6 @@ class VideoController extends AbstractController
         $manager->flush();
         $this->addFlash("success","Video delete successfully :)");
         return $this->redirectToRoute("video.index");
-    }
-
-    #[Route('/video/commentaire', name:'video.commentaire', methods: ['get', 'post'])]
-    public function newCom(Request $request,EntityManagerInterface $manager): Response{
-        
-        $commentaire = new Video();
-        
-        $form = $this->createForm(CommentaireType::class,$commentaire);
-
-        //send request to the database
-        $form->handleRequest($request);
-        //if is submitt is clicked and all valid in form
-        if($form->isSubmitted() && $form->isValid()) {
-            $commentaire = $form->getData();
-            //manager send new video "object" in the database
-            $manager->persist($commentaire);
-            $manager->flush();
-            
-            $this->addFlash("success","Commentaire added successfully");
-
-           return $this->redirectToRoute("video.index");
-        }
-        return $this->render('video/commentaire.html.twig',[
-            'form'=>$form->createView(),
-        ]);
     }
 
 }

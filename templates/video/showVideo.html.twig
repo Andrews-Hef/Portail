@@ -63,18 +63,9 @@
   
 
   {# Ajouter un if pour le s de commentaire / avec ou sans / sans 0-1 || avec 2 - + #}
-
-
-  <div class="mx-5">
-    <h3> Commentaire </h3>
-
-    <form methode="POST">
-      <p> {# {{ user.prenom}} {{ user.nom }} #}  test <p>
-      <textarea name="commentaire" placeholder="Votre commentaire"></textarea><br>
-      <input type="submit" value="Poster mon commentaire" name="submit_commentaire"/>
-    </form>
-
-  </div>
+  {{ form_start(form) }}
+  {{ form_widget(form) }}
+{{ form_end(form) }}
 
 </div> {# Fin Container #}
 <img src="../../img/LOGO4.png" height="45" style="padding-left:3px;"/>

@@ -17,7 +17,7 @@ class Commentaire
     private ?string $texte = null;
 
     #[ORM\ManyToOne(inversedBy: 'commentaires')]
-    private ?video $videoscom = null;
+    private ?Video $videoscom = null;
 
     #[ORM\ManyToOne(inversedBy: 'coms')]
     private ?User $users = null;
@@ -39,12 +39,12 @@ class Commentaire
         return $this;
     }
 
-    public function getVideoscom(): ?video
+    public function getVideoscom(): ?Video
     {
         return $this->videoscom;
     }
 
-    public function setVideoscom(?video $videoscom): self
+    public function setVideoscom(?Video $videoscom): self
     {
         $this->videoscom = $videoscom;
 
@@ -62,4 +62,5 @@ class Commentaire
 
         return $this;
     }
+
 }
