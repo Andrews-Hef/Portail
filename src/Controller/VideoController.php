@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Video;
 use App\Form\VideoType;
+use App\Form\CommentaireType;
 use App\Repository\VideoRepository;
+use App\Entity\Commentaire;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,12 +27,26 @@ class VideoController extends AbstractController
     }
 
     #[Route('/video/show/{id}',name:'video.show')]
-    public function showFilm(VideoRepository $repoVideo, Int $id): Response
+    public function showFilm(VideoRepository $repoVideo, Int $id, Request $request, EntityManagerInterface $manager): Response
     {
-
         $video = $repoVideo->findOneBy(["id" => $id ]);
+        $commentaire = new Commentaire();
+        $commentaire->setVideoscom($video);
+
+        $form = $this->createForm(CommentaireType::class, $commentaire);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $video = $form->getData();
+            $manager->persist($commentaire);
+            $manager->flush();
+
+            return $this->redirectToRoute('video.show', ['id' => $id]);
+        }
+
         return $this->render('video/showVideo.html.twig',[
-            'video' => $video
+            'video' => $video,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -113,4 +129,4 @@ class VideoController extends AbstractController
       return new JsonResponse($results);
   }
 
-  }
+}
