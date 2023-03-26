@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Video;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * @extends ServiceEntityRepository<Video>
@@ -31,14 +32,35 @@ class VideoRepository extends ServiceEntityRepository
     return $query->getResult();
     }
 
+    // public function findAllVideoWithTitre($titres)
+    // {
+    //     return $this->createQueryBuilder('c')
+    //         ->andWhere('c.titre like :query')
+    //         ->setParameter('query', "%". $titres ."%")
+    //         // ->orderBy('c.id', 'ASC')
+    //         // ->setMaxResults(10)
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
+
+
+     
+
+
     /**
      * Returns all Annonces per page
      * @return void 
      */
-    public function findAllVideoCategories($page, $limit, $filters = null, $typeFilters = null){
+    public function findAllVideoCategories($page, $limit, $filters = null, $typeFilters = null, $titres = null){
       $query = $this->createQueryBuilder('e')
       ->leftJoin('e.categories', 'r')
       ->leftJoin('e.typeVideo', 'a');
+      if($titres != null){
+        $titres = $titres . "%";
+        $query->andWhere('e.titre LIKE :key')
+        ->setParameter('key' , '%'.$titres.'%')->getQuery();
+      }
       if($filters != null){
         $query->andWhere('r.id IN (:cats)')
           ->setParameter(':cats', array_values($filters))
@@ -51,7 +73,7 @@ class VideoRepository extends ServiceEntityRepository
         ->setParameter(':type', array_values($typeFilters));
       }
       $query->setFirstResult(($page * $limit) - $limit)
-      ->setMaxResults($limit)
+      ->setMaxResults(100)
     ;
     return $query->getQuery()->getResult();
     }
@@ -60,11 +82,16 @@ class VideoRepository extends ServiceEntityRepository
      * Returns number of Annonces
      * @return void 
      */
-    public function getTotalAnnonces($filters = null, $typeFilters = null){
+    public function getTotalAnnonces($filters = null, $typeFilters = null, $titres = null){
       $query = $this->createQueryBuilder('a')
           ->select('COUNT(a)')
           ->leftJoin('a.categories', 'r')
           ->leftJoin('a.typeVideo', 'e');
+          if($titres != null){
+            $titres = $titres . "%";
+            $query->andWhere('a.titre LIKE :key')
+            ->setParameter('key' , '%'.$titres.'%')->getQuery();
+          }
       // On filtre les données
       if($filters != null){
         $query->andWhere('r.id IN (:cats)')
@@ -160,6 +187,8 @@ class VideoRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    
 
 //    /**
 //     * @return Video[] Returns an array of Video objects

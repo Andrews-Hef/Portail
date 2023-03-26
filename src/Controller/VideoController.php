@@ -2,14 +2,15 @@
 
 namespace App\Controller;
 
-use App\Form\VideoType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use App\Repository\VideoRepository;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Video;
+use App\Form\VideoType;
+use App\Repository\VideoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class VideoController extends AbstractController
 {
@@ -93,4 +94,23 @@ class VideoController extends AbstractController
         $this->addFlash("success","Video delete successfully :)");
         return $this->redirectToRoute("video.index");
     }
-}
+
+    #[Route('/autocomplete_titres', name: 'autocomplete_titres')]
+
+    public function autocompleteTitres(Request $request, EntityManagerInterface $entityManager)
+  {
+      $term = $request->query->get('term');
+      // Exemple de requête pour récupérer les titres de la base de données
+      $titres = $entityManager->getRepository(Video::class)
+          ->createQueryBuilder('v')
+          ->select('v.titre')
+          ->where('v.titre LIKE :term')
+          ->setParameter('term', '%'.$term.'%')
+          ->getQuery()
+          ->getResult();
+  
+      $results = array_map(fn($titre) => ['value' => $titre['titre']], $titres);
+      return new JsonResponse($results);
+  }
+
+  }

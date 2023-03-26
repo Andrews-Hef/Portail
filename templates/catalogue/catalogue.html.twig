@@ -35,7 +35,7 @@
 						</div>
 						<br>
 						<p class="movie-desc">Abonnez-vous à Portail Prime pour pouvoir profiter de toutes nos vidéos sans pub et en qualité HD, où que vous soyez et quand vous voulez ! Profitez donc de nos offres qui vous permettrons de prendre un portail vers de nouvelles aventures
-																																			        et de nouvelles dimensions.</p>
+																																										        et de nouvelles dimensions.</p>
 						<a class="btn btn-outline" href="https://claytonstate.qualtrics.com/jfe/form/SV_9FScuNt5Fdv5yXb" target="_blank">Magasin</a>
 					</div>
 					<div class="movie-content" style="float:right !important; width:45%;">
@@ -49,96 +49,141 @@
 	{# Fin div présentation magasin #}
 
 
+	<div class="container-fluid" style="padding-right: 90px; padding-left: 90px; margin-top:-10px;">
+		<div class="boxes3">
+			<form class="d-flex left" role="search">
+				<input class="form-control" placeholder="Search" aria-label="Search" type="text" id="titre-input" name="titre">
+				<button class="btn" type="submit">Search</button>
+			</form>
+		</div>
+
+		<div id="first-div boxes" class="boxes">
+			Types de film
+			<hr>
+			<ul class="image-gallery-ul">
+				<form id="typeFilters">
+					{% for type in typesVideos %}
+						{# On vérifie si la catégorie est dans les paramètres #}
+						{% if queryParams is not empty and queryParams.typesVideos is defined %}
+							{% set checked = (type.id in queryParams.typesVideos) ? "checked" : "" %}
+						{% else %}
+							{% set checked = "" %}
+						{% endif %}
+
+						<p><input type="checkbox" name="typesVideos[]" id="type{{type.id}}" value="{{type.id}}" {{checked}}>
+							<label for="type{{type.id}}">{{type.libelleTypeVideo}}</label>
+						</p>
+					{% endfor %}
+					<input type="hidden" name="page" value="{{page}}">
+				</form>
+			</ul>
+		</div>
 
 
-<div class="container-fluid" style="padding-right: 90px; padding-left: 90px; margin-top:-10px;">
-  <div class="boxes3">
-    <form class="d-flex left" role="search">
-      <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn" type="submit">Search</button>
-    </form>
-  </div>
+		<div id="second-div boxes2" class="boxes2">
+			Catégories de film
+			<hr>
 
-	<div id="first-div boxes" class="boxes">
-    Catégories de film
-    <hr>
-		<ul class="image-gallery-ul">
-      <form id="typeFilters">
-        {% for type in typesVideos %}
-          {# On vérifie si la catégorie est dans les paramètres #}
-          {% if queryParams is not empty and queryParams.typesVideos is defined %}
-            {% set checked = (type.id in queryParams.typesVideos) ? "checked" : "" %}
-          {% else %}
-            {% set checked = "" %}
-          {% endif %}
+			<ul class="image-gallery-ul">
+				<form id="filters">
+					{% for categorie in categories %}
+						{# On vérifie si la catégorie est dans les paramètres #}
+						{% if queryParams is not empty and queryParams.categories is defined %}
+							{% set checked = (categorie.id in queryParams.categories) ? "checked" : "" %}
+						{% else %}
+							{% set checked = "" %}
+						{% endif %}
 
-          <p><input type="checkbox" name="typesVideos[]" id="type{{type.id}}" value="{{type.id}}" {{checked}}>
-            <label for="type{{type.id}}">{{type.libelleTypeVideo}}</label> 
-          </p>
-        {% endfor %}
-        <input type="hidden" name="page" value="{{page}}">
-      </form>
-    </ul>
+						<p><input type="checkbox" name="categories[]" id="cat{{categorie.id}}" value="{{categorie.id}}" {{checked}}>
+							<label for="cat{{categorie.id}}">{{categorie.libelleCategorie}}</label>
+						</p>
+					{% endfor %}
+					{% if total < 10 %}
+						<input type="hidden" name="page" value="1">
+					{% else %}
+						<input type="hidden" name="page" value="{{page}}">
+					{% endif %}
+				</form>
+			</ul>
+
+		</div>
 	</div>
-
-
-
-  <div id="second-div boxes2" class="boxes2">
-    Catégories de film
-    <hr>
-    
-    <ul class="image-gallery-ul">
-      <form id="filters">
-        {% for categorie in categories %}
-          {# On vérifie si la catégorie est dans les paramètres #}
-          {% if queryParams is not empty and queryParams.categories is defined %}
-            {% set checked = (categorie.id in queryParams.categories) ? "checked" : "" %}
-          {% else %}
-            {% set checked = "" %}
-          {% endif %}
-
-          <p><input type="checkbox" name="categories[]" id="cat{{categorie.id}}" value="{{categorie.id}}" {{checked}}>
-            <label for="cat{{categorie.id}}">{{categorie.libelleCategorie}}</label> 
-          </p>
-        {% endfor %}
-        {% if total < 10 %}
-          <input type="hidden" name="page" value="1">
-        {% else %}
-        <input type="hidden" name="page" value="{{page}}">
-        {% endif %}
-      </form>
-    </ul>
-    
-  </div></div>
-
 
 
 	<div class="container-fluid" style="padding-right: 90px; padding-left: 90px; padding-top: 430px !important">
 		<div class="grid-wrapper" id="content">
-			 {% include "catalogue/_content.html.twig" %}
+			{% include "catalogue/_content.html.twig" %}
 		</div>
 	</div>
 
-  
+
 {% endblock %}
 
 
-   {% block javascripts %} 
-<script>
+{% block javascripts %}
+	{# <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> #}
+{# essayer de fusionenr les codes d'en dessous #}
+	<script>
 window.onload = () => {
+$('#titre-input').keyup(function(event) {
+    var titreValue = $('#titre-input').val();
+
+    $.ajax({
+      url: '/catalogue',
+      type: 'POST',
+      data: { titre: titreValue },
+      success: function(response) {
+        var content = $(response).find('#content').html();
+//        console.log(content);
+        // event.preventDefault(); // Empêcher le comportement de rafraîchissement par défaut du navigateur
+        $('#content').html(content);
+
+
+            // Exécuter votre requête AJAX à nouveau à chaque fois que la réponse est réussie
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(errorThrown); // Afficher les erreurs dans la console
+      }
+    });
+  });
+ 
+  
+
     const FiltersForm = document.querySelector("#filters");
     const TypesForm = document.querySelector("#typeFilters");
-
     // On boucle sur les input
     document.querySelectorAll("#filters input, #typeFilters input").forEach(input => {
         input.addEventListener("change", () => {
+
+          $('#titre-input').keyup(function(event) {
+    var titreValue = $('#titre-input').val();
+
+    $.ajax({
+      url: '/catalogue',
+      type: 'POST',
+      data: { titre: titreValue },
+      success: function(response) {
+        var content = $(response).find('#content').html();
+//        console.log(content);
+        // event.preventDefault(); // Empêcher le comportement de rafraîchissement par défaut du navigateur
+        $('#content').html(content);
+
+
+            // Exécuter votre requête AJAX à nouveau à chaque fois que la réponse est réussie
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(errorThrown); // Afficher les erreurs dans la console
+        }
+      });
+    });
+
+
             // Ici on intercepte les clics
             // On récupère les données du formulaire
             const Form = new FormData(FiltersForm);
             const Form2 = new FormData(TypesForm);
             // On fabrique la "queryString"
             const Params = new URLSearchParams();
-
             Form.forEach((value, key) => {
                 Params.append(key, value);
             });
@@ -146,7 +191,6 @@ window.onload = () => {
             Form2.forEach((value, key) => {
                 Params.append(key, value);
             });
-
             // On récupère l'url active
             const Url = new URL(window.location.href);
           Params.set('page', 1)
@@ -160,16 +204,21 @@ window.onload = () => {
             ).then(data => {
                 // On va chercher la zone de contenu
                 const content = document.querySelector("#content");
-
                 // On remplace le contenu
                 content.innerHTML = data.content;
-
                 // On met à jour l'url
                 history.pushState({}, null, Url.pathname + "?" + Params.toString());
             }).catch(e => alert(e));
-
         });
     });
 }
-  </script>
-  {% endblock %}
+	</script>
+
+	<script>
+  
+	</script>
+
+
+{# const content = document.querySelector("#content");
+                content.innerHTML = data.content; #}
+{% endblock %}

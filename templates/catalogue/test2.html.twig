@@ -1,0 +1,35 @@
+{% for videos in videos %}
+	<div class="card-container box">
+		<div
+			class="card-flip">
+			<!-- Début Card Front -->
+			<div class="card front">
+				<img src="{{ videos.image }}" class="card-img-top img-fluid unselect" alt="movie-poster" draggable="false" style="height:339px;">
+				<div class="card-block" style="height:101px;">
+					<h5 class="card-title">{{ videos.titre }}</h5>
+					<p class="card-text">
+						{{ videos.typeVideo.libelleTypeVideo }}
+					</p>
+					<p class="card-text">{{ videos.annee }}</p>
+				</div>
+			</div>
+			<!-- Fin Card Front -->
+
+			<!-- Début Card Back -->
+			<div class="card back">
+				<div class="card-block text-center cardblocktaille">
+					<h4 class="card-title souligne">Description</h4>
+					<p class="card-text">
+						{{ videos.description }}
+					</p>
+				</div>
+				<div class="card-block text-center">
+					<a href="/video/show{{ videos.id }}" class="btn orange" style="margin-bottom:15px; margin-top:15px;">Watch</a>
+				</div>
+
+				<!-- Fin Card Back -->
+			</div>
+		</div>
+	</div>
+{% endfor %}
+

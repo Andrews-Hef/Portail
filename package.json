@@ -1,5 +1,8 @@
 {
   "devDependencies": {
+    "@hotwired/stimulus": "^3.0.0",
+    "@symfony/ux-autocomplete": "file:vendor/symfony/ux-autocomplete/assets",
+    "tom-select": "^2.2.2",
     "video.js": "^8.0.4"
   }
 }

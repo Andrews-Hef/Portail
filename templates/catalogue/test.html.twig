@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+<input type="text" id="your-input" style="width:500px, height:500px; padding-top:500px;">
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#your-input').keyup(function(event) {
+        $.ajax({
+          url: '/your-route',
+          type: 'POST',
+          dataType: 'json',
+          data: {inputValue: $(this).val()},
+          success: function(response) {
+            if (response.success) {
+              // Display the input value in your HTML
+              $('#your-output').text(response.data.inputValue);
+            } else {
+              // Handle any errors that occur during the request
+              console.log(response.error);
+            }
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            // Handle any errors that occur during the request
+            console.log(errorThrown);
+          }
+        });
+      });
+    });
+  </script>
+{% endblock %}
