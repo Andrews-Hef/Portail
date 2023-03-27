@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Toutes nos Abonnement{% endblock %}
+
+{% block body %}
+ <br><br><br><br>
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success alert-warning">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="container">
+    <h1>Abonnement</h1>
+    <a href="{{ path('abonnement.new') }}">
+    <h3>Nouveau Abonnements</h3>
+    </a>
+    {% for Abonnement in Abonnements %}
+        <div>
+         <p> {{Abonnement.titre}}</p>
+         <a href="{{ path('abonnement.edit',{id : Abonnement.id}) }}">Modifier</a>
+         <a href="{{ path('abonnement.del',{id : Abonnement.id}) }}">supprimer </a>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

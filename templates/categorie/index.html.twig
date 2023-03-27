@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Toutes nos categories{% endblock %}
+
+{% block body %}
+ <br><br><br><br>
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success alert-warning">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="container">
+    <h1>categorie</h1>
+    <a href="{{ path('categorie.new') }}">
+    <h3>Nouvelle categorie</h3>
+    </a>
+    {% for categorie in categories %}
+        <div>
+         <p> {{categorie.libelleCategorie}}</p>
+         <a href="{{ path('categorie.edit',{id : categorie.id}) }}">Modifier</a>
+         <a href="{{ path('categorie.del',{id : categorie.id}) }}">supprimer </a>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

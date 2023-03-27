@@ -45,6 +45,7 @@ class Categorie
 
     /**
      * @return Collection<int, video>
+     * 
      */
     public function getVideos(): Collection
     {

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Abonnement{% endblock %}
+
+{% block stylesheets %}
+ <link rel="stylesheet" href="/css/edit.css"  type="text/css">
+{% endblock %}
+
+{% block body %}
+
+  <br><br><br><br>
+
+   <div class="container ">
+      <div class="card border primary" id="card">
+        <div class="card-header">
+          <hl class="mt-6">New Abonnement to the database</h1>
+        </div>
+
+        <div class="container">
+
+          {{ form_start(form) }}
+
+          <div class="form-errors">
+            {{ form_errors(form) }}
+          </div>
+          <div class="row">
+            {{  form_end(form) }}
+          </div>
+        </div>
+    </div>
+    
+{% endblock %}
