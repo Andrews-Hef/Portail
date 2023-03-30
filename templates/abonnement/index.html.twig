@@ -12,13 +12,13 @@
     <div class="container">
     <h1>Abonnement</h1>
     <a href="{{ path('abonnement.new') }}">
-    <h3>Nouveau Abonnements</h3>
+    <h3>Nouvelle Abonnement</h3>
     </a>
-    {% for Abonnement in Abonnements %}
+    {% for abonnement in abonnements %}
         <div>
-         <p> {{Abonnement.titre}}</p>
-         <a href="{{ path('abonnement.edit',{id : Abonnement.id}) }}">Modifier</a>
-         <a href="{{ path('abonnement.del',{id : Abonnement.id}) }}">supprimer </a>
+         <p> {{abonnement.getLibelleAbonnement}}</p>
+         <a href="{{ path('abonnement.edit',{id : abonnement.id}) }}">Modifier</a>
+         <a href="{{ path('abonnement.del',{id :abonnement.id}) }}">supprimer </a>
         </div>
     {% endfor %}
     </div>

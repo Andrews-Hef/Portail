@@ -36,7 +36,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
 
-    #[ORM\OneToMany(mappedBy: 'users', targetEntity: commentaire::class)]
+    #[ORM\OneToMany(mappedBy: 'users', targetEntity: Commentaire::class)]
     private Collection $coms;
 
     #[ORM\ManyToOne(inversedBy: 'users')]

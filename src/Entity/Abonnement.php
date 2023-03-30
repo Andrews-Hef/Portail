@@ -24,7 +24,7 @@ class Abonnement
     #[ORM\Column]
     private ?float $prix = null;
 
-    #[ORM\OneToMany(mappedBy: 'abonnement', targetEntity: user::class)]
+    #[ORM\OneToMany(mappedBy: 'abonnement', targetEntity: User::class)]
     private Collection $users;
 
     public function __construct()

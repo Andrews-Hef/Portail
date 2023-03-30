@@ -16,9 +16,9 @@ class AbonnementController extends AbstractController
     #[Route('/abonnement', name: 'app_abonnement')]
     public function index(AbonnementRepository $repoAbo): Response
     {   
-        $abonnement = $repoAbo->findAll();
+        $abonnements = $repoAbo->findAll();
         return $this->render('abonnement/index.html.twig', [
-            'abonnement'=>$abonnement,
+            'abonnements'=>$abonnements,
         ]);
     }
 
