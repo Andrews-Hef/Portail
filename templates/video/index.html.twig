@@ -15,10 +15,19 @@
     <h3>Nouvelle video</h3>
     </a>
     {% for video in videos %}
-        <div>
-         <p> {{video.titre}}</p>
-         <a href="{{ path('video.edit',{id : video.id}) }}">Modifier</a>
-         <a href="{{ path('video.del',{id : video.id}) }}">supprimer </a>
+
+        <div class= "card-columms text-center mx-3"  style ="display: inline-block">
+            <div class="card " style="width: 18rem;">
+                <p class="text-primary"> {{video.titre}}</p>
+                    <a href="{{ path('video.edit',{id : video.id}) }}">Modifier</a>
+                    <a href="{{ path('video.del',{id : video.id}) }}">supprimer </a>
+                <div class="card-footer">
+                    <a href="{{ path('video.new',{id:video.id}) }}">
+                    <small class="text-muted">
+                        
+                    </small>
+                </div>
+            </div>
         </div>
     {% endfor %}
     </div>
