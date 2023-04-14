@@ -82,8 +82,13 @@
           <i class="bi bi-person-circle logo iconTaille"></i>
         </a>
         <ul class="dropdown-menu ddropdown-menu-end w-50" style="right: 10px; left: auto;">
-          <li class="reduc"><a class="dropdown-item textcolor-white" href="#" >Inscription</a></li>
-          <li class="reduc"> <a class="dropdown-item textcolor-white" href="#" >Connexion</a></li>
+        {% if app.user %}
+          <li class="reduc"> <a class="dropdown-item textcolor-white" href="{{ path('app_logout') }}" >Mon compte</a></li>
+          <li class="reduc"> <a class="dropdown-item textcolor-white" href="{{ path('app_logout') }}" >Déconnexion</a></li>
+        {% else %}
+          <li class="reduc"><a class="dropdown-item textcolor-white" href="{{ path('app_register') }}" >Inscription</a></li>
+          <li class="reduc"> <a class="dropdown-item textcolor-white" href="{{ path('app_login') }}" >Connexion</a></li>
+        {% endif %}
         </ul>
       </div>
     </div>
