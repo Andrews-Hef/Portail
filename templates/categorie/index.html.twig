@@ -15,11 +15,18 @@
     <h3>Nouvelle categorie</h3>
     </a>
     {% for categorie in categories %}
-        <div>
-         <p> {{categorie.libelleCategorie}}</p>
-         <a href="{{ path('categorie.edit',{id : categorie.id}) }}">Modifier</a>
-         <a href="{{ path('categorie.del',{id : categorie.id}) }}">supprimer </a>
-        </div>
+        <div class= "card-columms text-center mx-3"  style ="display: inline-block">
+            <div class="card " style="width: 18rem;">
+                <a href="{{ path('categorie.edit',{id : categorie.id}) }}">Modifier</a>
+                <a href="{{ path('categorie.del',{id : categorie.id}) }}">supprimer </a>
+                <div class="card-footer">
+                    <a href="{{ path('categorie.new',{id:categorie.id}) }}">
+                    <small class="text-muted">
+                        voir les article de {{categorie.libelleCategorie}}<a>
+                    </small>
+                </div>
+            </div>
+        </div>     
     {% endfor %}
     </div>
 {% endblock %}

@@ -11,10 +11,18 @@
     <h3>Nouvelle Abonnement</h3>
     </a>
     {% for abonnement in abonnements %}
-        <div>
-         <p> {{abonnement.getLibelleAbonnement}}</p>
-         <a href="{{ path('abonnement.edit',{id : abonnement.id}) }}">Modifier</a>
-         <a href="{{ path('abonnement.del',{id :abonnement.id}) }}">supprimer </a>
+         <div class= "card-columms text-center mx-3"  style ="display: inline-block">
+            <div class="card " style="width: 18rem;">
+                <p  class="text-primary"> {{abonnement.getLibelleAbonnement}}</p>
+                <a href="{{ path('abonnement.edit',{id : abonnement.id}) }}">Modifier</a>
+                <a href="{{ path('abonnement.del',{id :abonnement.id}) }}">supprimer </a>
+                <div class="card-footer">
+                    <a href="{{ path('abonnement.new',{id:abonnement.id}) }}">
+                    <small class="text-muted">
+                        voir les article de {{abonnement.getLibelleAbonnement}}<a>
+                    </small>
+                </div>
+            </div>
         </div>
     {% endfor %}
     </div>
