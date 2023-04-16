@@ -105,6 +105,31 @@ class VideoRepository extends ServiceEntityRepository
       return $query->getQuery()->getSingleScalarResult();
   }
 
+    public function findVideoAllFilmFromOneCategorie($idCategorie, $titres = null){
+      $query = $this->createQueryBuilder('e')
+        ->addSelect('r') // to make Doctrine actually use the join
+        ->leftJoin('e.categories', 'r')
+        ->andWhere('r.id = :cateId')
+        ->setParameter('cateId', $idCategorie);
+        if($titres != null){
+          $query->andWhere('e.titre LIKE :key')
+          ->setParameter('key' , '%'.$titres.'%')->getQuery();
+        }
+       return $query->getQuery()->getResult();
+    }
+
+    public function findVideoAllFilmFromOneType($idType, $titres = null){
+      $query = $this->createQueryBuilder('e')
+        ->addSelect('r') // to make Doctrine actually use the join
+        ->leftJoin('e.typeVideo', 'r')
+        ->andWhere('r.id = :typeId')
+        ->setParameter('typeId', $idType);
+        if($titres != null){
+          $query->andWhere('e.titre LIKE :key')
+          ->setParameter('key' , '%'.$titres.'%')->getQuery();
+        }
+       return $query->getQuery()->getResult();
+    }
 
 
     public function findVideoAllFilmDemo(){

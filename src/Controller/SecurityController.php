@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Service\SendMailService;
 use App\Repository\UserRepository;
 use App\Form\ResetPasswordFormType;
+use App\Repository\CategorieRepository;
+use App\Repository\TypeVideoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\ResetPasswordRequestFormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +20,15 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class SecurityController extends AbstractController
 {
+  private $categories;
+  private $typesVideos;
+    
+    public function __construct(CategorieRepository $cateRepo, TypeVideoRepository $typeRepo)
+    {
+        $this->categories = $cateRepo->findAll();
+        $this->typesVideos = $typeRepo->findAll();
+    }
+    
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -30,7 +41,12 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        $categories = $this->categories;
+        $typesVideos = $this->typesVideos;
+
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error
+      , 'categories' => $categories, 
+      'typesVideos' => $typesVideos]);
     }
 
     #[Route(path: '/logout', name: 'app_logout')]
@@ -86,9 +102,13 @@ class SecurityController extends AbstractController
             $this->addFlash('danger', 'Un problème est survenu');
             return $this->redirectToRoute('app_login');
         }
+        $categories = $this->categories;
+        $typesVideos = $this->typesVideos;
 
         return $this->render('security/reset_password_request.html.twig', [
-            'requestPassForm' => $form->createView()
+            'requestPassForm' => $form->createView(),
+            'categories' => $categories,
+            'typesVideos' => $typesVideos
         ]);
     }
 
@@ -124,9 +144,12 @@ class SecurityController extends AbstractController
                 $this->addFlash('success', 'Mot de passe changé avec succès');
                 return $this->redirectToRoute('app_login');
             }
-
+            $categories = $this->categories;
+            $typesVideos = $this->typesVideos;
             return $this->render('security/reset_password.html.twig', [
-                'passForm' => $form->createView()
+                'passForm' => $form->createView(),
+                'categories' => $categories,
+            'typesVideos' => $typesVideos
             ]);
         }
         $this->addFlash('danger', 'Jeton invalide');

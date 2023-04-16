@@ -231,6 +231,8 @@ a {
 
 .divimage {
   padding: .5vw;
+  padding-top:35px !important;
+
   font-size: 0;
   display: -ms-flexbox;
   -ms-flex-wrap: wrap;
@@ -257,6 +259,7 @@ a {
   border: solid;
   border-color: rgb(0, 0, 0);
   border-width: 2px;
+  width:100%
 }
 
 

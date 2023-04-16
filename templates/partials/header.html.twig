@@ -8,7 +8,7 @@
       data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
       aria-expanded="false"
       aria-label="Toggle navigation">
-       <i class="bi bi-list listIcon" style="height:40px"></i>
+       <i class="bi bi-list listIcon" style="height:40px" id="rotateI"></i>
     </button>
 
     <!-- Collapsible wrapper -->
@@ -23,25 +23,15 @@
           style="padding-left:3px;"
         />
       </a>
-      <!-- Left links -->
-      {# <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Dashboard</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Team</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Projects</a>
-        </li>
-      </ul> #}
-      <!-- Left links -->
+      
     </div>
-    <!-- Collapsible wrapper -->
 
     <!-- Right elements -->
     <div class="d-flex align-items-center">
 
+    {% if is_granted('ROLE_ADMIN') %}
+      <a class="d-flex align-items-center lienNav" style="" href="/admin"> Administration </a>
+    {% endif %}
      <div class="dropdown" style="height:40px;">
       <a class="text-reset me-3" href="#">
         <form class="d-flex" role="search">
@@ -57,20 +47,6 @@
         <i class="fas fa-shopping-cart"></i>
       </a>
 
-      <!-- Notifications -->
-      {# <div class="dropdown">
-        <a
-          class="text-reset me-3 dropdown-toggle hidden-arrow"
-          href="#"
-          id="navbarDropdownMenuLink"
-          role="button"
-          data-mdb-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <i class="fas fa-bell"></i>
-          <span class="badge rounded-pill badge-notification bg-danger">1</span>
-        </a> #}
-
       </div>
       <!-- Avatar -->
       <div class="dropdown d-inline-block" style="padding-right:20px;">
@@ -81,9 +57,9 @@
         >
           <i class="bi bi-person-circle logo iconTaille"></i>
         </a>
-        <ul class="dropdown-menu ddropdown-menu-end w-50" style="right: 10px; left: auto;">
+        <ul class="dropdown-menu ddropdown-menu-end w-70" style="right: 10px; left: auto;">
         {% if app.user %}
-          <li class="reduc"> <a class="dropdown-item textcolor-white" href="{{ path('app_logout') }}" >Mon compte</a></li>
+          <li class="reduc"> <a class="dropdown-item textcolor-white" href="{{ path('profile_index') }}" >Mon compte</a></li>
           <li class="reduc"> <a class="dropdown-item textcolor-white" href="{{ path('app_logout') }}" >Déconnexion</a></li>
         {% else %}
           <li class="reduc"><a class="dropdown-item textcolor-white" href="{{ path('app_register') }}" >Inscription</a></li>
@@ -145,39 +121,32 @@
       </form>
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 li5">
           <li class="nav-item">
-            <a class="nav-link active textcolor-white" aria-current="page" href="/catalogue">CATALOGUE</a>
+            <a class="nav-link textcolor-white lienNav" aria-current="page" href="/catalogue">CATALOGUE</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link textcolor-white" href="#">BOUTIQUE</a>
+            <a class="nav-link textcolor-white lienNav" href="#">BOUTIQUE</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link textcolor-white" href="#">RÉSERVATION</a>
+            <a class="nav-link textcolor-white lienNav" href="#">RÉSERVATION</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle textcolor-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              GENRES
+            <a class="nav-link dropdown-toggle textcolor-white lienNav" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              TYPES
             </a>
             <ul class="dropdown-menu dropdown-menu-dark">
-              <li><a class="dropdown-item textcolor-white" href="#">ACTION</a></li>
-              <li><a class="dropdown-item textcolor-white" href="#">HORREUR</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item textcolor-white" href="#">Something else here</a></li>
+              {% for type in typesVideos %}
+              <li><a class="dropdown-item textcolor-white lienNav" href="{{ path('typeShow', {'idType': type.id}) }}"> {{ type.libelleTypeVideo }}</a></li>
+            {% endfor %}
             </ul>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle textcolor-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle textcolor-white lienNav" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               CATÉGORIES
             </a>
             <ul class="dropdown-menu dropdown-menu-dark">
-              <li><a class="dropdown-item textcolor-white" href="#">FILM</a></li>
-              <li><a class="dropdown-item textcolor-white" href="#">SÉRIES</a></li>
-              <li><a class="dropdown-item textcolor-white" href="#">ANIMÉ</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item textcolor-white" href="#">Something else here</a></li>
+            {% for categorie in categories %}
+              <li><a class="dropdown-item textcolor-white lienNav" href="{{ path('categorieShow', {'idCategorie': categorie.id}) }}"> {{ categorie.libelleCategorie }}</a></li>
+            {% endfor %}
             </ul>
           </li>
         </ul>

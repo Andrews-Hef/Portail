@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Video;
 use App\Form\VideoType;
+use App\Entity\Commentaire;
 use App\Form\CommentaireType;
 use App\Repository\VideoRepository;
-use App\Entity\Commentaire;
+use App\Repository\CategorieRepository;
+use App\Repository\TypeVideoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,19 +18,32 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class VideoController extends AbstractController
 {
+  private $categories;
+  private $typesVideos;
+    
+    public function __construct(CategorieRepository $cateRepo, TypeVideoRepository $typeRepo)
+    {
+        $this->categories = $cateRepo->findAll();
+        $this->typesVideos = $typeRepo->findAll();
+    }
+    
     #[Route('/video',name:'video.index')]
     public function index(VideoRepository $repoVideo): Response
     {
         $videos = $repoVideo->findAll();
-    
+        $categories = $this->categories;
+        $typesVideos = $this->typesVideos;
         return $this->render('video/index.html.twig', [
-            'videos' => $videos
+            'videos' => $videos,
+            'categories' => $categories,
+            'typesVideos' => $typesVideos
         ]);
     }
 
     #[Route('/video/show/{id}',name:'video.show')]
-    public function showFilm(VideoRepository $repoVideo, Int $id, Request $request, EntityManagerInterface $manager): Response
+    public function showFilm(VideoRepository $repoVideo, Int $id, Request $request, EntityManagerInterface $manager, CategorieRepository $repoCate): Response
     {
+        $categories = $repoCate->findAll();
         $video = $repoVideo->findOneBy(["id" => $id ]);
         $commentaire = new Commentaire();
         $commentaire->setVideoscom($video);
@@ -43,10 +58,12 @@ class VideoController extends AbstractController
 
             return $this->redirectToRoute('video.show', ['id' => $id]);
         }
-
+        $typesVideos = $this->typesVideos;
         return $this->render('video/showVideo.html.twig',[
             'video' => $video,
+            'categories' => $categories,
             'form' => $form->createView(),
+            'typesVideos' => $typesVideos
         ]);
     }
 
@@ -56,7 +73,8 @@ class VideoController extends AbstractController
         $video = new Video();
         //bind form with videoType reference
         $form = $this->createForm(VideoType::class,$video);
-
+        $categories = $this->categories;
+        $typesVideos = $this->typesVideos;
         //send request to the database
         $form->handleRequest($request);
         //if is submitt is clicked and all valid in form
@@ -72,6 +90,8 @@ class VideoController extends AbstractController
         }
         return $this->render('video/new.html.twig',[
             'form'=>$form->createView(),
+            'categories' => $categories,
+            'typesVideos' => $typesVideos
         ]);
     }
 
@@ -80,7 +100,8 @@ class VideoController extends AbstractController
 
         $video = $repoVideo->findOneBy(["id" => $id ]);
         $form = $this->createForm(VideoType::class,$video);
-
+        $categories = $this->categories;
+        $typesVideos = $this->typesVideos;
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $video = $form->getData();
@@ -100,7 +121,7 @@ class VideoController extends AbstractController
 
     #[Route('/video/delete/{id}', name: 'video.del', methods:['GET'])]
     public function delete(EntityManagerInterface $manager,Video $video) :Response{
-
+        
         if(!$video){
             $this->addFlash("Warning ","Video have not been deleted :( ");
             return $this->redirectToRoute("video.index");
@@ -110,23 +131,23 @@ class VideoController extends AbstractController
         $this->addFlash("success","Video delete successfully :)");
         return $this->redirectToRoute("video.index");
     }
-
+    
     #[Route('/autocomplete_titres', name: 'autocomplete_titres')]
 
     public function autocompleteTitres(Request $request, EntityManagerInterface $entityManager)
   {
-      $term = $request->query->get('term');
-      // Exemple de requête pour récupérer les titres de la base de données
-      $titres = $entityManager->getRepository(Video::class)
-          ->createQueryBuilder('v')
-          ->select('v.titre')
-          ->where('v.titre LIKE :term')
-          ->setParameter('term', '%'.$term.'%')
-          ->getQuery()
-          ->getResult();
+    $term = $request->query->get('term');
+    // Exemple de requête pour récupérer les titres de la base de données
+    $videos = $entityManager->getRepository(Video::class)
+    ->createQueryBuilder('v')
+    ->select('v.id, v.titre')
+    ->where('v.titre LIKE :term')
+    ->setParameter('term', '%'.$term.'%')
+    ->getQuery()
+    ->getResult();
   
-      $results = array_map(fn($titre) => ['value' => $titre['titre']], $titres);
-      return new JsonResponse($results);
+  $results = array_map(fn($video) => ['id' => $video['id'], 'value' => $video['titre']], $videos);
+  return new JsonResponse($results);
   }
 
 }

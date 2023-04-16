@@ -39,6 +39,14 @@ class TypeVideoRepository extends ServiceEntityRepository
         }
     }
 
+    public function findLeType($leType){
+      $query = $this->createQueryBuilder('e')
+        ->select('e.libelleTypeVideo') // to make Doctrine actually use the join
+        ->andWhere('e.id = :leType')
+        ->setParameter('leType', $leType);
+      return $query->getQuery()->getSingleScalarResult();
+    }
+
 //    /**
 //     * @return TypeVideo[] Returns an array of TypeVideo objects
 //     */

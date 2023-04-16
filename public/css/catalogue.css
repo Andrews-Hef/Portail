@@ -28,45 +28,66 @@ body {
 
 
 .boxes {
-  width: 40%;
-  height: 400px;
-  background: orange;
-  float: left;
-  padding: 2em;
-  -webkit-box-sizing: border-box;
+  background-color: black;
+  color: white;
+  overflow: auto;
+  width: 100%;
+  display: inline-block;
+  height:150px;
+  background: linear-gradient(to bottom right, #0c0c0c 0%, #26272e 100%);
+
 }
 
 /* target an HTML element with the ID of "second-div" */
 .boxes2 {
-  /* float:right; */
-  width: 40%;
-  height: 400px;
-  float: left;
-  padding: 2em;
-  background: #4a4b63;
-  -webkit-box-sizing: border-box;
+  background-color: black;
+  color: white;
+  overflow: auto;
+  width: 100%;
+  display: inline-block;
+  height:150px;
+  background: linear-gradient(to bottom right, #0c0c0c 0%, #26272e 100%);
+
 }
 
 .boxes3 {
   /* float:right; */
-  width: 20%;
+  width: 100%;
   height: 400px;
   float: left;
   padding: 2em;
   -webkit-box-sizing: border-box;
 }
 
+.boxes4 {
+  /* float:right; */
+  width: 100%;
+  height: 400px;
+  float: left;
+  padding: 1em;
+  -webkit-box-sizing: border-box;
+}
 
+.styleContainBox{
+height:200px;
+padding-top:1%;
+background-color: #18191c;
+background: #18191c;
+}
 
-
-
+.styleContainBox2{
+  height:150px;
+  padding-top:1%;
+  background-color: #18191c;
+  background: #18191c;
+  }
 
 
 /* Cards */
 .grid-wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 0px;
   align-items: center;
 
 
@@ -86,4 +107,72 @@ body {
 .card {
   max-width: 280px;
   margin: 50px 10px;
+}
+
+.borderColorFiltre{
+  border: solid;
+  border-color: white;
+  border-width: 4px;
+  box-shadow: 0px 1px 8px 0px rgb(255, 255, 255);
+  border-radius: 8px;
+}
+
+
+
+
+
+
+
+.ui-autocomplete {
+  max-height: 300px;
+  max-width: 300px;
+  min-width: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.ui-menu-item {
+  padding: 10px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 18px;
+  color: #444;
+}
+
+.ui-menu-item:hover {
+  background-color: #f2f2f2;
+  max-width: 300px;
+  min-width: 300px;
+}
+
+.autocompleteTest {
+  width: auto;
+  border: none;
+  border-bottom: 2px solid #db1010;
+  font-size: 20px;
+  padding: 10px;
+  color: #444;
+  font-family: Arial, sans-serif;
+  transition: border-bottom-color 0.3s ease-in-out;
+  width:300px;
+}
+
+.autocompleteTest:focus {
+  outline: none;
+  border-bottom-color: #000000;
+}
+
+.redirection{
+  color:white;
+}
+.redirection:hover{
+
+}
+
+.buttonIcon{
+  padding-bottom: 0px !important;
 }

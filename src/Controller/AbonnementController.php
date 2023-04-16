@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Abonnement;
 use App\Form\AbonnementType;
+use App\Repository\CategorieRepository;
+use App\Repository\TypeVideoRepository;
 use App\Repository\AbonnementRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,12 +15,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AbonnementController extends AbstractController
 {
+  private $categories;
+  private $typesVideos;
+    
+    public function __construct(CategorieRepository $cateRepo, TypeVideoRepository $typeRepo)
+    {
+        $this->categories = $cateRepo->findAll();
+        $this->typesVideos = $typeRepo->findAll();
+    }
+    
     #[Route('/abonnement', name: 'app_abonnement')]
     public function index(AbonnementRepository $repoAbo): Response
     {   
+        $categories = $this->categories;
+        $typesVideos = $this->typesVideos;
         $abonnements = $repoAbo->findAll();
         return $this->render('abonnement/index.html.twig', [
             'abonnements'=>$abonnements,
+            'categories' => $categories,
+            'typesVideos' => $typesVideos
         ]);
     }
 
@@ -43,8 +58,12 @@ class AbonnementController extends AbstractController
 
            return $this->redirectToRoute("Abonnement.index");
         }
+        $categories = $this->categories;
+        $typesVideos = $this->typesVideos;
         return $this->render('abonnement/new.html.twig',[
             'form'=>$form->createView(),
+            'categories' => $categories,
+            'typesVideos' => $typesVideos
         ]);
     }
 
@@ -65,9 +84,12 @@ class AbonnementController extends AbstractController
 
            return $this->redirectToRoute("Abonnement.index");
         }
-
+        $categories = $this->categories;
+        $typesVideos = $this->typesVideos;
         return $this->render('abonnement/edit.html.twig',[
             'form'=>$form->createView(),
+            'categories' => $categories,
+            'typesVideos' => $typesVideos
         ]);
     }
     #[Route('/abonnement/delete/{id}', name: 'abonnement.del', methods:['GET'])]

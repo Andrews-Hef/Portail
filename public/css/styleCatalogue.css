@@ -231,6 +231,7 @@ a {
 
 .divimage {
   padding: .5vw;
+  padding-top:30px !important;
   font-size: 0;
   display: -ms-flexbox;
   -ms-flex-wrap: wrap;
@@ -656,4 +657,36 @@ img {
 
 .souligne{
   text-decoration: underline;
+}
+
+.my-autocomplete-class.ui-autocomplete {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  background-color: #940d0d;
+  border: 1px solid #ad1b1b;
+  max-height: 200px;
+  color:red;
+
+  overflow-y: auto;
+}
+
+.my-autocomplete-class.ui-menu-item {
+  padding: 0.5em 1em;
+  cursor: pointer;
+}
+
+.my-autocomplete-class.ui-menu-item:hover {
+  background-color: #af1a1a;
+}
+
+.my-autocomplete-class.ui-state-highlight {
+  background-color: #a10e0e;
+  font-weight: bold;
+}
+
+.my-autocomplete-class.ui-state-active {
+  background-color: #f13939;
 }

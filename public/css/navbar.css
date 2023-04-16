@@ -37,26 +37,37 @@
 
 .buttonIcon{
   background-color: black;
+  border:none;
+  padding-bottom: 5px;
 }
 
+.buttonIcon:hover{
+  border: solid;
+  border-color: rgb(255, 255, 255);
+  border-width: 1px;}
+
 .iconTaille{
-  font-size: 30px;
-  padding-bottom: 10px;
+  font-size: 30px !important;
+  padding-bottom: 10px !important;
   color:#fff;
 }
 
 .listIcon{
-  font-size: 150%;
-  float:left;
-  text-align: left;
-  color:#fff;
+  font-size: 150% !important;
+  text-align: left !important;
+  color:#fff !important;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+
 }
 
+
+
 .offcanvasStyle{
-  border-color: white;
+  border-color: rgba(255, 255, 255, 0.192);
   border-top: solid;
   color:white;
-  border-width: 4px;
+  border-width: 5px;
 }
 
 .li5{
@@ -118,3 +129,47 @@ element.style {
 .whiteArrow:hover{
   color:#3b3b3a;
 }
+
+.lienNav{
+  padding-right:15px; color:white;
+}
+.lienNav:hover{
+  color:#2a9fff;
+  padding-right:15px;
+}
+
+.my-autocomplete-class.ui-autocomplete {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  background-color: #940d0d;
+  border: 1px solid #ad1b1b;
+  max-height: 200px;
+  overflow-y: auto;
+  color:red;
+}
+
+.my-autocomplete-class.ui-menu-item {
+  padding: 0.5em 1em;
+  cursor: pointer;
+}
+
+.my-autocomplete-class.ui-menu-item:hover {
+  background-color: #af1a1a;
+}
+
+.my-autocomplete-class.ui-state-highlight {
+  background-color: #a10e0e;
+  font-weight: bold;
+}
+
+.my-autocomplete-class.ui-state-active {
+  background-color: #f13939;
+}
+
+.ui-menu{
+  color:red;
+}
+

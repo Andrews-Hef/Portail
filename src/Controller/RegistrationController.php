@@ -8,6 +8,8 @@ use App\Service\SendMailService;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\UserAuthenticator;
+use App\Repository\CategorieRepository;
+use App\Repository\TypeVideoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +20,15 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {
+  private $categories;
+  private $typesVideos;
+    
+    public function __construct(CategorieRepository $cateRepo, TypeVideoRepository $typeRepo)
+    {
+        $this->categories = $cateRepo->findAll();
+        $this->typesVideos = $typeRepo->findAll();
+    }
+
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager, SendMailService $mail, JWTService $jwt): Response
     {
@@ -67,8 +78,12 @@ class RegistrationController extends AbstractController
             );
         }
 
+        $categories = $this->categories;
+        $typesVideos = $this->typesVideos;
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'categories' => $categories,
+            'typesVideos' => $typesVideos
         ]);
     }
 

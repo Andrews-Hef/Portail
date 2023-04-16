@@ -39,6 +39,14 @@ class CategorieRepository extends ServiceEntityRepository
         }
     }
 
+    public function findLaCategorie($laCategorie){
+      $query = $this->createQueryBuilder('e')
+        ->select('e.libelleCategorie') // to make Doctrine actually use the join
+        ->andWhere('e.id = :laCate')
+        ->setParameter('laCate', $laCategorie);
+      return $query->getQuery()->getSingleScalarResult();
+    }
+
 //    /**
 //     * @return Categorie[] Returns an array of Categorie objects
 //     */
