@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}show{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <br><br><br><br>
+    <h2>tous nos cinémas</h2>
+    
+   {% for item in allCinema %}
+    <div class= "card-columms text-center mx-2"  style ="display: inline-block">
+        <div class="card " style="width: 18rem;">
+            <h4 class="text-primary">{{ item.fields.nom }} </h4>   
+        </div>
+    </div> 
+    {% endfor %} 
+
+
+    
+
+
+</div>
+
+{% endblock %}
