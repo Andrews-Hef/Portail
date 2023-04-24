@@ -51,4 +51,15 @@ class CallApiService{
         return $machin;
     }
 
+    public function researchMovie(String $string){
+        $response = $this->client->request(
+            'GET',
+            'https://api.themoviedb.org/3/search/movie?api_key=6691789e696e2c66d756e2cfb9e26f41&language=en-US&query='.$string.'&page=1&include_adult=false'
+        );
+        $content = $response->getContent();
+        $machin=json_decode($content);
+        $machin=$machin->results;
+
+        return $machin;
+    }
 }

@@ -63,5 +63,30 @@ class CinemaController extends AbstractController
             'typesVideos' => $typesVideos
         ]);
     }
+    #[Route('/cinema/researchCine', name: 'cinema.researchCine')]
+    public function researchCine(): Response
+    {   
+        $categories = $this->categories;
+        $typesVideos = $this->typesVideos;
+        return $this->render('cinema/researchCine.html.twig', [
+            'controller_name' => 'CinemaController',
+            'categories' => $categories,
+            'typesVideos' => $typesVideos
+        ]);
+    }
+    #[Route('/cinema/researchMovie', name: 'cinema.researchMovie')]
+    public function researchMovie(CallApiService $apiService,String $Name): Response
+    {   
+        $categories = $this->categories;
+        $typesVideos = $this->typesVideos;
+
+        $results=$apiService->researchMovie($Name);
+        return $this->render('cinema/researchMovie.html.twig', [
+            'controller_name' => 'CinemaController',
+            'categories' => $categories,
+            'typesVideos' => $typesVideos,
+            'researchResults'=>$results
+        ]);
+    }
      
 }
