@@ -44,7 +44,7 @@ class VideoController extends AbstractController
     public function showFilm(VideoRepository $repoVideo, Int $id, Request $request, EntityManagerInterface $manager, CategorieRepository $repoCate): Response
     {
         $categories = $repoCate->findAll();
-        $video = $repoVideo->findOneBy(["id" => $id ]);
+        $video = $repoVideo->findVideoById($id);
         $commentaire = new Commentaire();
         $commentaire->setVideoscom($video);
 
