@@ -11,11 +11,15 @@
 <div class="example-wrapper">
     <br><br><br><br>
     <h2>Actuellement au cinéma</h2>
-    <form class="d-flex">
-        <input class="form-control me-sm-2" type="search" placeholder="Search for Film">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit" href="{{ path('cinema.researchMovie',{Name: form.search.vars.value }) }}" >Search</button>
-    </form>
-    {{ form.search.vars.value}}
+    <div class="container">
+        {{ form_start(form) }}
+        <div class="form-errors">
+            {{ form_errors(form) }}
+        </div>
+        <div class="row">
+            {{  form_end(form) }}
+        </div>
+    </div>
     {% for item in nowPlaying %}
         <div class= "card-columms text-center mx-2"  style ="display: inline-block">
             <div class="card " style="width: 18rem;">
