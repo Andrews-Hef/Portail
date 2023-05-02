@@ -144,11 +144,11 @@ element.style {
   left: 0;
   z-index: 9999;
   width: 100%;
-  background-color: #940d0d;
-  border: 1px solid #ad1b1b;
+  background-color: #000000;
+  border: 1px solid #000000;
   max-height: 200px;
   overflow-y: auto;
-  color:red;
+  color:rgb(0, 0, 0);
 }
 
 .my-autocomplete-class.ui-menu-item {
@@ -157,19 +157,19 @@ element.style {
 }
 
 .my-autocomplete-class.ui-menu-item:hover {
-  background-color: #af1a1a;
+  background-color: #000000;
 }
 
 .my-autocomplete-class.ui-state-highlight {
-  background-color: #a10e0e;
+  background-color: #000000;
   font-weight: bold;
 }
 
 .my-autocomplete-class.ui-state-active {
-  background-color: #f13939;
+  background-color: #000000;
 }
 
 .ui-menu{
-  color:red;
+  color:rgb(12, 12, 12);
 }
 

@@ -1,4 +1,4 @@
-{% for videos in videos %}
+{# {% for videos in videos %}
 	<div class="card-container box">
 		<div
 			class="card-flip">
@@ -31,5 +31,18 @@
 			</div>
 		</div>
 	</div>
+{% endfor %} #}
+
+
+<div class="movies-container">
+{% for videos in videos %}
+<div class="boxNew">
+	<div class="box-img">
+    <img src="{{ videos.image }}">
+	</div>
+  <h3 class="maxTailleTitre">{{ videos.titre }}</h3>
+  <span>{{ videos.typeVideo.libelleTypeVideo }}</span>
+</div>
 {% endfor %}
+</div>
 

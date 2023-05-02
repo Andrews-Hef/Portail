@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New video{% endblock %}
+
+{% block stylesheets %}
+ <link rel="stylesheet" href="../css/edit.css"  type="text/css">
+{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid" style="padding-top:100px;">
+	<div class="row">
+		{% include "partials/_adminnav.html.twig" %}
+		<main class="col-9 border colorFond" style="background-color: rgb(75, 75, 85) !important;">
+			<h1 style="color:white; margin-bottom:50px;">Ajout d'un film</h1>
+      <div class="row">
+    <div class="col-md-6">
+      <div class="row">
+      {{ form_start(form) }}
+        <div class="col-md-12">Titre {{ form_widget(form.titre) }}</div>
+        <div class="col-md-12">Qualité {{ form_widget(form.qualite) }}</div>
+        <div class="col-md-12">TypeVideo {{ form_widget(form.TypeVideo) }}</div>
+        <div class="col-md-12">Categories : {{ form_widget(form.categories) }}</div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-12">Url {{ form_widget(form.url, {'attr': {'style': 'color: red; width: 50%;'}}) }}</div>
+        <div class="col-md-12">Année {{ form_widget(form.annee) }}</div>
+        <div class="col-md-12">Image {{ form_widget(form.image) }}</div>
+        <div class="col-md-12">Description {{ form_widget(form.description) }}</div>
+      </div>
+    </div>
+    {{  form_end(form) }}
+  </div>
+</div>
+</div> 
+{% endblock %}

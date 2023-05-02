@@ -67,4 +67,8 @@ class Categorie
 
         return $this;
     }
+
+    public function __toString() {
+      return $this->libelleCategorie; // ou une autre propriété représentant la catégorie sous forme de chaîne de caractères
+  }
 }

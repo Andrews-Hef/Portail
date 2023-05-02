@@ -1,12 +1,14 @@
 {% extends "base.html.twig" %}
-
+{% block stylesheets %}
+	<link rel="stylesheet" href="../../css/adminPartial.css">
+{% endblock %}
 {% block title %}Administration{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container-fluid" style="padding-top:100px;">
         <div class="row">
             {% include "partials/_adminnav.html.twig" %}
-            <main class="col-9 border border-light bg-white p-2">
+            <main class="col-9 border p-2">
                 <h1>Administration</h1>
             </main>
         </div>

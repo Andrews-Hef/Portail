@@ -1,6 +1,11 @@
-<aside class="col-3 border border-light bg-white p-2">
+{% block stylesheets %}
+	<link rel="stylesheet" href="../css/adminPartial.css">
+{% endblock %}
+
+{# <div style="padding-top:100px;"> #}
+<aside class="col-3 border">
     <article class="card mb-3">
-        <div class="card-header">
+        <div class="card-header" style="color:black;">
             Catégories
         </div>
         <div class="card-body">
@@ -9,16 +14,16 @@
         </div>
     </article>
     <article class="card mb-3">
-        <div class="card-header">
-            Produits
+        <div class="card-header" style="color:black;">
+            Films
         </div>
         <div class="card-body">
             <p><a href="">Liste des films</a></p>
-            <p><a href="">Ajouter un film</a></p>
+            <p><a href="{{ path('admin_adminvideonew') }}">Ajouter un film</a></p>
         </div>
     </article>
     <article class="card mb-3">
-        <div class="card-header">
+        <div class="card-header" style="color:black;">
             Utilisateurs
         </div>
         <div class="card-body">
@@ -27,3 +32,4 @@
         
     </article>
 </aside>
+{# </div> #}

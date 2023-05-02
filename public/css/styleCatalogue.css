@@ -1,6 +1,6 @@
 body {
   color: white;
-  background: linear-gradient(to bottom right, #0c0c0c 0%, #26272e 100%);
+  background-color: #0a0a0a;
 }
 
 /* bandeau à changer par une div et une vraie image <img>*/
@@ -90,10 +90,10 @@ a {
 }
 
 .movie-card {
-  border: solid;
+  /* border: solid;
   border-color: white;
   border-width: 4px;
-  box-shadow: 0px 1px 8px 0px rgb(255, 255, 255);
+  box-shadow: 0px 1px 8px 0px rgb(255, 255, 255); */
 }
 
 .color-overlay {
@@ -401,56 +401,25 @@ h5 {
 .card-text:hover {
   text-decoration: underline;
 }
-.card-flip {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-rows: 1fr;
-  -ms-grid-columns: 1fr;
-  grid-template: 1fr / 1fr;
-  grid-template-areas: "frontAndBack";
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-  -webkit-transition: all 0.7s ease;
-  transition: all 0.7s ease;
-}
-
-.card-flip div {
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-}
 
 .front {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   grid-area: frontAndBack;
   margin-top: 0;
-  background-color: #222;
+  /* background-color: #222;
   border: solid 2px #ffffff;
-  border-radius: 10px;
-}
-
-.back {
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-  grid-area: frontAndBack;
-  -webkit-transform: rotateY(-180deg);
-  transform: rotateY(-180deg);
-  background-color: #000000;
-  border: solid 2px #ffffff;
-  border-radius: 10px;
-  margin-top: 0;
+  border-radius: 10px; */
 }
 
 .cardblocktaille{
   height: 364px;
 }
-
+/* 
 .card-container:hover .card-flip {
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
-}
+} */
 
 .card-block {
   background-color: #000;
@@ -665,10 +634,10 @@ img {
   left: 0;
   z-index: 9999;
   width: 100%;
-  background-color: #940d0d;
-  border: 1px solid #ad1b1b;
+  background-color: #000000;
+  border: 1px solid #000000;
   max-height: 200px;
-  color:red;
+  color:rgb(0, 0, 0);
 
   overflow-y: auto;
 }
@@ -679,14 +648,94 @@ img {
 }
 
 .my-autocomplete-class.ui-menu-item:hover {
-  background-color: #af1a1a;
+  background-color: #000000;
 }
 
 .my-autocomplete-class.ui-state-highlight {
-  background-color: #a10e0e;
+  background-color: #000000;
   font-weight: bold;
 }
 
 .my-autocomplete-class.ui-state-active {
-  background-color: #f13939;
+  background-color: #000000;
+}
+
+
+
+
+
+
+.movies-container{
+  max-width: 1350px;
+  margin-right: auto;
+  margin-left: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, auto));
+  gap: 1rem;
+  margin-top: 2rem;
+
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.boxNew .box-img{
+  width: 100%;
+  height: 380px;
+  min-height: 380px;
+  max-height: 380px;
+  max-width:210px;
+  min-width:210px;
+}
+
+.boxNew .box-img img{
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+.boxNew .box-img img:hover{
+  transform: translateY(-10px);
+  transition: 0.2 all linear;
+  }
+  
+
+
+.float-example p {
+  float: left;
+  margin-right: 10px;
+}
+
+
+
+.align-right {
+  float: right;
+}
+
+.align-left {
+  float: left;
+}
+
+
+.texteVideo{
+  --line-height: 2.25rem;
+    font-size: 1.75rem;
+}
+
+
+.float-example p {
+  margin: 0;
+}
+
+.align-left {
+  float: left;
+}
+
+.align-right {
+  float: right;
+}
+
+
+.maxTailleTitre{
+  max-width: 203px;
+  word-wrap: break-word;
+
 }

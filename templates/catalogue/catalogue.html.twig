@@ -16,78 +16,72 @@
 {% block body %}
 
 
-	{# début image bannière #}
-	<div class="divimage"><img class="img-fluid imageDiv" src="../img/portaildiv2.png">
-	</div>
-	{# fin image bannière #}
-
-	{# Début div présentation magasin #}
-	<div class="workshopbody">
-		<div id="movie-card-list">
-			<div class="movie-card">
-				<div class="color-overlay">
-					<div class="movie-share">&nbsp;</div>
-					<div class="movie-content">
-						<div class="movie-header">
-							<h1 class="movie-title">PROFITEZ DES MEILLEURS FILMS/SÉRIES/ANIMÉS AVEC PORTAIL PRIME.</h1>
-
-							<h4 class="movie-info">Le site de streaming que vous allez adorer</h4>
+	<div
+		class="container-fluid" style="padding-right: 90px; padding-left: 90px; padding-top:90px;">
+		{# <h1> Catalogue De Portail </h1>
+				<div class="row borderColorFiltre">
+					<div class="col-sm-3 text-white styleContainBox">
+		
+						<div class="boxes3">
+							<div class="d-flex left" role="search">
+								<input placeholder="Search" aria-label="Search" type="text" id="titre-input" name="titre-input" class="autocomplete autocompleteTest">
+							</div>
 						</div>
-						<br>
-						<p class="movie-desc">Abonnez-vous à Portail Prime pour pouvoir profiter de toutes nos vidéos sans pub et en qualité HD, où que vous soyez et quand vous voulez ! Profitez donc de nos offres qui vous permettrons de prendre un portail vers de nouvelles aventures
-																																																	        et de nouvelles dimensions.</p>
-						<a class="btn btn-outline" href="https://claytonstate.qualtrics.com/jfe/form/SV_9FScuNt5Fdv5yXb" target="_blank">Magasin</a>
 					</div>
-					<div class="movie-content" style="float:right !important; width:45%;">
-						<img class="img-fluid" src="../img/fondDivAchat3.png" alt="MDB Logo" loading="lazy" style="padding-left:3px;"/>
+					<div class="col-sm-4 text-white styleContainBox">
+		
+						<div id="first-div boxes" class="boxes">
+							Types de film
+							<hr>
+							<ul class="image-gallery-ul">
+								<form id="my-form2" method="post">
+									{% for type in typesVideos %}
+										<div class="form-check">
+											<input type="checkbox" name="typesVideos[]" value="{{ type.id }}"/>
+											<label class="form-check-label" for="typesVideos_{{ type.id }}">
+												{{ type.libelleTypeVideo }}
+											</label>
+										</div>
+									{% endfor %}
+								</form>
+							</ul>
+						</div>
 					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-	{# Fin div présentation magasin #}
-
-
-	<div class="container-fluid" style="padding-right: 90px; padding-left: 90px; margin-top:-10px;">
-  <h1> Catalogue De Portail </h1>
-		<div class="row borderColorFiltre">
-			<div class="col-sm-3 text-white styleContainBox">
-
-				<div class="boxes3">
-					<div class="d-flex left" role="search">
-						<input placeholder="Search" aria-label="Search" type="text" id="titre-input" name="titre-input" class="autocomplete autocompleteTest">
+					<div class="col-sm-1 text-white styleContainBox"></div>
+		
+					<div class="col-sm-4 text-white styleContainBox">
+		
+						<div id="second-div boxes2" class="boxes2">
+							Catégories de film
+							<hr>
+		
+							<ul class="image-gallery-ul">
+								<form id="my-form" method="post">
+									{% for categorie in categories %}
+										<div class="form-check">
+											<input type="checkbox" name="categories[]" value="{{ categorie.id }}" id="check1"/>
+											<label class="form-check-label" for="categorie_{{ categorie.id }}">
+												{{ categorie.libelleCategorie }}
+											</label>
+										</div>
+									{% endfor %}
+								</form>
+							</ul>
+						</div>
 					</div>
-				</div>
-			</div>
-			<div class="col-sm-4 text-white styleContainBox">
+		  
+				</div> #}
 
-				<div id="first-div boxes" class="boxes">
-					Types de film
-					<hr>
-					<ul class="image-gallery-ul">
-						<form id="my-form2" method="post">
-							{% for type in typesVideos %}
-								<div class="form-check">
-									<input type="checkbox" name="typesVideos[]" value="{{ type.id }}"/>
-									<label class="form-check-label" for="typesVideos_{{ type.id }}">
-										{{ type.libelleTypeVideo }}
-									</label>
-								</div>
-							{% endfor %}
-						</form>
-					</ul>
-				</div>
-			</div>
-			<div class="col-sm-1 text-white styleContainBox"></div>
 
-			<div class="col-sm-4 text-white styleContainBox">
-
-				<div id="second-div boxes2" class="boxes2">
-					Catégories de film
-					<hr>
-
-					<ul class="image-gallery-ul">
+		<div style="max-width: 1300px; padding-bottom:30px;   margin-right: auto;
+			  margin-left: auto;" class="texteVideo">
+			<p class="align-left">Catalogue de Portail</p>
+			<p class="align-right">
+				<div class="dropdown  align-right" id="second-div boxes2">
+					<a class="dropdown-toggle hidden-arrow whiteArrow" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Types
+					</a>
+					<ul class="dropdown-menu ddropdown-menu-end w-70" style="right: 10px; left: auto;">
 						<form id="my-form" method="post">
 							{% for categorie in categories %}
 								<div class="form-check">
@@ -100,26 +94,42 @@
 						</form>
 					</ul>
 				</div>
-			</div>
-  
+			</p>
+			<p class="align-right" style="padding-left:20px;">
+				<div class="dropdown  align-right">
+					<a class="dropdown-toggle hidden-arrow whiteArrow" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Catégories
+					</a>
+					<ul class="dropdown-menu ddropdown-menu-end w-70" style="right: 10px; left: auto;">
+						<form id="my-form2" method="post">
+							{% for type in typesVideos %}
+								<div class="form-check">
+									<input type="checkbox" name="typesVideos[]" value="{{ type.id }}"/>
+									<label class="form-check-label" for="typesVideos_{{ type.id }}">
+										{{ type.libelleTypeVideo }}
+									</label>
+								</div>
+							{% endfor %}
+						</form>
+					</ul>
+				</div>
+			</p>
+      	<div class="align-right" role="search"  style="padding-right:20px;">
+          <input placeholder="Search" aria-label="Search" type="text" id="titre-input" name="titre-input" class="autocomplete autocompleteTest">
+        </div>
 		</div>
 
+</div>
 
-		<div class="container-fluid" style="padding-right: 90px; padding-left: 90px; ">
-			<div class="grid-wrapper" id="content">
-				{% include "catalogue/cardsCatalogue.html.twig" %}
-			</div>
-		</div>
+<div class="" style="padding-top:50px;">
+	<div id="content" style="">
+		{% include "catalogue/cardsCatalogue.html.twig" %}
+	</div>
+</div>{% endblock %}{% block javascripts %}
 
-
-	{% endblock %}
-
-
-	{% block javascripts %}
-
-		{# <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> #}
-		{# essayer de fusionenr les codes d'en dessous #}
-			<script>
+{# <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> #}
+{# essayer de fusionenr les codes d'en dessous #}
+	<script>
 window.onload = () => {
 $(document).ready(function () {
 $("#titre-input").autocomplete({
@@ -148,8 +158,6 @@ return $(this).val();
 var categoriesForm2 = $('form#my-form2 input[name="typesVideos[]"]:checked').map(function () {
 return $(this).val();
 }).get();
-
-
 
 
 $.ajax({
@@ -285,7 +293,5 @@ console.error(jqXHR, textStatus, errorThrown);
 }
 });
 });
-}
-	</script>
-{% endblock %}
+}</script>{% endblock %}
 
