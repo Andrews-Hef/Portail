@@ -6,7 +6,9 @@ use App\Entity\Video;
 use App\Form\VideoType;
 use App\Entity\Commentaire;
 use App\Form\CommentaireType;
+use App\Entity\User;
 use App\Repository\VideoRepository;
+use App\Repository\UserRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\TypeVideoRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -41,7 +43,7 @@ class VideoController extends AbstractController
     }
 
     #[Route('/video/show/{id}',name:'video.show')]
-    public function showFilm(VideoRepository $repoVideo, Int $id, Request $request, EntityManagerInterface $manager, CategorieRepository $repoCate): Response
+    public function showFilm(VideoRepository $repoVideo, Int $id, Request $request, EntityManagerInterface $manager, CategorieRepository $repoCate, UserRepository $repoUser): Response
     {
         $categories = $repoCate->findAll();
         $video = $repoVideo->findVideoById($id);

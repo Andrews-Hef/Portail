@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Commentaire;
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -16,13 +17,14 @@ class CommentaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('texte', TextareaType::class, [
-                'label' => 'Votre commentaire'
-            ])
             ->add('videoscom', EntityType::class, [
                 'class' => 'App\Entity\Video',
                 'choice_label' => 'titre',
-                'label' => 'Vidéo associée'
+                'label' => ' ',
+                'disabled' => 'false'   
+            ])
+            ->add('texte', TextareaType::class, [
+                'label' => ' '
             ])
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary'],
@@ -34,6 +36,7 @@ class CommentaireType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Commentaire::class,
+            'user' => null,
         ]);
     }
 }
