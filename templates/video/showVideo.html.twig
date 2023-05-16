@@ -60,6 +60,7 @@
   <h2 class='text-center'>{{video.titre}}</h2>
   
   {{ app.user.getUserIdentifier() }}
+  {{ app.user.id }}
   {# Ajouter un if pour le s de commentaire / avec ou sans / sans 0-1 || avec 2 - + #}
   {{ form_start(form) }}
   {{ form_widget(form) }}

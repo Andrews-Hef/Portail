@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Video;
 use App\Form\VideoType;
 use App\Entity\Commentaire;
 use App\Form\CommentaireType;
-use App\Entity\User;
-use App\Repository\VideoRepository;
 use App\Repository\UserRepository;
+use App\Repository\VideoRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\TypeVideoRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -43,14 +44,23 @@ class VideoController extends AbstractController
     }
 
     #[Route('/video/show/{id}',name:'video.show')]
-    public function showFilm(VideoRepository $repoVideo, Int $id, Request $request, EntityManagerInterface $manager, CategorieRepository $repoCate, UserRepository $repoUser): Response
+    public function showFilm(VideoRepository $repoVideo, Int $id, Request $request, EntityManagerInterface $manager, CategorieRepository $repoCate, UserRepository $repoUser, Security $security): Response
     {
         $categories = $repoCate->findAll();
         $video = $repoVideo->findVideoById($id);
         $commentaire = new Commentaire();
         $commentaire->setVideoscom($video);
 
-        $form = $this->createForm(CommentaireType::class, $commentaire);
+        $user = $security->getUser();
+        $userId = null;
+
+        if ($user) {
+            $userId = $user->getId();
+        }
+
+        $form = $this->createForm(CommentaireType::class, $commentaire, [
+            'userId' => $userId
+        ]);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
