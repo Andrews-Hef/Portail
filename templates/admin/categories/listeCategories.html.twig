@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="../../css/adminPartial.css">
+{% endblock %}
+{% block title %}Liste des catégories
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid" style="padding-top:100px;">
+		<div class="row">
+			{% include "partials/_adminnav.html.twig" %}
+			<main class="col-9 border colorFond">
+				<h1>Liste des catégories</h1>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Libellé de la catégorie</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for categoriesAll in categoriesAll %}
+							<tr>
+								<td>{{ categoriesAll.id }}</td>
+								<td>{{ categoriesAll.libelleCategorie }}</td>
+								<td>
+									<a href="{{ path('admin_categorie.edit', {'id': categoriesAll.id}) }}" class="btn btn-success">Modifier</a>
+									<a href="{{ path('admin_categorie.delete', {'id': categoriesAll.id}) }}" class="btn btn-success">Supprimer</a> 
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</main>
+		</div>
+	</div>
+{% endblock %}

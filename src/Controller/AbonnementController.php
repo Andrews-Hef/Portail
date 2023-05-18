@@ -104,4 +104,15 @@ class AbonnementController extends AbstractController
         $this->addFlash("success","abonnement delete successfully :)");
         return $this->redirectToRoute("abonnement.index");
     }
+
+
+    #[Route('/abonnement/listeAbonnements', name: 'listeAbonnements')]
+    public function listeCategories(AbonnementRepository $repoAbo): Response
+    {
+        $categories = $this->categories;
+        $typesVideos = $this->typesVideos;
+        $allAbonnement = $repoAbo->findAll();
+        return $this->render('boutique/index.html.twig', compact('allAbonnement', 'typesVideos', 'categories'),
+      );
+    }
 }

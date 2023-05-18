@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="../../css/adminPartial.css">
+{% endblock %}
+{% block title %}Liste des types
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid" style="padding-top:100px;">
+		<div class="row">
+			{% include "partials/_adminnav.html.twig" %}
+			<main class="col-9 border colorFond">
+				<h1>Liste des utilisateurs</h1>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Libellé du types</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for typeAll in typeAll %}
+							<tr>
+								<td>{{ typeAll.id }}</td>
+								<td>{{ typeAll.libelleTypeVideo }}</td>
+								<td>
+									<a href="{{ path('admin_type.edit', {'id': typeAll.id}) }}" class="btn btn-success">Modifier</a>
+									<a href="{{ path('admin_type.delete', {'id': typeAll.id}) }}" class="btn btn-success">Supprimer</a> 
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</main>
+		</div>
+	</div>
+{% endblock %}

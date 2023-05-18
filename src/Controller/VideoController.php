@@ -28,6 +28,7 @@ class VideoController extends AbstractController
     {
         $this->categories = $cateRepo->findAll();
         $this->typesVideos = $typeRepo->findAll();
+
     }
     
     #[Route('/video',name:'video.index')]
@@ -46,21 +47,27 @@ class VideoController extends AbstractController
     #[Route('/video/show/{id}',name:'video.show')]
     public function showFilm(VideoRepository $repoVideo, Int $id, Request $request, EntityManagerInterface $manager, CategorieRepository $repoCate, UserRepository $repoUser, Security $security): Response
     {
+      $user = $security->getUser();
+      $dateDuJour = new \DateTime();
+      if($user = null){
+        if($user->getDateFinAbonnement() < $dateDuJour && $user->getAbonnement() != null){
+          $user->setAbonnement(null);
+          $user->setDateFinAbonnement(null);
+          $manager->persist($user);
+          $manager->flush();
+        }
+      }
+
+
+
         $categories = $repoCate->findAll();
         $video = $repoVideo->findVideoById($id);
         $commentaire = new Commentaire();
         $commentaire->setVideoscom($video);
 
-        $user = $security->getUser();
-        $userId = null;
+        
 
-        if ($user) {
-            $userId = $user->getId();
-        }
-
-        $form = $this->createForm(CommentaireType::class, $commentaire, [
-            'userId' => $userId
-        ]);
+        $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {

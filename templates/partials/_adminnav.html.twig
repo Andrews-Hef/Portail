@@ -6,30 +6,42 @@
 <aside class="col-3 border">
     <article class="card mb-3">
         <div class="card-header" style="color:black;">
-            Catégories
-        </div>
-        <div class="card-body">
-            <p><a href="">Liste des catégories</a></p>
-            <p><a href="">Ajouter une catégorie</a></p>
-        </div>
-    </article>
-    <article class="card mb-3">
-        <div class="card-header" style="color:black;">
-            Films
-        </div>
-        <div class="card-body">
-            <p><a href="">Liste des films</a></p>
-            <p><a href="{{ path('admin_adminvideonew') }}">Ajouter un film</a></p>
-        </div>
-    </article>
-    <article class="card mb-3">
-        <div class="card-header" style="color:black;">
             Utilisateurs
         </div>
         <div class="card-body">
             <p><a href="{{ path('admin_users_index') }}">Liste des utilisateurs</a></p>
         </div>
-        
     </article>
+
+    <article class="card mb-3">
+        <div class="card-header" style="color:black;">
+            Catégories
+        </div>
+        <div class="card-body">
+            <p><a href="{{ path('admin_listeCategories') }}">Liste des catégories</a></p>
+            <p><a href="{{ path('admin_categorie.new') }}">Ajouter une catégorie</a></p>
+        </div>
+    </article>
+
+    <article class="card mb-3">
+        <div class="card-header" style="color:black;">
+            Types
+        </div>
+        <div class="card-body">
+            <p><a href="{{ path('admin_listeTypes') }}">Liste des types</a></p>
+            <p><a href="{{ path('admin_type.new') }}">Ajouter un type</a></p>
+        </div>
+    </article>
+
+    <article class="card mb-3">
+        <div class="card-header" style="color:black;">
+            Films
+        </div>
+        <div class="card-body">
+            <p><a href="{{ path('admin_listeVideo') }}">Liste des films</a></p>
+            <p><a href="{{ path('admin_adminvideonew') }}">Ajouter un film</a></p>
+        </div>
+    </article>
+    
 </aside>
 {# </div> #}

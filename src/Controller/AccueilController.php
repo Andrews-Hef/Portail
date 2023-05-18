@@ -8,6 +8,7 @@ use App\Repository\CategorieRepository;
 use App\Repository\TypeVideoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,7 +27,7 @@ class AccueilController extends AbstractController
         $this->typesVideos = $typeRepo->findAll();
     }
   #[Route('/', name: 'accueil')]
-  public function accueil(VideoRepository $repoVideo, CategorieRepository $repoCategorie, TypeVideoRepository $repoTypeVideo, Request $request)
+  public function accueil(VideoRepository $repoVideo, CategorieRepository $repoCategorie, EntityManagerInterface $manager, TypeVideoRepository $repoTypeVideo, Request $request, Security $security)
   {
     $videos = $repoVideo->findAll();
     $categories = $repoCategorie->findAll();
@@ -34,7 +35,16 @@ class AccueilController extends AbstractController
     $allFilm = $repoVideo->findVideoAllFilmDemo();
     $allSerie = $repoVideo->findVideoAllSerieDemo();
     $allAnime =$repoVideo->findVideoAllAnimeDemo();
-    
+    $user = $security->getUser();
+    $dateDuJour = new \DateTime();
+    if($user = null){
+      if($user->getDateFinAbonnement() < $dateDuJour && $user->getAbonnement() != null){
+        $user->setAbonnement(null);
+        $user->setDateFinAbonnement(null);
+        $manager->persist($user);
+        $manager->flush();
+      }
+    }
 
       return $this->render('accueil/index.html.twig', [
         'videos' => $videos,
