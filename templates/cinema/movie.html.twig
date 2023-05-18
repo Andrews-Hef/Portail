@@ -12,7 +12,6 @@
     <br><br><br><br>
 
     <h2>{{ Movie.title }}</h2>  
-    <span>{{idCine}}</span>
 
         <div class= "container"  style ="display: inline-flex">
             <div class="" style="">
@@ -21,6 +20,24 @@
                  <p class="text-secondary">{{Movie.overview}}</p>
             </div>
         </div>
+
+    <h3> reserver une seance a {{ cinema.nom }}!</h3>
+    <table>
+      <ul> calendrier des seances: </ul>
+      {% for daySchedule in weekSchedule %}
+          <tr class=""> 
+            <td>
+              {{daySchedule['date'].format('d/m/Y')}}  :
+            </td>
+
+            {% for dateTime in daySchedule['times'] %}
+              <td> 
+                <button type="button" class="btn btn-primary">  {{ dateTime.format('H:i') }} </button>
+              </td>
+            {% endfor %}
+          </tr>
+      {% endfor %}
+    </table>
 </div>
 
 

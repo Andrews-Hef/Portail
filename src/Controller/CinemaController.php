@@ -2,18 +2,20 @@
 
 namespace App\Controller;
 
+use DateTime;
+use DateInterval;
 use App\Form\ResearchFilmType;
 use App\Service\CallApiService;
+use App\Repository\CinemaRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\TypeVideoRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use App\Repository\CinemaRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CinemaController extends AbstractController
 {
@@ -29,14 +31,14 @@ class CinemaController extends AbstractController
     }
  
     #[Route('/cinema', name: 'app_cinema')]
-    public function index(CallApiService $apiService,Request $request): Response
+    public function index(CallApiService $apiService,Request $request,CinemaRepository $repoCine): Response
     {   
         $categories = $this->categories;
         $typesVideos = $this->typesVideos;
 
         //api request
         $results=$apiService->getNowPlaying();
-        $allCinema=$apiService->getallCinema();
+        $allCinema=$repoCine->findAll();
             //data for  form
 
             
@@ -105,13 +107,16 @@ class CinemaController extends AbstractController
     #
 
     #[Route('/cinema/movie/{id}', name: 'cinema.MovieView')]
-    public function getOneMovie(CallApiService $apiService,$id,Request $request): Response
+    public function getOneMovie(CallApiService $apiService,$id,Request $request,CinemaRepository $repoCine): Response
     {   
         $categories = $this->categories;
         $typesVideos = $this->typesVideos;
 
         //retrieve cinema id to made final request
         $idCine=$request->query->get('idcine');
+        $cinema=$repoCine->find($idCine);
+
+        $weekSchedule = $this->generateWeekSchedule();
 
         $results=$apiService->getOneMovie($id);
         return $this->render('cinema/movie.html.twig', [
@@ -119,7 +124,8 @@ class CinemaController extends AbstractController
             'Movie'=>$results,
             'categories' => $categories,
             'typesVideos' => $typesVideos,
-            'idCine'=>$idCine
+            'cinema'=>$cinema,
+            'weekSchedule'=> $weekSchedule
         ]);
     }
     #[Route('/cinema/researchCine', name: 'cinema.researchCine')]
@@ -142,9 +148,11 @@ class CinemaController extends AbstractController
         $typesVideos = $this->typesVideos;
         //retrieve data from form 
         $Name=$request->query->get('data');
-        $idCine=$request->query->get('id');
-        $results=$apiService->researchMovie($Name);
 
+        //once we retrieve cinema id we do findByID
+        $idCine=$request->query->get('id');
+
+        $results=$apiService->researchMovie($Name);
 
         return $this->render('cinema/researchMovie.html.twig', [
             'controller_name' => 'CinemaController',
@@ -155,4 +163,52 @@ class CinemaController extends AbstractController
         ]);
     }
      
+    /**
+     *  used in oneMovie retrieve  a list of 7 days with hours between 10h and 22h(cinema horaires)
+     *
+     * @return list of day and hours
+     */
+    function generateWeekSchedule() {
+        //commence a la date d'aujourd'hui
+        $startOfWeek = new DateTime();
+        //Defini la fin une semaine après
+        $endOfWeek = (clone $startOfWeek)->modify('+6 days');
+        
+        //defini l'interval 1h30
+        $interval = new DateInterval('PT1H30M');
+        
+        //grand tableau ou seront stocké les jours
+        $schedule = array();
+        $currentDateTime = $startOfWeek;
+        
+        while ($currentDateTime <= $endOfWeek) {
+            $currentHour = $currentDateTime->format('G');
+
+            // si l'heure est entre 10h et 22h 
+            if ($currentHour >= 10 && $currentHour <= 22) {
+                //Créer un nouveau tableau pour chaque  jour de la semaine
+                $daySchedule = array();
+                $daySchedule['date'] = clone $currentDateTime;//ajoute la date d'auj
+                $daySchedule['times'] = array();
+    
+                $currentTime = clone $currentDateTime;
+
+                /**
+                 * format('G') pour extraire l'heure sans le zéro de début ("09" devient "9", "14" reste "14").
+                 * tant que l'heure actuelle est entre 10 et 22h   separé par des interval d'1h30 l'ajoute  a la liste
+                 */
+                while ($currentTime->format('G') >= 10 && $currentTime->format('G') <= 22) {
+                    $daySchedule['times'][] = clone $currentTime;
+                    $currentTime->add($interval);
+                }
+    
+                $schedule[] = $daySchedule;//rajoute un nouveau jour a l'emploi du temps
+
+            }
+    
+            $currentDateTime->add(new DateInterval('P1D'));// increment d'un jour
+        }
+    
+        return $schedule;
+    }
 }
