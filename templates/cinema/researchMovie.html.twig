@@ -17,7 +17,7 @@
                 <img src="https://image.tmdb.org/t/p/original{{item.poster_path}}" > 
                 <div class="card-footer">
                     <small class="text-muted">
-                        <a href="{{ path('cinema.MovieView',{id:item.id}) }}">cliquez ici </a>
+                        <a href="{{ path('cinema.MovieView',{id:item.id,idcine:idCine}) }}">cliquez ici </a>
                     </small>
                 </div>
             </div>

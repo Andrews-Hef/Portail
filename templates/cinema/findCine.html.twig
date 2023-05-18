@@ -15,7 +15,11 @@
    {% for item in allCinema %}
     <div class= "card-columms text-center mx-2"  style ="display: inline-block">
         <div class="card " style="width: 18rem;">
-            <h4 class="text-primary">{{ item.fields.nom }} </h4>   
+            <img src="../image/cinema.jpg" > 
+            <h4 class="text-primary">{{ item.nom }} </h4> {#item.field avec l'api |'commune':item.fields.commune#}
+            <small class="text-muted">
+                <a href="{{ path('cinema.findOne',{'Name':item.nom,'adresse':item.adresse,'id':item.id}) }}">cliquez ici </a>
+            </small>   
         </div>
     </div> 
     {% endfor %} 

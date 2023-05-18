@@ -62,4 +62,24 @@ class CallApiService{
 
         return $machin;
     }
+    public function similarTo(Int $id){
+        $response = $this->client->request(
+            'GET',
+            'https://api.themoviedb.org/3/movie/'.$id.'/similar?api_key=6691789e696e2c66d756e2cfb9e26f41&language=fr-FR&page=1'
+        );
+        $content = $response->getContent();
+        $machin=json_decode($content);
+        $machin=$machin->results;
+    }
+
+
+    public function popularMovies(){
+        $response = $this->client->request(
+            'GET',
+            'https://api.themoviedb.org/3/movie/popular?api_key=6691789e696e2c66d756e2cfb9e26f41&language=fr-FR&page=1'
+        );
+        $content = $response->getContent();
+        $machin=json_decode($content);
+        $machin=$machin->results;
+    }
 }

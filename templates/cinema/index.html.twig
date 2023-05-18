@@ -11,15 +11,7 @@
 <div class="example-wrapper">
     <br><br><br><br>
     <h2>Actuellement au cinéma</h2>
-    <div class="container">
-        {{ form_start(form) }}
-        <div class="form-errors">
-            {{ form_errors(form) }}
-        </div>
-        <div class="row">
-            {{  form_end(form) }}
-        </div>
-    </div>
+
     {% for item in nowPlaying %}
         <div class= "card-columms text-center mx-2"  style ="display: inline-block">
             <div class="card " style="width: 18rem;">
