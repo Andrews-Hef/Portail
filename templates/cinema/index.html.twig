@@ -45,18 +45,17 @@
 							<div class="item">
 								<div class="media-element">
 									<div class="card-container box" style="max-width: 600px">
-										<div
-											class="card-flip">
+										<div class="">
 											<!-- Début Card Front -->
 											<div class="card front">
-												<img src="https://image.tmdb.org/t/p/original{{item.poster_path}}" class="card-img-top img-fluid unselect" alt="movie-poster" draggable="false" style="height:339px;">
+												<img src="https://image.tmdb.org/t/p/original{{item.poster_path}}" class="card-img-top img-fluid unselect" alt="movie-poster" draggable="false" style="height:339px; width :150%">
 												<div class="card-block" style="height:101px;">
 													<h5 class="card-title">{{ item.title }}</h5>
 												</div>
 											</div>
 
 
-											<!-- Début Card Back -->
+											{# <!-- Début Card Back -->
 											<div class="card back">
 												<div class="card-block text-center cardblocktaille">
 													<h4 class="card-title">Synopsis</h4>
@@ -70,7 +69,7 @@
 												<div class="card-block" style="height:81px;">
 													<h5 class="card-title">{{ item.title }}</h5>
 												</div>
-											</div>
+											</div> #}
 
 											<!-- Fin Card Back -->
 										</div>

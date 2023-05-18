@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\SendMailService;
 
 class CinemaController extends AbstractController
 {
@@ -31,7 +32,7 @@ class CinemaController extends AbstractController
     }
  
     #[Route('/cinema', name: 'app_cinema')]
-    public function index(CallApiService $apiService,Request $request,CinemaRepository $repoCine): Response
+    public function index(CallApiService $apiService,Request $request,CinemaRepository $repoCine,SendMailService $mail): Response
     {   
         $categories = $this->categories;
         $typesVideos = $this->typesVideos;
@@ -39,7 +40,6 @@ class CinemaController extends AbstractController
         //api request
         $results=$apiService->getNowPlaying();
         $allCinema=$repoCine->findAll();
-            //data for  form
 
             
         return $this->render('cinema/index.html.twig', [
@@ -160,6 +160,45 @@ class CinemaController extends AbstractController
             'typesVideos' => $typesVideos,
             'researchResults'=>$results,
             'idCine'=> $idCine
+        ]);
+    }
+
+    #[Route('/cinema/booking', name: 'cinema.booking')]
+    public function booking(Request $request): Response
+    {   
+        $categories = $this->categories;
+        $typesVideos = $this->typesVideos;
+
+        $horaire = $request->query->get('seance');
+        $titre = $request->query->get('titre');
+        
+        
+        return $this->render('cinema/cinemaPayment.html.twig', [
+            'controller_name' => 'CinemaController',
+            'categories' => $categories,
+            'typesVideos' => $typesVideos,
+            'horaire'=> $horaire,
+            'titre'=>$titre
+            
+        ]);
+    }
+    #[Route('/cinema/booked', name: 'cinema.booked')]
+    public function booked(SendMailService $mail){
+        $categories = $this->categories;
+        $typesVideos = $this->typesVideos;
+
+        /*$mail->send(
+            'demoineret.denis78@gmail.com',
+            $user->getEmail(),
+            'votre seance est reservé ',
+            'd',
+            compact('user', 'token')
+        );*/
+        
+        return $this->render('cinema/cinemaPayer.html.twig', [
+            'controller_name' => 'CinemaController',
+            'categories' => $categories,
+            'typesVideos' => $typesVideos
         ]);
     }
      

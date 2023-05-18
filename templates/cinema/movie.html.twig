@@ -30,9 +30,10 @@
               {{daySchedule['date'].format('d/m/Y')}}  :
             </td>
 
-            {% for dateTime in daySchedule['times'] %}
+            {% for seance in daySchedule['times'] %}
               <td> 
-                <button type="button" class="btn btn-primary">  {{ dateTime.format('H:i') }} </button>
+                {% set  d = seance.format('Y-m-d')~" "~ seance.format('H:i') %}
+                <a type="button" class="btn btn-primary" href="{{ path('cinema.booking',{seance : d , titre:Movie.title }) }}">  {{ seance.format('H:i') }} </a>
               </td>
             {% endfor %}
           </tr>
