@@ -107,12 +107,22 @@ class AbonnementController extends AbstractController
 
 
     #[Route('/abonnement/listeAbonnements', name: 'listeAbonnements')]
-    public function listeCategories(AbonnementRepository $repoAbo): Response
+    public function listeAbonnement(AbonnementRepository $repoAbo): Response
     {
         $categories = $this->categories;
         $typesVideos = $this->typesVideos;
         $allAbonnement = $repoAbo->findAll();
         return $this->render('boutique/index.html.twig', compact('allAbonnement', 'typesVideos', 'categories'),
+      );
+    }
+
+    #[Route('/abonnement/paiement', name: 'paiement')]
+    public function paiement(AbonnementRepository $repoAbo): Response
+    {
+        $categories = $this->categories;
+        $typesVideos = $this->typesVideos;
+        $allAbonnement = $repoAbo->findAll();
+        return $this->render('boutique/paiement.html.twig', compact('allAbonnement', 'typesVideos', 'categories'),
       );
     }
 }
