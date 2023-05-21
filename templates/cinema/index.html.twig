@@ -1,101 +1,104 @@
-{% extends 'base.html.twig' %}
+  {% extends 'base.html.twig' %}
 
-{% block title %}Hello CinemaController!
-{% endblock %}
+  {% block title %}Hello CinemaController!
+  {% endblock %}
 
-{% block body %}
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-	</style>
+  {% block body %}
+    <style>
+      .example-wrapper {
+        margin: 1em auto;
+        max-width: 800px;
+        width: 95%;
+        font: 18px / 1.5 sans-serif;
+      }
+      .example-wrapper code {
+        background: #F5F5F5;
+        padding: 2px 6px;
+      }
+    </style>
 
-	<div class="example-wrapper" style=" max-width: unset">
-		<br><br><br><br>
-		<h2>Actuellement au cinéma</h2>
-
-		{#  {% for item in nowPlaying %}
-		        <div class= "card-columms text-center mx-2"  style ="display: inline-block">
-		            <div class="card " style="width: 18rem;">
-		                <h4 class="text-primary">{{ item.title }}</h4> 
-		                <img src="https://image.tmdb.org/t/p/original{{item.poster_path}}" > 
-		                <div class="card-footer">
-		                    <small class="text-muted">
-		                        <a href="{{ path('cinema.MovieView',{id:item.id}) }}">cliquez ici </a>
-		                    </small>
-		                </div>
-		            </div>
-		        </div>
-		
-		    {% endfor %} #}
-
-		{# Début slider cards #}
-		<div class="" style="">
-			<div class="slider-wrap">
-				<div class="slider2 sliderBarStyle">
-					<div class="slider-inner">
-						{% for item in nowPlaying %}
-							<div class="item">
-								<div class="media-element">
-									<div class="card-container box" style="max-width: 600px">
-										<div class="">
-											<!-- Début Card Front -->
-											<div class="card front">
-												<img src="https://image.tmdb.org/t/p/original{{item.poster_path}}" class="card-img-top img-fluid unselect" alt="movie-poster" draggable="false" style="height:339px; width :150%">
-												<div class="card-block" style="height:101px;">
-													<h5 class="card-title">{{ item.title }}</h5>
-												</div>
-											</div>
+    <div class="example-wrapper" style=" max-width: unset">
+      <br><br><br><br>
+      <div class="row  bg-dark">
+        <div class="container col-md-6">
+          <img src="../img/fast&furious.jpg" style="max-width:100%; height:75vh;">
+        </div>
+      </div>
+      <br>
+      <h2> 
+        <span>
+          <a  class="col-md- 12" href="{{ path('cinema.findAll') }}">
+          chercher votre cinema
+          </a>
+        </span>
+        <span>Actuellement au cinéma:</span>
+      </h2>
 
 
-											{# <!-- Début Card Back -->
-											<div class="card back">
-												<div class="card-block text-center cardblocktaille">
-													<h4 class="card-title">Synopsis</h4>
+      {#{% for item in nowPlaying %}
+            <div class= "card-columms text-center mx-2"  style ="display: inline-block">
+                <div class="card " style="width: 18rem;">
+                    <h4 class="text-primary">{{ item.title }}</h4> 
+                    <img src="https://image.tmdb.org/t/p/original{{item.poster_path}}" > 
+                    <div class="card-footer">
+                        <small class="text-muted">
+                            <a href="{{ path('cinema.MovieView',{id:item.id}) }}">cliquez ici </a>
+                        </small>
+                    </div>
+                </div>
+            </div>
+    
+      {% endfor %} #}
 
-													<p class="card-text" style="font-size: 15px ;">
-														{{ item.overview }}
-													</p>
-
-												</div>
-												<div class="card-block text-center"></div>
-												<div class="card-block" style="height:81px;">
-													<h5 class="card-title">{{ item.title }}</h5>
-												</div>
-											</div> #}
-
-											<!-- Fin Card Back -->
-										</div>
-									</div>
-								</div>
-							</div>
-						{% endfor %}
-					</div>
-				</div>
-			</div>
-		</div>
-		{# Fin slider cards #}
+      {# Début slider cards #}
+      <div class="" style="">
+        <div class="slider-wrap">
+          <div class="slider2 sliderBarStyle">
+            <div class="slider-inner">
+              {% for item in nowPlaying %}
+                <div class="item">
+                  <div class="media-element">
+                    <div class="card-container box" style="max-width: 600px">
+                      <div
+                        class="">
+                        <!-- Début Card Front -->
+                        <div class="card front">
+                          <img src="https://image.tmdb.org/t/p/original{{item.poster_path}}" class="card-img-top img-fluid unselect" alt="movie-poster" draggable="false" style="height:339px; width :150%">
+                          <div class="card-block" style="height:101px;">
+                            <h5 class="card-title">{{ item.title }}</h5>
+                          </div>
+                        </div>
 
 
-		<br>
-		<br>
-		<h2>quelqu'un de nos cinémas</h2>
-		{% for item in allCinema %}
-			<div class="card-columms text-center mx-2" style="display: inline-block">
-				<div class="card " style="width: 18rem;">
-					<h4 class="text-primary">{{ item.nom }}
-					</h4>
-				</div>
-			</div>
-		{% endfor %}
+                        {# <!-- Début Card Back -->
+                        <div class="card back">
+                          <div class="card-block text-center cardblocktaille">
+                            <h4 class="card-title">Synopsis</h4>
 
-	</div>
+                            <p class="card-text" style="font-size: 15px ;">
+                              {{ item.overview }}
+                            </p>
 
-{% endblock %}
+                          </div>
+                          <div class="card-block text-center"></div>
+                          <div class="card-block" style="height:81px;">
+                            <h5 class="card-title">{{ item.title }}</h5>
+                          </div>
+                        </div> #}
+
+                        <!-- Fin Card Back -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {# Fin slider cards #}
+
+    </div>
+
+  {% endblock %}
+

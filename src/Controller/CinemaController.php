@@ -16,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Service\SendMailService;
+
 
 class CinemaController extends AbstractController
 {
@@ -32,24 +32,30 @@ class CinemaController extends AbstractController
     }
  
     #[Route('/cinema', name: 'app_cinema')]
-    public function index(CallApiService $apiService,Request $request,CinemaRepository $repoCine,SendMailService $mail): Response
+    public function index(CallApiService $apiService,Request $request,CinemaRepository $repoCine): Response
     {   
         $categories = $this->categories;
         $typesVideos = $this->typesVideos;
 
         //api request
         $results=$apiService->getNowPlaying();
-        $allCinema=$repoCine->findAll();
+
 
             
         return $this->render('cinema/index.html.twig', [
             'controller_name' => 'CinemaController',
-            'allCinema'=>$allCinema,
             'nowPlaying'=> $results,           
             'categories' => $categories,
             'typesVideos' => $typesVideos
         ]);
     }
+    /**
+     * liste de tout nos cinema
+     *
+     * @param CallApiService $apiService
+     * @param CinemaRepository $repoCine
+     * @return Response
+     */
     #[Route('/cinema/allCinema', name: 'cinema.findAll')]
     public function findCine(CallApiService $apiService,CinemaRepository $repoCine): Response
     {   
@@ -65,6 +71,12 @@ class CinemaController extends AbstractController
 
         ]);
     }
+    /**
+     * page d'un cinema
+     *
+     * @param Request $request
+     * @return Response
+     */
     #[Route('/cinema/onecine', name: 'cinema.findOne')]
     public function findoneCine(Request $request): Response
     {   
@@ -106,6 +118,9 @@ class CinemaController extends AbstractController
     }
     #
 
+    /**
+     * affiche un film
+     */
     #[Route('/cinema/movie/{id}', name: 'cinema.MovieView')]
     public function getOneMovie(CallApiService $apiService,$id,Request $request,CinemaRepository $repoCine): Response
     {   
@@ -117,7 +132,7 @@ class CinemaController extends AbstractController
         $cinema=$repoCine->find($idCine);
 
         $weekSchedule = $this->generateWeekSchedule();
-
+        //dd($weekSchedule);
         $results=$apiService->getOneMovie($id);
         return $this->render('cinema/movie.html.twig', [
             'controller_name' => 'CinemaController',
@@ -128,19 +143,14 @@ class CinemaController extends AbstractController
             'weekSchedule'=> $weekSchedule
         ]);
     }
-    #[Route('/cinema/researchCine', name: 'cinema.researchCine')]
-    public function researchCine(): Response
-    {   
-        $categories = $this->categories;
-        $typesVideos = $this->typesVideos;
-        
-        return $this->render('cinema/researchCine.html.twig', [
-            'controller_name' => 'CinemaController',
-            'categories' => $categories,
-            'typesVideos' => $typesVideos
-            
-        ]);
-    }
+
+    /**
+     * recherche une liste de film correspondant a la selection
+     *
+     * @param CallApiService $apiService
+     * @param Request $request
+     * @return Response
+     */
     #[Route('/cinema/researchMovie', name: 'cinema.researchMovie')]
     public function researchMovie(CallApiService $apiService,Request $request): Response
     {   
@@ -182,18 +192,12 @@ class CinemaController extends AbstractController
             
         ]);
     }
+
     #[Route('/cinema/booked', name: 'cinema.booked')]
-    public function booked(SendMailService $mail){
+    public function booked(){
         $categories = $this->categories;
         $typesVideos = $this->typesVideos;
 
-        /*$mail->send(
-            'demoineret.denis78@gmail.com',
-            $user->getEmail(),
-            'votre seance est reservé ',
-            'd',
-            compact('user', 'token')
-        );*/
         
         return $this->render('cinema/cinemaPayer.html.twig', [
             'controller_name' => 'CinemaController',
@@ -210,6 +214,7 @@ class CinemaController extends AbstractController
     function generateWeekSchedule() {
         //commence a la date d'aujourd'hui
         $startOfWeek = new DateTime();
+        $startOfWeek->setTime(10, 0, 0);
         //Defini la fin une semaine après
         $endOfWeek = (clone $startOfWeek)->modify('+6 days');
         
@@ -242,12 +247,12 @@ class CinemaController extends AbstractController
                 }
     
                 $schedule[] = $daySchedule;//rajoute un nouveau jour a l'emploi du temps
-
+                
             }
     
             $currentDateTime->add(new DateInterval('P1D'));// increment d'un jour
         }
-    
+
         return $schedule;
     }
 }
