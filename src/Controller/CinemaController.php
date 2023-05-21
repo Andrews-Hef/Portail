@@ -6,9 +6,11 @@ use DateTime;
 use DateInterval;
 use App\Form\ResearchFilmType;
 use App\Service\CallApiService;
+use App\Service\SendMailService;
 use App\Repository\CinemaRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\TypeVideoRepository;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -178,11 +180,10 @@ class CinemaController extends AbstractController
     {   
         $categories = $this->categories;
         $typesVideos = $this->typesVideos;
-
         $horaire = $request->query->get('seance');
         $titre = $request->query->get('titre');
-        
-        
+
+
         return $this->render('cinema/cinemaPayment.html.twig', [
             'controller_name' => 'CinemaController',
             'categories' => $categories,
@@ -194,11 +195,21 @@ class CinemaController extends AbstractController
     }
 
     #[Route('/cinema/booked', name: 'cinema.booked')]
-    public function booked(){
+    public function booked(Request $request,Security $security,SendMailService $mail){
         $categories = $this->categories;
         $typesVideos = $this->typesVideos;
 
-        
+        $horaire = $request->query->get('seance');
+        $titre = $request->query->get('titre');
+        $user = $security->getUser();
+        $mail->send(
+            'demoineret.denis78@gmail.com',
+            $user->getEmail(),
+            'Comfirmation réservation séance',
+            'resa',
+            compact('user', 'horaire', 'titre')
+          );
+
         return $this->render('cinema/cinemaPayer.html.twig', [
             'controller_name' => 'CinemaController',
             'categories' => $categories,
