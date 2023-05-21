@@ -149,4 +149,51 @@ class AccueilController extends AbstractController
 $results = array_map(fn($video) => ['id' => $video['id'], 'value' => $video['titre']], $videos);
 return new JsonResponse($results);
 }
+
+
+
+
+#[Route('/confidentialite', name: 'confidentialite')]
+  public function confidentialite(CategorieRepository $repoCategorie, TypeVideoRepository $repoTypeVideo)
+  {
+    $categories = $repoCategorie->findAll();
+    $typesVideos = $repoTypeVideo->findAll();
+    
+
+      return $this->render('legal/confidentialite.html.twig', [
+        'categories' => $categories,
+        'typesVideos' => $typesVideos,
+        'controller_name' => 'AccueilController',
+      ]);
+  }
+
+
+  #[Route('/mentionsLegales', name: 'mentionsLegales')]
+  public function mentionsLegales(CategorieRepository $repoCategorie, TypeVideoRepository $repoTypeVideo)
+  {
+    $categories = $repoCategorie->findAll();
+    $typesVideos = $repoTypeVideo->findAll();
+    
+
+      return $this->render('legal/mentionsLegales.html.twig', [
+        'categories' => $categories,
+        'typesVideos' => $typesVideos,
+        'controller_name' => 'AccueilController',
+      ]);
+  }
+
+  #[Route('/infoLegales', name: 'infoLegales')]
+  public function infoLegales(CategorieRepository $repoCategorie, TypeVideoRepository $repoTypeVideo)
+  {
+    $categories = $repoCategorie->findAll();
+    $typesVideos = $repoTypeVideo->findAll();
+    
+
+      return $this->render('legal/infoLegales.html.twig', [
+        'categories' => $categories,
+        'typesVideos' => $typesVideos,
+        'controller_name' => 'AccueilController',
+      ]);
+  }
+
 }

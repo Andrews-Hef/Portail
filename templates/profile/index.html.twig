@@ -20,7 +20,7 @@
 			padding: 2px 6px;
 		}
 	</style>
-	<div class="container" style="padding-top:90px; min-height:700px;">
+	<div class="container" style="padding-top:90px; min-height:900px;">
 		<h1>
 			{{ controller_name }}
 			:
@@ -41,9 +41,14 @@
 							</div>
 							<div class="SettingAccount-sectionItem">
 								<p>Abonnement :
-									{{ user.abonnement.libelleAbonnement }}
+                {% if user.abonnement != null %}
+                  {{ user.abonnement.libelleAbonnement }}
 									/ Prix :
 									{{ user.abonnement.prix }}€</p>
+                {% elseif autre_condition %}
+                  pas d'abonnement
+                {% endif %}
+									
 							</div>
 						</div>
 						<div class="SettingAccount-half --right">

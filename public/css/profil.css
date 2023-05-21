@@ -19,7 +19,7 @@
 }
 
 ::selection {
-  background: #e3474b;
+  background: blue;
   text-shadow: none;
   color: #fff;
 }
@@ -48,7 +48,7 @@
   font-family: Geomanist,sans-serif;
   font-size: 15px;
   line-height: 21px;
-  color: #e3474b;
+  color: blue;
   text-decoration: none;
 }
 
@@ -60,3 +60,6 @@
   margin: 0;
 }
 
+a:hover{
+  color:white;
+}
