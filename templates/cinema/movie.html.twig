@@ -13,19 +13,22 @@
 
     <h2>{{ Movie.title }}</h2>  
 
-        <div class= "container"  style ="display: inline-flex">
+        <div class="container"  style ="display: inline-flex">
             <div class="" style="">
               <h4 class="text-primary"></h4> 
               <img style="max-height:25%" src="https://image.tmdb.org/t/p/original{{Movie.poster_path}}">
-              <div class="col-md-6" style="margin-top:-10%; margin-left: 30%">
-                <h3> synospis</h3>
-                <p class="text-secondary" style="" >{{Movie.overview}}</p>
-              </div>
-              <div class="col-md-6" style="margin-top:-15%; margin-left: 30%" >
-                <h3> genres</h3>
-                {% for genre in Movie.genres %}
-                  <ul>{{ genre.name }}</il>
-                {% endfor %}
+              <div style="margin-top:15%">
+                <div class="col-md-6" style="margin-left:50%; margin-top:-30%" >
+                  <h3> genres</h3>
+                  {% for genre in Movie.genres %}
+                    <ul>{{ genre.name }}</il>
+                  {% endfor %}
+                </div>
+                <div class="col-md-6" style="margin-left:50%,">
+                  <h3> synospis</h3>
+                  <p class="text-secondary" style="" >{{Movie.overview}}</p>
+                </div>
+
               </div>
             </div>
         </div>
