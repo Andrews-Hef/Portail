@@ -132,6 +132,7 @@ class CinemaController extends AbstractController
         $cinema=$repoCine->find($idCine);
 
         $weekSchedule = $this->generateWeekSchedule();
+        //dd($weekSchedule);
         $results=$apiService->getOneMovie($id);
         return $this->render('cinema/movie.html.twig', [
             'controller_name' => 'CinemaController',
@@ -213,6 +214,7 @@ class CinemaController extends AbstractController
     function generateWeekSchedule() {
         //commence a la date d'aujourd'hui
         $startOfWeek = new DateTime();
+        $startOfWeek->setTime(10, 0, 0);
         //Defini la fin une semaine après
         $endOfWeek = (clone $startOfWeek)->modify('+6 days');
         
