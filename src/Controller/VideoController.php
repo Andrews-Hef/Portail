@@ -67,21 +67,21 @@ class VideoController extends AbstractController
 
         
 
-        $form = $this->createForm(CommentaireType::class, $commentaire);
-        $form->handleRequest($request);
+        // $form = $this->createForm(CommentaireType::class, $commentaire);
+        // $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-            $video = $form->getData();
-            $manager->persist($commentaire);
-            $manager->flush();
+        // if($form->isSubmitted() && $form->isValid()) {
+        //     $video = $form->getData();
+        //     $manager->persist($commentaire);
+        //     $manager->flush();
 
-            return $this->redirectToRoute('video.show', ['id' => $id]);
-        }
+        //     return $this->redirectToRoute('video.show', ['id' => $id]);
+        // }
         $typesVideos = $this->typesVideos;
         return $this->render('video/showVideo.html.twig',[
             'video' => $video,
             'categories' => $categories,
-            'form' => $form->createView(),
+            // 'form' => $form->createView(),
             'typesVideos' => $typesVideos
         ]);
     }

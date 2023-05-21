@@ -1,19 +1,101 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfileController!{% endblock %}
+{% block title %}Hello ProfileController!
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="../../css/profil.css">
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+	<div class="container" style="padding-top:90px; min-height:700px;">
+		<h1>
+			{{ controller_name }}
+			:
+		</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+		<div class="MyAccount-block">
+			<div class="MyAccount-item SettingAccount">
+				<div class="SettingAccount-title">Informations de compte</div>
+				<hr>
+				<div class="SettingAccount-content">
+					<div class="SettingAccount-row">
+						<div class="SettingAccount-half">
+							<div class="SettingAccount-sectionItem">
+								<p>{{ user.email }}</p>
+							</div>
+							<div class="SettingAccount-sectionItem">
+								<p>Mot de passe: *********</p>
+							</div>
+							<div class="SettingAccount-sectionItem">
+								<p>Abonnement :
+									{{ user.abonnement.libelleAbonnement }}
+									/ Prix :
+									{{ user.abonnement.prix }}€</p>
+							</div>
+						</div>
+						<div class="SettingAccount-half --right">
+							<div class="SettingAccount-sectionItem">
+								<a class="SettingAccount-btn" href="{{ path('profile_modifMail', {'id': user.id}) }}" style="">Modifier mon email</a>
+							</div>
+							<div class="SettingAccount-sectionItem">
+								<a class="SettingAccount-btn" href="{{ path('mdpChange') }}">Modifier mon mot de passe</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    This friendly message is coming from:
-    <ul>
 
-    </ul>
-</div>
+
+    <div class="MyAccount-block">
+			<div class="MyAccount-item SettingAccount">
+				<div class="SettingAccount-title">Informations personnelles</div>
+				<hr>
+				<div class="SettingAccount-content">
+					<div class="SettingAccount-row">
+						<div class="SettingAccount-half">
+							<div class="SettingAccount-sectionItem">
+								<p>{{ user.prenom }}</p>
+							</div>
+							<div class="SettingAccount-sectionItem">
+								<p>{{ user.nom }}</p>
+							</div>
+							<div class="SettingAccount-sectionItem">
+								<p>{{ user.Ville }}</p>
+							</div>
+              <div class="SettingAccount-sectionItem">
+								<p>{{ user.Adresse }}</p>
+							</div>
+              <div class="SettingAccount-sectionItem">
+								<p>{{ user.Tel }}</p>
+							</div>
+						</div>
+						<div class="SettingAccount-half --right">
+							<div class="SettingAccount-sectionItem">
+								<a class="SettingAccount-btn" href="{{ path('profile_modifInfo', {'id': user.id}) }}" style="">Modifier vos informations personnelles</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>
 {% endblock %}
+

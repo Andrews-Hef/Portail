@@ -11,7 +11,9 @@ html {
 
 body {
   font-family: "Roboto", sans-serif;
+  background-color: #eee !important;
 }
+body{background-color:#eee;}
 
 .tips {
   position: fixed;
@@ -239,4 +241,8 @@ body {
   bottom: 0;
   margin: auto;
   background: #ddd;
+}
+
+.nav-link{
+  color:white !important;
 }

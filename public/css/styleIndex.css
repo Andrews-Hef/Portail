@@ -938,11 +938,39 @@ a.slide_btn {
 }
 
 
+@media (max-width: 768px) {
+.movie-title{
+    font-size: 20px !important;
+    }
+}
+
+@media (max-width: 1565px) {
+  .movie-title{
+      font-size: 20px !important;
+      }
+    .movie-info{
+      font-size: 20px !important;
+    }
+    .movie-desc{
+      font-size: 20px !important;
+    }
+  }
 
 
+  @media (max-width: 1320px) {
+    .movie-title{
+        font-size: 25px !important;
+        }
+      .movie-info{
+        font-size: 20px !important;
+      }
+      .movie-desc{
+        font-size: 15px !important;
+      }
+    }
 
 
-
-
-
-
+    @media (max-width: 737px) {
+.movie-card{
+  height: 450px;
+}}

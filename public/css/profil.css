@@ -1,0 +1,62 @@
+.MyAccount-block {
+  display: block;
+  margin: 15px 0;
+}
+
+.MyAccount-item {
+  background: #171717;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.SettingAccount-title {
+  font-family: Geomanist,sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #fff;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+::selection {
+  background: #e3474b;
+  text-shadow: none;
+  color: #fff;
+}
+
+.SettingAccount-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.SettingAccount-half {
+  min-height: 1px;
+  display: block;
+  flex: 50%;
+}
+
+.SettingAccount-sectionItem {
+  margin-bottom: 4px;
+}
+
+.SettingAccount-half.--right {
+  align-self: flex-end;
+  text-align: right;
+}
+
+.SettingAccount-btn {
+  font-family: Geomanist,sans-serif;
+  font-size: 15px;
+  line-height: 21px;
+  color: #e3474b;
+  text-decoration: none;
+}
+
+.SettingAccount p {
+  font-family: Geomanist,sans-serif;
+  font-size: 15px;
+  line-height: 21px;
+  color: #fff;
+  margin: 0;
+}
+

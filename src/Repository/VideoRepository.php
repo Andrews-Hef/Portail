@@ -142,7 +142,7 @@ class VideoRepository extends ServiceEntityRepository
 
 
     public function findVideoAllFilmDemo(){
-      $followeeIds = [(1),(11),(20),(16),(51),(44),(17)];
+      $followeeIds = [(1),(11),(20),(16),(51),(44),(17),(16),(12),(22),(30),(36),(62),(69)];
       $query = $this->createQueryBuilder('e')
         ->addSelect('r') // to make Doctrine actually use the join
         ->leftJoin('e.typeVideo', 'r')
@@ -166,7 +166,7 @@ class VideoRepository extends ServiceEntityRepository
     }
 
     public function findVideoAllSerieDemo(){
-      $followeeIds = [(43),(40),(31),(8),(6),(35),(55)];
+      $followeeIds = [(43),(40),(31),(8),(6),(35),(55),(37),(40),(42),(71),(48)];
       $query = $this->createQueryBuilder('e')
         ->addSelect('r') // to make Doctrine actually use the join
         ->leftJoin('e.typeVideo', 'r')
@@ -191,7 +191,7 @@ class VideoRepository extends ServiceEntityRepository
     }
 
     public function findVideoAllAnimeDemo(){
-      $followeeIds = [(67),(61),(41),(39),(38),(15),(14)];
+      $followeeIds = [(67),(61),(41),(39),(38),(15),(14),(56),(54),(70),(82)];
       $query = $this->createQueryBuilder('e')
         ->addSelect('r') // to make Doctrine actually use the join
         ->leftJoin('e.typeVideo', 'r')

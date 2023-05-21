@@ -4,13 +4,15 @@
 {% endblock %}
 
 {% block body %}
+
+<div class="container" style="padding-top:90px; min-height:700px;">
 	<form method="post">
 
 
-		<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+		<h1 class="h3 mb-3 font-weight-normal">Se connecter</h1>
 		<label for="inputEmail">Email</label>
 		<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-		<label for="inputPassword">Password</label>
+		<label for="inputPassword">Mot de passe</label>
 		<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
 		<input
@@ -27,9 +29,10 @@
 		        </div>
 		    #}
 
-		<button class="btn btn-lg btn-primary" type="submit">
-			Sign in
+		<button class="btn btn-lg btn-primary" type="submit" style="margin-top:20px">
+			Connexion
 		</button>
+    <hr>
 		<a href="{{ path('app_register') }}" class="btn btn-secondary mt-3">M'inscrire</a>
 		<a href="{{ path('forgotten_password') }}" class="btn btn-secondary mt-3">Mot de passe oublié</a>
 	</form>
@@ -44,6 +47,9 @@
 			{{ app.user.userIdentifier }},
 			<a href="{{ path('app_logout') }}">Logout</a>
 		</div>
+</div>
 	{% endif %}
+  </div>
+
 {% endblock %}
 
