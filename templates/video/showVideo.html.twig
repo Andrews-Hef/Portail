@@ -59,15 +59,14 @@
   {# Titre de la vidéo #}
   <h2 class='text-center'>{{video.titre}}</h2>
   
-  {{ app.user.getUserIdentifier() }}
-  {{ app.user.id }}
+  {#{{ app.user.getUserIdentifier() }}
+  {{ app.user.id }} #}
   {# Ajouter un if pour le s de commentaire / avec ou sans / sans 0-1 || avec 2 - + #}
-  {{ form_start(form) }}
+  {# {{ form_start(form) }}
   {{ form_widget(form) }}
-  {{ form_end(form) }}
+  {{ form_end(form) }} #}
 
 </div> {# Fin Container #}
-<img src="../../img/LOGO4.png" height="45" style="padding-left:3px;"/>
-<img src="../../img/OUI.png" height="45" style="padding-left:3px;"/>
+
 
     {% endblock %}

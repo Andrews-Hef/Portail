@@ -36,6 +36,8 @@
 
 <div class="movies-container">
 {% for videos in videos %}
+	<a href="/video/show/{{ videos.id }}" draggable="false" style="color:white;">
+
 <div class="boxNew">
 	<div class="box-img">
     <img src="{{ videos.image }}">
@@ -43,6 +45,8 @@
   <h3 class="maxTailleTitre">{{ videos.titre }}</h3>
   <span>{{ videos.typeVideo.libelleTypeVideo }}</span>
 </div>
+
+</a>
 {% endfor %}
 </div>
 

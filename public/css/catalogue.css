@@ -176,3 +176,15 @@ background: #18191c;
 .buttonIcon{
   padding-bottom: 0px !important;
 }
+
+
+
+@media (max-width: 800px) {
+  .content{
+    padding-left: 30px;
+  }}
+
+  @media (max-width: 1070px) {
+  .responsiveTexte{
+    font-size: 25px !important;
+  }}

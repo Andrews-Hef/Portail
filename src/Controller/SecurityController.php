@@ -9,6 +9,7 @@ use App\Repository\CategorieRepository;
 use App\Repository\TypeVideoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\ResetPasswordRequestFormType;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class SecurityController extends AbstractController
 {
@@ -112,13 +114,70 @@ class SecurityController extends AbstractController
         ]);
     }
 
+
+    #[Route('/mdpChange', name:'mdpChange')]
+    public function mdpChange(
+        Request $request,
+        UserRepository $usersRepository,
+        TokenGeneratorInterface $tokenGenerator,
+        EntityManagerInterface $entityManager,
+        SendMailService $mail,
+        Security $security
+    ): Response
+    {
+      $user = $security->getUser();
+
+            // On vérifie si on a un utilisateur
+            if($user){
+                // On génère un token de réinitialisation
+                $token = $tokenGenerator->generateToken();
+                $user->setResetToken($token);
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                // On génère un lien de réinitialisation du mot de passe
+                $url = $this->generateUrl('reset_pass', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
+                
+                // On crée les données du mail
+                $context = compact('url', 'user');
+
+                // Envoi du mail
+                $mail->send(
+                    'no-reply@e-commerce.fr',
+                    $user->getEmail(),
+                    'Réinitialisation de mot de passe',
+                    'password_reset',
+                    $context
+                );
+
+                $this->addFlash('success', 'Email envoyé avec succès');
+                return $this->redirectToRoute('profile_index');
+            }
+            // $user est null
+            $this->addFlash('danger', 'Un problème est survenu');
+            return $this->redirectToRoute('profile_index');
+        
+        $categories = $this->categories;
+        $typesVideos = $this->typesVideos;
+
+        return $this->render('profile/index.html.twig', [
+          'controller_name' => 'Profil de l\'utilisateur',
+          'categories' => $categories,
+          'typesVideos' => $typesVideos,
+          'user' => $user,
+      ]);
+    }
+
+
+
     #[Route('/oubli-pass/{token}', name:'reset_pass')]
     public function resetPass(
         string $token,
         Request $request,
         UserRepository $usersRepository,
         EntityManagerInterface $entityManager,
-        UserPasswordHasherInterface $passwordHasher
+        UserPasswordHasherInterface $passwordHasher,
+        TokenStorageInterface $tokenStorage
     ): Response
     {
         // On vérifie si on a ce token dans la base
@@ -140,6 +199,7 @@ class SecurityController extends AbstractController
                 );
                 $entityManager->persist($user);
                 $entityManager->flush();
+                $tokenStorage->setToken(null);
 
                 $this->addFlash('success', 'Mot de passe changé avec succès');
                 return $this->redirectToRoute('app_login');

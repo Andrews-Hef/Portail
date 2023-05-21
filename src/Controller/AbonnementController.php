@@ -2,16 +2,23 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Abonnement;
+use App\Service\JWTService;
 use App\Form\AbonnementType;
+use App\Service\SendMailService;
+use App\Repository\VideoRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\TypeVideoRepository;
 use App\Repository\AbonnementRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\SecurityBundle\Security\UserAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class AbonnementController extends AbstractController
 {
@@ -116,13 +123,63 @@ class AbonnementController extends AbstractController
       );
     }
 
-    #[Route('/abonnement/paiement', name: 'paiement')]
-    public function paiement(AbonnementRepository $repoAbo): Response
+    #[Route('/abonnement/paiement/{id}', name: 'paiement')]
+    public function paiement(AbonnementRepository $repoAbo, int $id): Response
     {
+        $abo = $repoAbo->findOneBy(["id" => $id ]);
         $categories = $this->categories;
         $typesVideos = $this->typesVideos;
         $allAbonnement = $repoAbo->findAll();
-        return $this->render('boutique/paiement.html.twig', compact('allAbonnement', 'typesVideos', 'categories'),
+        return $this->render('boutique/paiement.html.twig', compact('allAbonnement', 'typesVideos', 'categories', 'abo'),
       );
+    }
+
+
+    #[Route('/paiementAccept/{id}', name: 'paiementAccept')]
+    public function paiementAccept(VideoRepository $repoVideo, CategorieRepository $repoCategorie, EntityManagerInterface $manager, TypeVideoRepository $repoTypeVideo, AbonnementRepository $repoAbo,Request $request, EntityManagerInterface $entityManager, SendMailService $mail, Security $security, int $id): Response
+    {
+      $videos = $repoVideo->findAll();
+      $categories = $repoCategorie->findAll();
+      $typesVideos = $repoTypeVideo->findAll();
+      $allFilm = $repoVideo->findVideoAllFilmDemo();
+      $allSerie = $repoVideo->findVideoAllSerieDemo();
+      $allAnime =$repoVideo->findVideoAllAnimeDemo();
+      $user = $security->getUser();
+      $abo = $repoAbo->findOneBy(["id" => $id ]);
+      $prix = $abo->getPrix();
+      $titre = $abo->getLibelleAbonnement();
+      $mail->send(
+        'demoineret.denis78@gmail.com',
+        $user->getEmail(),
+        'Activation de votre compte sur le site Portail',
+        'paiementAccept',
+        compact('user', 'prix', 'titre')
+      );
+
+      $dateDuJour = new DateTime();
+
+      // Ajouter un mois à la date du jour
+      $dateDuJour->modify('+1 month');
+      
+      $user->setAbonnement($abo);
+      $user->setDateFinAbonnement($dateDuJour);
+      $entityManager->persist($user);
+      $entityManager->flush();
+
+      $allAbonnement = $repoAbo->findAll();
+
+        $categories = $this->categories;
+        $typesVideos = $this->typesVideos;
+        $this->addFlash('success', 'Votre abonnement a bien été ajouté!');
+        return $this->render('accueil/index.html.twig', [
+            'categories' => $categories,
+            'typesVideos' => $typesVideos,
+            'allAbonnement' => $allAbonnement,
+            'allFilm' => $allFilm,
+            'allSerie' => $allSerie,
+            'allAnime' => $allAnime,
+            'videos' => $videos,
+
+        ]);
     }
 }

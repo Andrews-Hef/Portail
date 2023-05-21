@@ -34,6 +34,7 @@ security:
        - { path: ^/admin, roles: ROLE_ADMIN }
        - { path: ^/profil, roles: ROLE_USER }
        - { path: ^/video, roles: ROLE_USER }
+       - { path: ^/abonnement/paiement, roles: ROLE_USER }
     role_hierarchy:
       ROLE_PRODUCT_ADMIN: ROLE_USER
       ROLE_ADMIN: ROLE_PRODUCT_ADMIN

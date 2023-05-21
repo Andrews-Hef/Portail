@@ -16,27 +16,23 @@
 
 
 {% block body %}
+<div
+		class="container-fluid" style="padding-right: 90px; padding-left: 90px; padding-top:70px;">
+      <h1 class="responsiveTexte"> Catalogue De Portail <a href="/catalogue" class="lienNav responsiveTexte" style="float:right">retour au catalogue complet</a></h1> 
 
-	<div class="container-fluid" style="padding-right: 90px; padding-left: 90px; padding-top:90px;">
-  <h1> Catalogue De Portail <a href="/catalogue" class="lienNav" style="float:right">retour au catalogue complet</a></h1> 
-		<div class="row borderColorFiltre">
-			<div class="col-sm-12 text-white styleContainBox2">
-      <h2> Voici nos vidéos de catégories : {{ laCategorie }}</h2>
-				<div class="boxes4">
+      <h2 style="padding-top:20px"> Voici nos vidéos de catégories : {{ laCategorie }}</h2>
 					<div class="d-flex left" role="search">
 						<input placeholder="Search" aria-label="Search" type="text" id="titre-input" name="titre-input" class="autocomplete autocompleteTest">
 					</div>
-				</div>
-			</div>
-    </div>
-  </div>
+          
 
-		<div class="container-fluid" style="padding-right: 90px; padding-left: 90px;">
-			<div class="grid-wrapper" id="content">
-				{% include "catalogue/cardsCatalogue.html.twig" %}
-			</div>
-		</div>
 
+<div class="" style="padding-top:50px;">
+	<div id="content" style="">
+		{% include "catalogue/cardsCatalogue.html.twig" %}
+	</div>
+</div>
+</div>
 
 	{% endblock %}
 

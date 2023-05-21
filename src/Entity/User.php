@@ -61,6 +61,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?DateTimeInterface $dateFinAbonnement = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Adresse = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Ville = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Tel = null;
+
     public function __construct()
     {
         $this->coms = new ArrayCollection();
@@ -246,6 +255,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDateFinAbonnement(?\DateTimeInterface $dateFinAbonnement): self
     {
         $this->dateFinAbonnement = $dateFinAbonnement;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->Adresse;
+    }
+
+    public function setAdresse(?string $Adresse): self
+    {
+        $this->Adresse = $Adresse;
+
+        return $this;
+    }
+
+    public function getVille(): ?string
+    {
+        return $this->Ville;
+    }
+
+    public function setVille(?string $Ville): self
+    {
+        $this->Ville = $Ville;
+
+        return $this;
+    }
+
+    public function getTel(): ?string
+    {
+        return $this->Tel;
+    }
+
+    public function setTel(?string $Tel): self
+    {
+        $this->Tel = $Tel;
 
         return $this;
     }
