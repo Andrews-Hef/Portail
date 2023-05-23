@@ -1,5 +1,6 @@
 <?php
 // src/Form/UserType.php
+namespace App\Form;
 
 use App\Entity\User;
 use Doctrine\DBAL\Types\ArrayType;
