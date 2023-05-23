@@ -148,6 +148,31 @@ class VideoController extends AbstractController
         ]);
     }
 
+    #[Route('/video/comdel/{id}', name: 'com_del.del', methods:['GET'])]
+    public function comdelete(EntityManagerInterface $manager, Commentaire $commentaire) :Response{
+        
+        $id = $commentaire->getVideoscom();
+
+        if(!$commentaire){
+            $this->addFlash("Warning ","Video have not been deleted :( ");
+            return $this->redirectToRoute("video.index");
+        }
+        
+        // Vérifier si l'ID de la vidéo est valide
+        $videoId = $id->getId();
+        $video = $manager->getRepository(Video::class)->find($videoId);
+        if (!$video) {
+            $this->addFlash("warning", "Video not found");
+            return $this->redirectToRoute("video.index");
+        }
+
+        $manager->remove($commentaire);
+        $manager->flush();
+        $this->addFlash("success","Commentaire deleted successfully :)");
+        return $this->redirectToRoute('video.show', ['id' => $videoId]);
+    }
+
+
     #[Route('/video/delete/{id}', name: 'video.del', methods:['GET'])]
     public function delete(EntityManagerInterface $manager,Video $video) :Response{
         

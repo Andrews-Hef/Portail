@@ -84,12 +84,13 @@
 
 
   {% for commentaires in commentaire %}
-    
+
+      <p> {{ commentaires.users.prenom }} {{ commentaires.users.nom }} </p>
       <p> {{ commentaires.texte }} </p>
 
       {% if app.user.id == commentaires.users.id %}
       
-        <p> Supprimer </p>
+        <a href="{{ path('com_del.del', {'id': commentaires.id}) }}" class="btn btn-success">Supprimer</a>
       
       {% endif %}
   {% endfor %}
