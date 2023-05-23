@@ -24,3 +24,6 @@ services:
 
     App\Form\CommentaireType:
         tags: ['form.type']
+
+    App\Form\BarreDeRechercheAutocomplete:
+        tags: ['form.type']
