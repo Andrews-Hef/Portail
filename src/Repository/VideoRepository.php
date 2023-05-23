@@ -3,9 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Video;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Categorie;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Video>
@@ -261,4 +262,18 @@ class VideoRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+public function findVideosByCategories($listeCatePref)
+    {
+        $entityManager = $this->getEntityManager();
+        $queryBuilder = $entityManager->createQueryBuilder();
+
+        $queryBuilder->select('v')
+            ->from('App\Entity\Video', 'v')
+            ->leftJoin('v.categories', 'c')
+            ->andWhere($queryBuilder->expr()->in('c.id', ':cateIds'))
+            ->setParameter('cateIds', $listeCatePref);
+        return $queryBuilder->getQuery()->getResult();
+    }
 }

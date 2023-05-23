@@ -11,6 +11,7 @@ use App\Repository\VideoRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\TypeVideoRepository;
 use App\Repository\AbonnementRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -136,7 +137,7 @@ class AbonnementController extends AbstractController
 
 
     #[Route('/paiementAccept/{id}', name: 'paiementAccept')]
-    public function paiementAccept(VideoRepository $repoVideo, CategorieRepository $repoCategorie, EntityManagerInterface $manager, TypeVideoRepository $repoTypeVideo, AbonnementRepository $repoAbo,Request $request, EntityManagerInterface $entityManager, SendMailService $mail, Security $security, int $id): Response
+    public function paiementAccept(VideoRepository $repoVideo, CategorieRepository $repoCategorie, EntityManagerInterface $manager, TypeVideoRepository $repoTypeVideo, AbonnementRepository $repoAbo,Request $request, EntityManagerInterface $entityManager, SendMailService $mail, Security $security, int $id, UserRepository $repoUser): Response
     {
       $videos = $repoVideo->findAll();
       $categories = $repoCategorie->findAll();
@@ -166,6 +167,21 @@ class AbonnementController extends AbstractController
       $entityManager->persist($user);
       $entityManager->flush();
 
+      if($user != null){
+        $maxViewedCategories = $repoUser->findCategoriesWithMaxViewsByUser($user->getId());
+        if($maxViewedCategories!= null){
+        $videoReccomand = $repoVideo->findVideoRecommand($maxViewedCategories);
+        shuffle($videoReccomand);
+      }
+      else{
+        $videoReccomand = null;
+      }
+      }
+      else{
+        $maxViewedCategories=null;
+        $videoReccomand=null;
+      }
+
       $allAbonnement = $repoAbo->findAll();
 
         $categories = $this->categories;
@@ -179,6 +195,7 @@ class AbonnementController extends AbstractController
             'allSerie' => $allSerie,
             'allAnime' => $allAnime,
             'videos' => $videos,
+            'videoReccomand' => $videoReccomand
 
         ]);
     }
