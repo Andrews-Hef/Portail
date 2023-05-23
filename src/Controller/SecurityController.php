@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\Categorie;
 
 use App\Service\SendMailService;
 use App\Repository\UserRepository;
@@ -32,7 +33,7 @@ class SecurityController extends AbstractController
     }
     
     #[Route(path: '/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, CategorieRepository $cateRepo, TypeVideoRepository $typeRepo): Response
     {
         // if ($this->getUser()) {
         //     return $this->redirectToRoute('target_path');
@@ -43,8 +44,8 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        $categories = $this->categories;
-        $typesVideos = $this->typesVideos;
+        $categories = $cateRepo->findAll();
+        $typesVideos = $typeRepo->findAll();
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error
       , 'categories' => $categories, 

@@ -100,6 +100,31 @@
 		</div>
 
 
+  <div class="MyAccount-block">
+			<div class="MyAccount-item SettingAccount">
+				<div class="SettingAccount-title">CATÉGORIES PRÉFÉRÉES</div>
+				<hr>
+				<div class="SettingAccount-content">
+					<div class="SettingAccount-row">
+						<div class="SettingAccount-half">
+            {% for categoriePref in user.categoriePref %}
+							<div class="SettingAccount-sectionItem">
+              	
+								<p>{{ categoriePref.libelleCategorie }}</p>
+                
+							</div>
+              {% endfor %}
+						</div>
+						<div class="SettingAccount-half --right">
+							<div class="SettingAccount-sectionItem">
+								<a class="SettingAccount-btn" href="{{ path('profile_catpref', {'id': user.id}) }}" style="">Modifier vos catégories préférées</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 
 	</div>
 {% endblock %}

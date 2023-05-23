@@ -569,6 +569,16 @@ h5 {
   user-select: none;
 }
 
+.slider-inner5 {
+  gap: 0px;
+  display: flex;
+  width: 3000px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
 .item {
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -608,6 +618,15 @@ h5 {
   height: 100%;
   background-color: rgb(62, 62, 62);
 }
+
+.prog-bar-inner5 {
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: rgb(62, 62, 62);
+}
+
 img {
   -webkit-user-select: none;
   -khtml-user-select: none;

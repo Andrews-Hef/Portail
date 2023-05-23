@@ -6,6 +6,7 @@ use App\Entity\Video;
 use App\Repository\VideoRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\TypeVideoRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -27,7 +28,7 @@ class AccueilController extends AbstractController
         $this->typesVideos = $typeRepo->findAll();
     }
   #[Route('/', name: 'accueil')]
-  public function accueil(VideoRepository $repoVideo, CategorieRepository $repoCategorie, EntityManagerInterface $manager, TypeVideoRepository $repoTypeVideo, Request $request, Security $security)
+  public function accueil(VideoRepository $repoVideo, CategorieRepository $repoCategorie, EntityManagerInterface $manager, TypeVideoRepository $repoTypeVideo, Request $request, Security $security, UserRepository $repoUser)
   {
     $videos = $repoVideo->findAll();
     $categories = $repoCategorie->findAll();
@@ -37,7 +38,24 @@ class AccueilController extends AbstractController
     $allAnime =$repoVideo->findVideoAllAnimeDemo();
     $user = $security->getUser();
     $dateDuJour = new \DateTime();
-    if($user = null){
+    if($user != null){
+      $maxViewedCategories = $repoUser->findCategoriesWithMaxViewsByUser($user->getId());
+      if($maxViewedCategories!= null){
+      $videoReccomand = $repoVideo->findVideoRecommand($maxViewedCategories);
+      shuffle($videoReccomand);
+    }
+    else{
+      $videoReccomand = null;
+    }
+    }
+    else{
+      $maxViewedCategories=null;
+      $videoReccomand=null;
+    }
+    
+
+
+    if($user != null){
       if($user->getDateFinAbonnement() < $dateDuJour && $user->getAbonnement() != null){
         $user->setAbonnement(null);
         $user->setDateFinAbonnement(null);
@@ -54,6 +72,8 @@ class AccueilController extends AbstractController
         'allSerie' => $allSerie,
         'allAnime' => $allAnime,
         'controller_name' => 'AccueilController',
+        'maxViewedCategories' => $maxViewedCategories,
+        'videoReccomand' => $videoReccomand,  
       ]);
   }
 

@@ -49,7 +49,7 @@ class VideoController extends AbstractController
     {
       $user = $security->getUser();
       $dateDuJour = new \DateTime();
-      if($user = null){
+      if($user != null){
         if($user->getDateFinAbonnement() < $dateDuJour && $user->getAbonnement() != null){
           $user->setAbonnement(null);
           $user->setDateFinAbonnement(null);
@@ -58,6 +58,7 @@ class VideoController extends AbstractController
         }
       }
 
+      
 
 
         $categories = $repoCate->findAll();
@@ -65,7 +66,13 @@ class VideoController extends AbstractController
         $commentaire = new Commentaire();
         $commentaire->setVideoscom($video);
 
-        
+        if($user != null){
+          if (!$user->getVideoPref()->contains($video)) {
+            $user->addVideoPref($video);
+            $manager->persist($user);
+            $manager->flush();
+          }
+        }
 
         // $form = $this->createForm(CommentaireType::class, $commentaire);
         // $form->handleRequest($request);

@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\InfoType;
 use App\Form\MailType;
+use App\Form\CategoriePrefType;
 use App\Repository\UserRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\TypeVideoRepository;
@@ -27,11 +29,13 @@ class ProfileController extends AbstractController
     }
     
     #[Route('/', name: 'index')]
-    public function index(Security $security): Response
+    public function index(Security $security, CategorieRepository $cateRepo, TypeVideoRepository $typeRepo): Response
     {
         $categories = $this->categories;
         $typesVideos = $this->typesVideos;
         $user = $security->getUser();
+        $categories = $cateRepo->findAll();
+        $typesVideos = $typeRepo->findAll();
         return $this->render('profile/index.html.twig', [
             'controller_name' => 'Profil de l\'utilisateur',
             'categories' => $categories,
@@ -109,6 +113,40 @@ class ProfileController extends AbstractController
         'categories' => $categories,
         'typesVideos' => $typesVideos,
     ]);
+    }
+
+
+    #[Route('/modifCategoriesPref/{id}', name: 'catpref', methods: ['get', 'post'])]
+    public function edit(Security $security,Int $id,EntityManagerInterface $entityManager,Request $request): Response{
+        $user = $security->getUser();
+        $categories = $this->categories;
+        $typesVideos = $this->typesVideos;
+        $form = $this->createForm(CategoriePrefType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
+            $categories = $form->get('categoriePref')->getData();
+            // Supprimer toutes les catégories associées à l'utilisateur
+            foreach ($user->getCategoriePref() as $categorie) {
+              $categorie->addUser($user);
+            }
+            $entityManager->persist($user);
+
+            $entityManager->flush();
+        
+            
+            $this->addFlash("success","Video bien modifiée");
+
+           return $this->redirectToRoute("profile_index");
+        }
+
+        return $this->render('profile/editCatePref.html.twig',[
+            'form'=>$form->createView(),
+            'categories' => $categories,
+            'typesVideos' => $typesVideos
+        ]);
     }
     
 }

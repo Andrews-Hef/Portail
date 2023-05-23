@@ -70,9 +70,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Tel = null;
 
+    #[ORM\ManyToMany(targetEntity: Video::class, inversedBy: 'users')]
+    private Collection $videoPref;
+
+    #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'users')]
+    private Collection $categoriePref;
+
     public function __construct()
     {
         $this->coms = new ArrayCollection();
+        $this->videoPref = new ArrayCollection();
+        $this->categoriePref = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -291,6 +299,54 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setTel(?string $Tel): self
     {
         $this->Tel = $Tel;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Video>
+     */
+    public function getVideoPref(): Collection
+    {
+        return $this->videoPref;
+    }
+
+    public function addVideoPref(Video $videoPref): self
+    {
+        if (!$this->videoPref->contains($videoPref)) {
+            $this->videoPref->add($videoPref);
+        }
+
+        return $this;
+    }
+
+    public function removeVideoPref(Video $videoPref): self
+    {
+        $this->videoPref->removeElement($videoPref);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Categorie>
+     */
+    public function getCategoriePref(): Collection
+    {
+        return $this->categoriePref;
+    }
+
+    public function addCategoriePref(Categorie $categoriePref): self
+    {
+        if (!$this->categoriePref->contains($categoriePref)) {
+            $this->categoriePref->add($categoriePref);
+        }
+
+        return $this;
+    }
+
+    public function removeCategoriePref(Categorie $categoriePref): self
+    {
+        $this->categoriePref->removeElement($categoriePref);
 
         return $this;
     }

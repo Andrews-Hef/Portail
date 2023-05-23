@@ -130,3 +130,47 @@ function preventKeyBoardScroll(e) {
     return false;
   }
 }
+
+
+
+// numéro 5
+const slider5 = document.querySelector('.slider-inner5');
+const progressBar5 = document.querySelector('.prog-bar-inner5');
+
+let sliderGrabbed5 = false;
+
+
+slider5.addEventListener('mousedown', (e) => {
+    sliderGrabbed5 = true;
+    slider5.style.cursor = 'grabbing';
+})
+
+slider5.addEventListener('mouseup', (e) => {
+    sliderGrabbed5 = false;
+    slider5.style.cursor = 'grab';
+})
+
+slider5.addEventListener('mouseleave', (e) => {
+    sliderGrabbed5 = false;
+})
+
+slider5.addEventListener('mousemove', (e) => {
+    if(sliderGrabbed5){
+        slider5.parentElement.scrollLeft -= e.movementX;
+    }
+})
+
+function getScrollPercentage(){
+   return ((slider5.parentElement.scrollLeft / (slider5.parentElement.scrollWidth - slider5.parentElement.clientWidth) ) * 100);
+}
+
+document.addEventListener('keydown', preventKeyBoardScroll, false);
+
+function preventKeyBoardScroll(e) {
+  var keys = [32, 33, 34, 35, 37, 38, 39, 40];
+  if (keys.includes(e.keyCode)) {
+    e.preventDefault();
+    return false;
+  }
+}
+

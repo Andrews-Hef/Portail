@@ -44,10 +44,14 @@ class Video
     #[ORM\Column(length: 500, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'videoPref')]
+    private Collection $users;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -193,6 +197,33 @@ class Video
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addVideoPref($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeVideoPref($this);
+        }
 
         return $this;
     }

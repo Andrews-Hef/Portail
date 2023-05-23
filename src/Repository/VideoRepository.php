@@ -222,6 +222,19 @@ class VideoRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function findVideoRecommand($maxViewedCategories)
+    {
+        $entityManager = $this->getEntityManager();
+        $queryBuilder = $entityManager->createQueryBuilder();
+
+        $queryBuilder->select('v')
+            ->from('App\Entity\Video', 'v')
+            ->leftJoin('v.categories', 'c')
+            ->andWhere($queryBuilder->expr()->in('c.id', ':cateIds'))
+            ->setParameter('cateIds', $maxViewedCategories);
+        return $queryBuilder->getQuery()->getResult();
+    }
     
 
 //    /**

@@ -56,6 +56,82 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->save($user, true);
     }
 
+
+    // public function findCategoriesWithMaxViewsByUser($userId)
+    // {
+    //     $entityManager = $this->getEntityManager();
+
+    //     $query = $entityManager->createQuery('
+    //       SELECT u.id, c.libelleCategorie, v.id, COUNT(v.id) AS nombre_vues
+    //       FROM App\Entity\User u
+    //       JOIN u.videoPref v
+    //       JOIN v.categories c
+    //       WHERE u.id = :userId
+    //       GROUP BY c.libelleCategorie
+    //       HAVING COUNT(v.id) = (
+    //           SELECT MAX(vues_par_categorie)
+    //           FROM (
+    //               SELECT COUNT(v2.id) AS vues_par_categorie
+    //               FROM App\Entity\User u2
+    //               JOIN u2.videoPref v2
+    //               JOIN v2.categories c2
+    //               WHERE u2.id = :userId
+    //               GROUP BY c2.libelleCategorie
+    //           ) AS subquery
+    //       )
+    //   ');
+
+    //     $query->setParameter('userId', $userId);
+
+    //     return $query->getResult();
+    // }
+
+
+    public function findCategoriesWithMaxViewsByUser($userId)
+    {
+        $entityManager = $this->getEntityManager();
+
+        // Requête pour obtenir le nombre maximum de vues par catégorie
+        $subquery = $entityManager->createQuery('
+            SELECT c2.libelleCategorie, COUNT(v2.id) AS vues_par_categorie
+            FROM App\Entity\User u2
+            JOIN u2.videoPref v2
+            JOIN v2.categories c2
+            WHERE u2.id = :userId
+            GROUP BY c2.libelleCategorie
+            ORDER BY vues_par_categorie DESC
+        ');
+
+        $subquery->setParameter('userId', $userId);
+        $subquery->setMaxResults(1);
+        $subquery->setFirstResult(0);
+
+        $maxViewsResult = $subquery->getOneOrNullResult();
+
+        if (!$maxViewsResult) {
+            return []; // Aucun résultat trouvé
+        }
+
+        $maxViews = $maxViewsResult['vues_par_categorie'];
+
+        // Requête pour obtenir les catégories avec le nombre maximum de vues
+        $query = $entityManager->createQuery('
+            SELECT c.id
+            FROM App\Entity\User u
+            JOIN u.videoPref v
+            JOIN v.categories c
+            WHERE u.id = :userId
+            GROUP BY c.libelleCategorie
+            HAVING COUNT(v.id) = :maxViews
+        ');
+
+        $query->setParameter('userId', $userId);
+        $query->setParameter('maxViews', $maxViews);
+
+        return $query->getResult();
+    }
+
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

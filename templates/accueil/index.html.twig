@@ -70,7 +70,6 @@
 
 <!-- End // .directional_nav -->
 
-
 {# </div> #}
 
 {# fin image bannière #}
@@ -84,7 +83,18 @@
 					<div class="movie-header">
 						<h1 class="movie-title text-sm-md">PROFITEZ DES MEILLEURS FILMS/SÉRIES/ANIMÉS AVEC PORTAIL PRIME.</h1>
 
-						<h4 class="movie-info text-sm-md">Le site de streaming que vous allez adorer</h4>
+						<h4 class="movie-info text-sm-md">Le site de streaming que vous allez adorer
+            {# {% for category in maxViewedCategories %}
+    <h3>{{ category.libelleCategorie }}</h3>
+    <ul>
+        {# {% for video in category.videos %}
+            <li>{{ video.id }} - {{ video.titre }}</li>
+        {% endfor %} 
+            <p>Nombre de vues : {{ category.nombre_vues }}</p>
+
+    </ul>
+{% endfor %}#}
+</h4> 
 					</div>
 					<br>
 					<p class="movie-desc text-sm-md">Abonnez-vous à Portail Prime pour pouvoir profiter de toutes nos vidéos sans pub et en qualité HD, où que vous soyez et quand vous voulez ! Profitez donc de nos offres qui vous permettrons de prendre un portail vers de nouvelles aventures
@@ -145,7 +155,8 @@
 			<div class="prog-bar-inner sliderBarStyle"></div>
 		</div>
 	</div>
-</div></div>{# Fin slider cards #}{# Début texte show slider cards #}<div class="container-fluid" style="padding-right: 90px; padding-left: 90px; margin-top:-10px; padding-top:80px;">
+</div></div>{# Fin slider cards #}{# Début texte show slider cards #}
+<div class="container-fluid" style="padding-right: 90px; padding-left: 90px; margin-top:-10px; padding-top:80px;">
 <p class="textMoment">Animés du moment</p></div>{# Fin texte show slider cards #}{# Début slider cards #}<div class="container-fluid" style="padding-right: 90px; padding-left: 90px; margin-top:-10px;">
 <div class="workshopbody">
 	<div class="slider-wrap">
@@ -245,7 +256,66 @@
 			</div>
 		</div>
 	</div>
-</div></div>{# Fin slider cards #}<script src="../js/scrollbar.js"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script><script>
+</div></div>
+
+{% if videoReccomand is not null %}
+
+<div class="container-fluid" style="padding-right: 90px; padding-left: 90px; margin-top:-10px; padding-top:80px;">
+<p class="textMoment">Les vidéos pour vous</p></div>{# Fin texte show slider cards #}{# Début slider cards #}<div class="container-fluid" style="padding-right: 90px; padding-left: 90px; margin-top:-10px;">
+<div class="workshopbody">
+	<div class="slider-wrap">
+		<div class="slider5 sliderBarStyle">
+			<div class="slider-inner5">
+				{% for videoReccomand in videoReccomand|slice(0, 15) %}
+					<div class="item">
+						<div class="media-element">
+							<div class="card-container box">
+								<div
+									class="card-flip">
+									<!-- Début Card Front -->
+									<div class="card front">
+										<img src="{{ videoReccomand.image }}" class="card-img-top img-fluid unselect" alt="movie-poster" draggable="false" style="height:339px;">
+										<div class="card-block" style="height:101px;">
+											<h5 class="card-title" style="font-size:15px;">{{ videoReccomand.titre }}</h5>
+											<p class="card-text">
+												{{ videoReccomand.typeVideo.libelleTypeVideo }}
+											</p>
+											<p class="card-text">{{ videoReccomand.annee }}</p>
+										</div>
+									</div>
+									<!-- Fin Card Front -->
+
+									<!-- Début Card Back -->
+									<div class="card back">
+										<div class="card-block text-center cardblocktaille">
+											<h4 class="card-title souligne">Description</h4>
+												<p class="card-text">
+													{{ videoReccomand.description }}
+												</p>
+										</div>
+										<div class="card-block text-center">
+											<a href="/video/show/{{ videoReccomand.id }}" class="btn orange" style="margin-bottom:15px; margin-top:15px;">Watch</a>
+										</div>
+									</div>
+
+									<!-- Fin Card Back -->
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="progress-bar">
+				<div class="prog-bar-inner5 sliderBarStyle"></div>
+			</div>
+		</div>
+	</div>
+</div></div>
+{% endif %}
+
+
+
+{# Fin slider cards #}<script src="../js/scrollbar.js"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script><script>
 $('.slider').each(function () {
 var $this = $(this);
 var $group = $this.find('.slide_group');

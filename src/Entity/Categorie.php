@@ -21,9 +21,13 @@ class Categorie
     #[ORM\ManyToMany(targetEntity: Video::class, inversedBy: 'categories')]
     private Collection $videos;
 
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'categoriePref')]
+    private Collection $users;
+
     public function __construct()
     {
         $this->videos = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,7 +56,7 @@ class Categorie
         return $this->videos;
     }
 
-    public function addVideo(video $video): self
+    public function addVideo(Video $video): self
     {
         if (!$this->videos->contains($video)) {
             $this->videos->add($video);
@@ -61,7 +65,7 @@ class Categorie
         return $this;
     }
 
-    public function removeVideo(video $video): self
+    public function removeVideo(Video $video): self
     {
         $this->videos->removeElement($video);
 
@@ -71,4 +75,31 @@ class Categorie
     public function __toString() {
       return $this->libelleCategorie; // ou une autre propriété représentant la catégorie sous forme de chaîne de caractères
   }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addCategoriePref($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeCategoriePref($this);
+        }
+
+        return $this;
+    }
 }
