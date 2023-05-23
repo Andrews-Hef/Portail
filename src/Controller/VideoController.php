@@ -12,6 +12,7 @@ use App\Repository\VideoRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\TypeVideoRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\CommentaireRepository;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,7 +46,7 @@ class VideoController extends AbstractController
     }
 
     #[Route('/video/show/{id}',name:'video.show')]
-    public function showFilm(VideoRepository $repoVideo, Int $id, Request $request, EntityManagerInterface $manager, CategorieRepository $repoCate, UserRepository $repoUser, Security $security): Response
+    public function showFilm(VideoRepository $repoVideo, CommentaireRepository $repoCom, Int $id, Request $request, EntityManagerInterface $manager, CategorieRepository $repoCate, UserRepository $repoUser, Security $security): Response
     {
       $user = $security->getUser();
       $dateDuJour = new \DateTime();
@@ -57,14 +58,13 @@ class VideoController extends AbstractController
           $manager->flush();
         }
       }
-
-      
-
-
+        $commentaires = $repoCom->findByVideoscom($id);
+        
         $categories = $repoCate->findAll();
         $video = $repoVideo->findVideoById($id);
         $commentaire = new Commentaire();
         $commentaire->setVideoscom($video);
+        $commentaire->setUsers($user);
 
         if($user != null){
           if (!$user->getVideoPref()->contains($video)) {
@@ -74,22 +74,24 @@ class VideoController extends AbstractController
           }
         }
 
-        // $form = $this->createForm(CommentaireType::class, $commentaire);
-        // $form->handleRequest($request);
+        $form = $this->createForm(CommentaireType::class, $commentaire);
+        $form->handleRequest($request);
 
-        // if($form->isSubmitted() && $form->isValid()) {
-        //     $video = $form->getData();
-        //     $manager->persist($commentaire);
-        //     $manager->flush();
+        if($form->isSubmitted() && $form->isValid()) {
+            $video = $form->getData();
+            $manager->persist($commentaire);
+            $manager->flush();
 
-        //     return $this->redirectToRoute('video.show', ['id' => $id]);
-        // }
+            return $this->redirectToRoute('video.show', ['id' => $id]);
+        }
         $typesVideos = $this->typesVideos;
         return $this->render('video/showVideo.html.twig',[
             'video' => $video,
             'categories' => $categories,
-            // 'form' => $form->createView(),
-            'typesVideos' => $typesVideos
+            'form' => $form->createView(),
+            'typesVideos' => $typesVideos,
+            'user' => $user,
+            'commentaire' => $commentaires
         ]);
     }
 
@@ -97,6 +99,7 @@ class VideoController extends AbstractController
     public function new(Request $request,EntityManagerInterface $manager): Response{
         //create a new video 
         $video = new Video();
+        
         //bind form with videoType reference
         $form = $this->createForm(VideoType::class,$video);
         $categories = $this->categories;
@@ -154,7 +157,7 @@ class VideoController extends AbstractController
         }
         $manager->remove($video);
         $manager->flush();
-        $this->addFlash("success","Video delete successfully :)");
+        $this->addFlash("success","Video deleted successfully :)");
         return $this->redirectToRoute("video.index");
     }
     

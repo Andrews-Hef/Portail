@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Repository;
+use App\Entity\Video;
+use App\Entity\User;
 
 use App\Entity\Commentaire;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -13,6 +15,8 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Commentaire|null findOneBy(array $criteria, array $orderBy = null)
  * @method Commentaire[]    findAll()
  * @method Commentaire[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Commentaire[]    findByVideoscom(Video $video)
+ * @method Commentaire[]    findByUsers(User $user)
  */
 class CommentaireRepository extends ServiceEntityRepository
 {
@@ -37,6 +41,16 @@ class CommentaireRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findByVideoscom(int $video)
+    {
+        return $this->findBy(['videoscom' => $video]);
+    }
+
+    public function findByUsers(User $user): array
+    {
+        return $this->findBy(['users' => $user]);
     }
 
 //    /**

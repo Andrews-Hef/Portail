@@ -31,40 +31,68 @@
         </div>
 
       {% else %}
-      <div>
-        <iframe 
-          width="963" {# Value de base d'une vidéo Youtube 963 #}
-          height="542" {# Value de base d'une vidéo Youtube 542 #}
-          src="{{ video.url }}"  {# url de la bdd (Youtube : Portail) #}
-          title="{{ video.titre }}" {# Titre de la vidéo/film/série (Optionnel) #}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-          allowfullscreen
-        ></iframe> 
-      </div> 
-      <div class='mx-5'>
-
-        <h3 class='text-center'> Synopsys </h3>
-          <hr> {# Barre Horizontale #}
-        <p> {{ video.description }} </p>
-          <hr> {# Barre Horizontale #}
-        <p class='text-center'> Année de réalisation : {{ video.annee }} </p>
-        
-      </div>
+        {% if user.abonnement != null %}
+            <div>
+              <iframe 
+                width="963" {# Value de base d'une vidéo Youtube 963 #}
+                height="542" {# Value de base d'une vidéo Youtube 542 #}
+                src="{{ video.url }}"  {# url de la bdd (Youtube : Portail) #}
+                title="{{ video.titre }}" {# Titre de la vidéo/film/série (Optionnel) #}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen
+              ></iframe> 
+              <h2 class='text-left'>{{video.titre}} || Bande Annonce</h2>
+            </div> 
+          </div> 
+          
+            <hr> {# Barre Horizontale #}
+          <div class='mx-5'>
+            {# Titre de la vidéo #}
+            
+            <h3 class='text-center'> Synopsys </h3>
+              <hr> {# Barre Horizontale #}
+            <p> {{ video.description }} </p>
+              <hr> {# Barre Horizontale #}
+            <p class='text-center'> Année de réalisation : {{ video.annee }} </p>
+            
+          </div>
+          {% else %}
+            {# Affiche l'affiche du film #}
+            <div> 
+              <img src="../{{ video.image }}" height="339px"/><br>
+            </div>
+          </div>
+            {# Affiche un message temporaire au cas où le film n'a pas de trailer #}
+            <div class='text-center'>
+              <p> Vous devez avoir un abonnement pour visualiser ce trailer </p>
+            </div>
+        {% endif %}
     {% endif %}
     
     
   </div>  
   {# Fin Affichage #}  
   
-  {# Titre de la vidéo #}
-  <h2 class='text-center'>{{video.titre}}</h2>
   
-  {#{{ app.user.getUserIdentifier() }}
-  {{ app.user.id }} #}
-  {# Ajouter un if pour le s de commentaire / avec ou sans / sans 0-1 || avec 2 - + #}
-  {# {{ form_start(form) }}
-  {{ form_widget(form) }}
-  {{ form_end(form) }} #}
+  {% if user.abonnement != null %}
+    {{ app.user.getUserIdentifier() }}
+    {# Ajouter un if pour le s de commentaire / avec ou sans / sans 0-1 || avec 2 - + #}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+  {% endif %}
+
+
+  {% for commentaires in commentaire %}
+    
+      <p> {{ commentaires.texte }} </p>
+
+      {% if app.user.id == commentaires.users.id %}
+      
+        <p> Supprimer </p>
+      
+      {% endif %}
+  {% endfor %}
 
 </div> {# Fin Container #}
 
