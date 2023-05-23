@@ -43,14 +43,18 @@ class AccueilController extends AbstractController
       if($maxViewedCategories!= null){
       $videoReccomand = $repoVideo->findVideoRecommand($maxViewedCategories);
       shuffle($videoReccomand);
+      $listeCatePref = $user->getCategoriePref();
+      $videoCatePref = $repoVideo->findVideosByCategories($listeCatePref);
     }
     else{
       $videoReccomand = null;
+      $videoCatePref = null;
     }
     }
     else{
       $maxViewedCategories=null;
       $videoReccomand=null;
+      $videoCatePref=null;
     }
     
 
@@ -66,14 +70,16 @@ class AccueilController extends AbstractController
 
       return $this->render('accueil/index.html.twig', [
         'videos' => $videos,
-        'categories' => $categories,
+        'videoCatePrefcategories' => $categories,
         'typesVideos' => $typesVideos,
+        'categories' => $categories,
         'allFilm' => $allFilm,
         'allSerie' => $allSerie,
         'allAnime' => $allAnime,
         'controller_name' => 'AccueilController',
         'maxViewedCategories' => $maxViewedCategories,
         'videoReccomand' => $videoReccomand,  
+        'videoCatePref' => $videoCatePref,
       ]);
   }
 

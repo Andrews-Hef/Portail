@@ -16,26 +16,26 @@
 		<div class="slider" style="">
 			<div class="slide_viewer">
 				<div class="slide_group">
-        <a href="/video/show/82">
+        {# <a href="/video/show/82"> #}
 					<div class="slide">
 						<img class="img-fluid imgDiapo" src="../image/fond2.png">
 					</div>
-        </a>
-        <a href="/video/show/80">
+        {# </a> #}
+        {# <a href="/video/show/80"> #}
 					<div class="slide">
 						<img class="img-fluid imgDiapo" src="../image/mario.png">
 					</div>
-          </a>
-          <a href="/video/show/81">
+          {# </a> #}
+          {# <a href="/video/show/81"> #}
 					<div class="slide">
 						<img class="img-fluid imgDiapo" src="../image/walkingDead.png">
 					</div>
-          </a>
-          <a href="/video/show/83">
+          {# </a> #}
+          {# <a href="/video/show/83"> #}
 					<div class="slide">
 						<img class="img-fluid imgDiapo" src="../image/pokemonMewtwo.png">
 					</div>
-          </a>
+          {# </a> #}
 				</div>
 			</div>
 		</div>
@@ -67,7 +67,15 @@
 </div>
 <div class="slide_buttons"></div>
 
-
+{% for videoCatePref in videoCatePref %}
+    <div>
+        <h3>{{ videoCatePref.titre }}</h3>
+		{% for categorie in videoCatePref.categories %}
+		{{ categorie.libelleCategorie }}
+					<!-- Affichez d'autres informations de la catégorie si nécessaire -->
+		{% endfor %}
+    </div>
+{% endfor %}
 <!-- End // .directional_nav -->
 
 {# </div> #}
