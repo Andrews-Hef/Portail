@@ -47,6 +47,16 @@ class CategorieRepository extends ServiceEntityRepository
       return $query->getQuery()->getSingleScalarResult();
     }
 
+    public function findVideosByCategorie(Categorie $categorie)
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.videos', 'v')
+            ->where('c.id = :categorieId')
+            ->setParameter('categorieId', $categorie->getId())
+            ->getQuery()
+            ->getResult();
+    }
+
 
 
 //    /**

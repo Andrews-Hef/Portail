@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Video;
 use App\Form\VideoType;
+use App\Entity\Categorie;
 use App\Entity\Commentaire;
 use App\Form\CommentaireType;
 use App\Repository\UserRepository;
@@ -58,13 +59,25 @@ class VideoController extends AbstractController
           $manager->flush();
         }
       }
+        $videosAll = $repoVideo->findAll();
         $commentaires = $repoCom->findByVideoscom($id);
-        
         $categories = $repoCate->findAll();
         $video = $repoVideo->findVideoById($id);
         $commentaire = new Commentaire();
         $commentaire->setVideoscom($video);
         $commentaire->setUsers($user);
+        
+        $categories = $video->getCategories();
+
+        if (!$categories->isEmpty()) {
+            $firstCategory = $categories->first();
+            $user->addCategoriePref($firstCategory);
+        }
+
+        if ($firstCategory != null) {
+          $cateprefuser = $video->getCategories($firstCategory);
+        }
+        
 
         if($user != null){
           if (!$user->getVideoPref()->contains($video)) {
@@ -91,7 +104,8 @@ class VideoController extends AbstractController
             'form' => $form->createView(),
             'typesVideos' => $typesVideos,
             'user' => $user,
-            'commentaire' => $commentaires
+            'commentaire' => $commentaires,
+            'videosAll' => $videosAll
         ]);
     }
 

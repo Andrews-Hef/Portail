@@ -51,9 +51,9 @@
             
             <h3 class='text-center'> Synopsys </h3>
               <hr> {# Barre Horizontale #}
+            <p class='text-center'> Année de réalisation : {{ video.annee }} </p>
             <p> {{ video.description }} </p>
               <hr> {# Barre Horizontale #}
-            <p class='text-center'> Année de réalisation : {{ video.annee }} </p>
             
           </div>
           {% else %}
@@ -72,7 +72,31 @@
     
   </div>  
   {# Fin Affichage #}  
-  
+
+  <div class="" style="padding-top:50px;">
+	  <div id="content" style="" class="content">
+      <div class="movies-container">
+
+      
+        {% for videos in videosAll|slice(0, 5) %}
+          {% if videos.categories.first() == video.categories.first() and videos.titre != video.titre %}
+            <a href="/video/show/{{ videos.id }}" draggable="false" style="color:white;">
+
+            <div class="boxNew">
+              <div class="box-img">
+                <img src="{{ videos.image }}">
+              </div>
+              <h3 class="maxTailleTitre">{{ videos.titre }}</h3>
+              <span>{{ videos.typeVideo.libelleTypeVideo }}</span>
+            </div>
+
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
   <div class='mx-5'>
   {% if user.abonnement != null %}
     <b> {{ app.user.prenom }} {{ app.user.nom }} </b>
@@ -82,12 +106,14 @@
     {{ form_end(form) }}
   {% endif %}
 
+  
+
   <hr> {# Barre Horizontale #}
 
   {% for commentaires in commentaire %}
 
-      <b> {{ commentaires.users.prenom }} {{ commentaires.users.nom }} : </b>
-      <p> {{ commentaires.texte }} </p>
+      <p><b> {{ commentaires.users.prenom }} {{ commentaires.users.nom }} : </b> {{ commentaires.texte }} </p>
+       
 
       {% if app.user.id == commentaires.users.id %}
       
