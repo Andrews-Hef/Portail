@@ -21,7 +21,14 @@ class CommentaireType extends AbstractType
       public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('texte', TextareaType::class, [
-                'label' => ' '
+              'attr' => [
+                'rows' => 1, // Définir le nombre de lignes souhaité
+                'cols'=> 100,
+                'style' => 'resize: none; width: 100%; max-width: 100%;',
+                'maxlength' => 255, // Définir la longueur maximale du texte
+                'placeholder' => 'Saisir votre commentaire ici..' // Définir le placeholder
+              ],
+              'label' => false
             ])
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary'],
