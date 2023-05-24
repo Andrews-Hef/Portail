@@ -89,7 +89,11 @@
                         	  <a class="" href="{{ path('paiement', {'id': allAbonnement.id}) }}">Paiement</a>
                           </div>
                         {% endif %}
-
+                        {% if not app.user %}
+                          <div class="generic_price_btn clearfix">
+                        	  <a class="" href="/login">Se connecter</a>
+                          </div>
+                        {% endif %}
 
                         <!--//BUTTON END-->
                         

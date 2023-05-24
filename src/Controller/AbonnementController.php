@@ -172,15 +172,20 @@ class AbonnementController extends AbstractController
         if($maxViewedCategories!= null){
         $videoReccomand = $repoVideo->findVideoRecommand($maxViewedCategories);
         shuffle($videoReccomand);
+        $listeCatePref = $user->getCategoriePref();
+        $videoCatePref = $repoVideo->findVideosByCategories($listeCatePref);
       }
       else{
         $videoReccomand = null;
+        $videoCatePref = null;
       }
       }
       else{
         $maxViewedCategories=null;
         $videoReccomand=null;
+        $videoCatePref=null;
       }
+      
 
       $allAbonnement = $repoAbo->findAll();
 
@@ -195,7 +200,9 @@ class AbonnementController extends AbstractController
             'allSerie' => $allSerie,
             'allAnime' => $allAnime,
             'videos' => $videos,
-            'videoReccomand' => $videoReccomand
+            'videoReccomand' => $videoReccomand,
+            'videoCatePref' => $videoCatePref,
+
 
         ]);
     }

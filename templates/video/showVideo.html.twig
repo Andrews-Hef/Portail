@@ -51,9 +51,9 @@
             
             <h3 class='text-center'> Synopsys </h3>
               <hr> {# Barre Horizontale #}
+            <p class='text-center'> Année de réalisation : {{ video.annee }} </p>
             <p> {{ video.description }} </p>
               <hr> {# Barre Horizontale #}
-            <p class='text-center'> Année de réalisation : {{ video.annee }} </p>
             
           </div>
           {% else %}
@@ -72,29 +72,58 @@
     
   </div>  
   {# Fin Affichage #}  
-  
-  
+
+  <div class="" style="padding-top:50px;">
+	  <div id="content" style="" class="content">
+      <div class="movies-container">
+
+      
+        {% for videos in videosAll|slice(0, 5) %}
+          {% if videos.categories.first() == video.categories.first() and videos.titre != video.titre %}
+            <a href="/video/show/{{ videos.id }}" draggable="false" style="color:white;">
+
+            <div class="boxNew">
+              <div class="box-img">
+                <img src="{{ videos.image }}">
+              </div>
+              <h3 class="maxTailleTitre">{{ videos.titre }}</h3>
+              <span>{{ videos.typeVideo.libelleTypeVideo }}</span>
+            </div>
+
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class='mx-5'>
   {% if user.abonnement != null %}
-    {{ app.user.getUserIdentifier() }}
+    <b> {{ app.user.prenom }} {{ app.user.nom }} </b>
     {# Ajouter un if pour le s de commentaire / avec ou sans / sans 0-1 || avec 2 - + #}
     {{ form_start(form) }}
     {{ form_widget(form) }}
     {{ form_end(form) }}
   {% endif %}
 
+  
+
+  <hr> {# Barre Horizontale #}
 
   {% for commentaires in commentaire %}
-    
-      <p> {{ commentaires.texte }} </p>
+
+      <p><b> {{ commentaires.users.prenom }} {{ commentaires.users.nom }} : </b> {{ commentaires.texte }} </p>
+       
 
       {% if app.user.id == commentaires.users.id %}
       
-        <p> Supprimer </p>
+        <a href="{{ path('com_del.del', {'id': commentaires.id}) }}" class="btn btn-success">Supprimer</a>
       
       {% endif %}
+      <hr> {# Barre Horizontale #}
   {% endfor %}
+  </div>
 
 </div> {# Fin Container #}
-
 
     {% endblock %}

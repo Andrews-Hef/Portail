@@ -598,6 +598,22 @@ h5 {
   -o-user-select: none;
   user-select: none;
 }
+
+.slider4 {
+  gap: 0px;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
 .slider-inner {
   gap: 0px;
   display: flex;
@@ -630,7 +646,23 @@ h5 {
   -o-user-select: none;
   user-select: none;
 }
-
+.prog-bar-inner4 {
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: rgb(62, 62, 62);
+}
+.slider-inner4 {
+  gap: 0px;
+  display: flex;
+  width: 3000px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
 .slider-inner5 {
   gap: 0px;
   display: flex;

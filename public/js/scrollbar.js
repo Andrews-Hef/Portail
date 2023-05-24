@@ -174,3 +174,45 @@ function preventKeyBoardScroll(e) {
   }
 }
 
+
+
+// numéro 4
+const slider4 = document.querySelector('.slider-inner4');
+const progressBar4 = document.querySelector('.prog-bar-inner4');
+
+let sliderGrabbed4 = false;
+
+
+slider4.addEventListener('mousedown', (e) => {
+    sliderGrabbed4 = true;
+    slider4.style.cursor = 'grabbing';
+})
+
+slider4.addEventListener('mouseup', (e) => {
+    sliderGrabbed4 = false;
+    slider4.style.cursor = 'grab';
+})
+
+slider4.addEventListener('mouseleave', (e) => {
+    sliderGrabbed4 = false;
+})
+
+slider4.addEventListener('mousemove', (e) => {
+    if(sliderGrabbed4){
+        slider4.parentElement.scrollLeft -= e.movementX;
+    }
+})
+
+function getScrollPercentage(){
+   return ((slider4.parentElement.scrollLeft / (slider4.parentElement.scrollWidth - slider4.parentElement.clientWidth) ) * 100);
+}
+
+document.addEventListener('keydown', preventKeyBoardScroll, false);
+
+function preventKeyBoardScroll(e) {
+  var keys = [32, 33, 34, 35, 37, 38, 39, 40];
+  if (keys.includes(e.keyCode)) {
+    e.preventDefault();
+    return false;
+  }
+}
