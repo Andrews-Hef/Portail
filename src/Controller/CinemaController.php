@@ -108,7 +108,7 @@ class CinemaController extends AbstractController
             return $this->redirectToRoute("cinema.researchMovie",['data'=>$data,'id'=>$id]);
         } 
 
-        return $this->render('cinema/oneCine.html.twig', [
+        return $this->render('cinema/oneCIne.html.twig', [
             'controller_name' => 'CinemaController',
             'form'=>$form->createView(),
             'categories' => $categories,
