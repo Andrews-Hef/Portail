@@ -1,9 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+          <div class="container" style="padding-top:90px; min-height:700px;">
+
     <h1>Edit User</h1>
+
+
+          <hl class="mt-6">Modifier le type dans la base de données</h1>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
     {{ form_end(form) }}
+    </div>
 {% endblock %}

@@ -3,9 +3,11 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Entity\Abonnement;
 use Doctrine\DBAL\Types\ArrayType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -30,7 +32,11 @@ class UserType extends AbstractType
               ],
               'multiple' => true,
               'expanded' => true,
-          ])            
+          ])     
+          ->add('Abonnement', EntityType::class, [
+            'class'=>  Abonnement::class,
+            'choice_label' => 'libelleAbonnement',
+         ])       
           ->add('is_verified', CheckboxType::class, [
             'required' => true,])
           ->add('save', SubmitType::class, ['label' => 'Save'])

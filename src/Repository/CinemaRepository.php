@@ -39,6 +39,14 @@ class CinemaRepository extends ServiceEntityRepository
         }
     }
 
+    public function countCinemas()
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        return $qb->select('COUNT(u.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 //    /**
 //     * @return Cinema[] Returns an array of Cinema objects
 //     */

@@ -32,14 +32,14 @@
     {% if is_granted('ROLE_ADMIN') %}
       <a class="d-flex align-items-center lienNav" style="" href="/admin"> Administration </a>
     {% endif %}
-     <div class="dropdown" style="height:40px;">
-      <a class="text-reset me-3" href="#">
-        <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="film/séries/animés" aria-label="Search">
-        <button class="btn boutonNav" type="submit">Rechercher</button>
-      </form>
+      <a class="text-reset me-3" href="/catalogue">
+      <span class="icon">
+    <svg style="width:25px; height:25px; margin-left:10px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+</span>
       </a>
-      </div>
 
 
       <!-- Icon -->
@@ -115,10 +115,7 @@
         <button type="button" class="btn-close btn-close-white" style="padding-left:0;" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body" style="padding-top:0;">
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn" type="submit">Search</button>
-      </form>
+
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 li5">
           <li class="nav-item">
             <a class="nav-link textcolor-white lienNav" aria-current="page" href="/">ACCUEIL</a>

@@ -55,7 +55,14 @@ class VideoRepository extends ServiceEntityRepository
     // }
 
 
-     
+    public function countVideos()
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        return $qb->select('COUNT(u.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 
 
     /**
@@ -274,6 +281,17 @@ public function findVideosByCategories($listeCatePref)
             ->leftJoin('v.categories', 'c')
             ->andWhere($queryBuilder->expr()->in('c.id', ':cateIds'))
             ->setParameter('cateIds', $listeCatePref);
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+
+    public function getCategoriesWithVideoCount()
+    {
+        $queryBuilder = $this->createQueryBuilder('v');
+        $queryBuilder->select('c.libelleCategorie AS category', 'COUNT(v) AS videoCount')
+            ->join('v.categories', 'c')
+            ->groupBy('c.libelleCategorie');
+
         return $queryBuilder->getQuery()->getResult();
     }
 }

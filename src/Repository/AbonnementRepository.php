@@ -39,6 +39,15 @@ class AbonnementRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function countAbonnements()
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        return $qb->select('COUNT(u.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 //    /**
 //     * @return Abonnement[] Returns an array of Abonnement objects
 //     */
