@@ -1,0 +1,112 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="../../css/adminPartial.css">
+{% endblock %}
+{% block title %}Statistiques
+{% endblock %}
+
+{% block body %}
+
+	<div class="container-fluid" style="padding-top:100px;">
+		<div class="row">
+			{% include "partials/_adminnav.html.twig" %}
+			<main class="col-9 border p-2">
+				<h1>Statistiques</h1>
+        
+				<canvas id="videoChart" width="400" height="400"></canvas>
+
+<script>
+    var categoriesWithVideoCount = {{ categoriesWithVideoCount|json_encode|raw }};
+    
+    var labels = categoriesWithVideoCount.map(item => item.category);
+    var data = categoriesWithVideoCount.map(item => item.videoCount);
+    
+    var ctx = document.getElementById('videoChart').getContext('2d');
+    var videoChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: [
+                    '#FF6384',
+                    '#36A2EB',
+                    '#FFCE56',
+                    // Ajoutez plus de couleurs si vous avez plus de catégories
+                ],
+            }],
+        },
+        options: {
+            plugins: {
+                datalabels: {
+                    color: '#fff',
+                    formatter: function(value, context) {
+                        return value;
+                    },
+                    anchor: 'end',
+                    align: 'start',
+                    offset: 6
+                },
+                legend: {
+                    display: true,
+                    position: 'right',
+                    labels: {
+                        generateLabels: function(chart) {
+                            var data = chart.data;
+                            if (data.labels.length && data.datasets.length) {
+                                return data.labels.map(function(label, index) {
+                                    var dataset = data.datasets[0];
+                                    var backgroundColor = dataset.backgroundColor[index];
+                                    return {
+                                        text: label + ' (' + dataset.data[index] + ')',
+                                        fillStyle: backgroundColor,
+                                        hidden: false,
+                                        lineCap: dataset.borderCapStyle,
+                                        lineDash: dataset.borderDash,
+                                        lineDashOffset: dataset.borderDashOffset,
+                                        lineJoin: dataset.borderJoinStyle,
+                                        lineWidth: dataset.borderWidth,
+                                        strokeStyle: dataset.borderColor,
+                                        pointStyle: dataset.pointStyle,
+                                        rotation: 0,
+                                        datasetIndex: 0,
+                                        index: index
+                                    };
+                                });
+                            }
+                            return [];
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+				<p style="color:white !important;">
+					Le nombre de vidéos disponible sur Portail est de :
+					{{ nbVideo }}
+				</p>
+				<p style="color:white !important;">
+					Le nombre de catégories disponible sur Portail est de :
+					{{ nbCategorie }}
+				</p>
+				<p style="color:white !important;">
+					Le nombre de cinémas disponible sur Portail est de :
+					{{ nbCine }}
+				</p>
+				<p style="color:white !important;">
+					Le nombre d'abonnements disponible sur Portail est de :
+					{{ nbAbo }}
+				</p>
+				<p style="color:white !important;">
+					Le nombre de types de vidéos disponible sur Portail est de :
+					{{ nbType }}
+				</p>
+				<p style="color:white !important;">
+					Le nombre d'utilisateurs disponible sur Portail est de :
+					{{ nbUser }}
+				</p>
+			</main>
+		</div>
+	</div>
+{% endblock %}

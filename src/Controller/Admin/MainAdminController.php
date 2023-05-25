@@ -9,9 +9,12 @@ use App\Form\VideoType;
 use App\Entity\Categorie;
 use App\Entity\TypeVideo;
 use App\Form\CategorieType;
+use App\Repository\AbonnementRepository;
 use App\Repository\VideoRepository;
 use App\Repository\CategorieRepository;
+use App\Repository\CinemaRepository;
 use App\Repository\TypeVideoRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -295,5 +298,29 @@ class MainAdminController extends AbstractController
         ]);
     }
 
+    #[Route('/stats', name: 'stats')]
+    public function stats(UserRepository $repoUser, AbonnementRepository $repoAbo, CategorieRepository $cate, CinemaRepository $cine, TypeVideoRepository $repoType, VideoRepository $repoVideo): Response
+    {
+        $nbUser = $repoUser->countUsers();
+        $nbAbo = $repoAbo->countAbonnements();
+        $nbCine = $cine->countCinemas();
+        $nbCategorie = $cate->countCategories();
+        $nbType = $repoType->countTypes();
+        $nbVideo = $repoVideo->countVideos();
+        $categories = $this->categories;
+        $typesVideos = $this->typesVideos;
+        $categoriesWithVideoCount = $repoVideo->getCategoriesWithVideoCount();
 
+        return $this->render('admin/stats.html.twig', [
+          'categories' => $categories,
+          'typesVideos' => $typesVideos,
+          'nbUser' => $nbUser,
+          'nbCategorie' => $nbCategorie,
+          'nbCine' => $nbCine,
+          'nbAbo' => $nbAbo,
+          'nbType' => $nbType,
+          'nbVideo' => $nbVideo,
+          'categoriesWithVideoCount' => $categoriesWithVideoCount,
+        ]);
+    }
 }
