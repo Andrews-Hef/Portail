@@ -1,5 +1,4 @@
 <?php
-// src/Form/UserType.php
 namespace App\Form;
 
 use App\Entity\User;
