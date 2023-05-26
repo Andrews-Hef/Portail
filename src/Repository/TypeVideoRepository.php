@@ -71,4 +71,13 @@ class TypeVideoRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function countTypes()
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        return $qb->select('COUNT(u.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }
