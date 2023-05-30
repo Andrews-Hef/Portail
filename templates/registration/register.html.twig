@@ -3,21 +3,71 @@
 {% block title %}Register
 {% endblock %}
 
+
 {% block body %}
-	<div class="container" style="padding-top:90px; min-height:700px;">
-		<h1>Inscription</h1>
+	<div class="container " style="padding-top:90px; min-height:700px;">
+		<div class="row">
+			<div class="col-sm-3"></div>
+            <div class="col-sm-6 text-center">
+                <h1>Bienvenue sur Portail</h1>
+            </div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <h1>Inscription</h1>
+            </div>
+		</div>
+        
 
-		{{ form_start(registrationForm) }}
-		{{ form_row(registrationForm.email) }}
-		{{ form_row(registrationForm.nom) }}
-		{{ form_row(registrationForm.prenom) }}
-		{{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-		{{ form_row(registrationForm.RGPDConsent) }}
+        {{ form_start(registrationForm) }}
+        <div class="row">
+			<div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                {{ form_row(registrationForm.email) }}
+            </div>
+		</div>
+		<div class="row">
+			<div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                {{ form_row(registrationForm.nom) }}
+            </div>
+        </div>
+        <div class="row">
+			<div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                {{ form_row(registrationForm.prenom) }}
+            </div>
+		</div>
+		<div class="row">
+			<div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                {{ form_row(registrationForm.plainPassword, { label: 'Mot de passe' }) }}
+            </div>
+        </div>
+        <div class="row">
+			<div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            {{ form_widget(registrationForm.RGPDConsent) }} 
+                            En créant un compte, vous acceptez nos conditions d'utilisation & politique de confidentialité et confirmez être âgé d'au moins 16 ans.
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-		<button type="submit" class="btn" style="margin-top:5px;">S'inscrire</button>
-		{{ form_end(registrationForm) }}
-	</div>
+		<div class="row">
+			<div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <button type="submit" class="btn text-center" style="margin-top:5px;">S'inscrire</button>
+            </div>
+		</div>
+        
+        {{ form_end(registrationForm) }}
+    </div>
 {% endblock %}
 
