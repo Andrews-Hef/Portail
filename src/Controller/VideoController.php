@@ -182,7 +182,7 @@ class VideoController extends AbstractController
 
         $manager->remove($commentaire);
         $manager->flush();
-        $this->addFlash("success","Commentaire deleted successfully :)");
+        $this->addFlash("success","Commentaire supprimé !");
         return $this->redirectToRoute('video.show', ['id' => $videoId]);
     }
 
