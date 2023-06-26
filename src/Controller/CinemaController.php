@@ -199,7 +199,7 @@ class CinemaController extends AbstractController
         $categories = $this->categories;
         $typesVideos = $this->typesVideos;
 
-        $horaire = $request->query->get('seance');
+        $horaire = $request->query->get('horaire');
         $titre = $request->query->get('titre');
         $user = $security->getUser();
         $mail->send(
