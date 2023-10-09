@@ -7,3 +7,9 @@ autocomplete_titres:
     path: '/autocomplete-titres'
     controller: 'App\Controller\VideoController::autocompleteTitres'
     methods: ['GET']
+index:
+    path: https://hammerhead-app-82l3y.ondigitalocean.app/
+    controller: 'App\Controller\AccueilController::accueil'
+    methods: [GET]
+    options:
+      expose: true

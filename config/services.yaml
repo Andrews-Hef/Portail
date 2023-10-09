@@ -24,3 +24,42 @@ services:
 
     App\Form\CommentaireType:
         tags: ['form.type']
+
+    App\Form\BarreDeRechercheAutocomplete:
+        tags: ['form.type']
+
+    App\Form\VideoType:
+        tags: ['form.type']
+
+    App\Form\UserType:
+        tags: ['form.type']
+
+    App\Form\TypeType:
+        tags: ['form.type']
+
+    App\Form\ResetPasswordRequestFormType:
+        tags: ['form.type']
+
+    App\Form\ResetPasswordFormType:
+        tags: ['form.type']
+
+    App\Form\ResearchFilmType:
+        tags: ['form.type']
+
+    App\Form\RegistrationFormType:
+        tags: ['form.type']
+
+    App\Form\MailType:
+        tags: ['form.type']
+    
+    App\Form\InfoType:
+        tags: ['form.type']
+
+    App\Form\CategorieType:
+        tags: ['form.type']
+      
+    App\Form\CategoriePrefType:
+        tags: ['form.type']
+
+    App\Form\AbonnementType:
+        tags: ['form.type']
