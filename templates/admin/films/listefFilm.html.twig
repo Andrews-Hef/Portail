@@ -10,7 +10,7 @@
 		<div class="row">
 			{% include "partials/_adminnav.html.twig" %}
 			<main class="col-9 border colorFond">
-				<h1>Liste des utilisateurs</h1>
+				<h1>Liste des films</h1>
 				<table class="table">
 					<thead>
 						<tr>
@@ -43,7 +43,7 @@
 								</td>
 								<td>
 									<a href="{{ path('admin_video.edit', {'id': videos.id}) }}" class="btn btn-success">Modifier</a>
-                  <a href="{{ path('admin_video.del', {'id': videos.id}) }}" class="btn btn-success">Supprimer</a>
+                  <a href="{{ path('admin_video.del', {'id': videos.id}) }}" class="btn btn-danger">Supprimer</a>
 								</td>
 							</tr>
 						{% endfor %}

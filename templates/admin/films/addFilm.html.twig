@@ -13,22 +13,39 @@
 		{% include "partials/_adminnav.html.twig" %}
 		<main class="col-9 border colorFond" style="background-color: rgb(75, 75, 85) !important;">
 			<h1 style="color:white; margin-bottom:50px;">Ajout d'un film</h1>
-      <div class="row">
     <div class="col-md-6">
-      <div class="row">
       {{ form_start(form) }}
-        <div class="col-md-12">Titre {{ form_widget(form.titre) }}</div>
-        <div class="col-md-12">Qualité {{ form_widget(form.qualite) }}</div>
-        <div class="col-md-12">TypeVideo {{ form_widget(form.TypeVideo) }}</div>
-        <div class="col-md-12">Categories : {{ form_widget(form.categories) }}</div>
-      </div>
-    </div>
-    <div class="col-md-6">
       <div class="row">
-        <div class="col-md-12">Url {{ form_widget(form.url, {'attr': {'style': 'color: red; width: 50%;'}}) }}</div>
-        <div class="col-md-12">Année {{ form_widget(form.annee) }}</div>
-        <div class="col-md-12">Image {{ form_widget(form.image) }}</div>
-        <div class="col-md-12">Description {{ form_widget(form.description) }}</div>
+        <div class="col-md-3">Titre</div>
+        <div class="col-md-6">{{ form_widget(form.titre) }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">Qualité</div>
+        <div class="col-md-6">{{ form_widget(form.qualite) }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">TypeVideo</div>
+        <div class="col-md-6">{{ form_widget(form.TypeVideo) }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">Categories : </div>
+        <div class="col-md-9">{{ form_widget(form.categories) }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">Url</div>
+        <div class="col-md-6">{{ form_widget(form.url, {'attr': {'style': 'color: red; width: 50%;'}}) }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">Année</div>
+        <div class="col-md-6">{{ form_widget(form.annee) }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">Image</div>
+        <div class="col-md-6">{{ form_widget(form.image) }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">Description</div>
+        <div class="col-md-6">{{ form_widget(form.description) }}</div>
       </div>
     </div>
     {{  form_end(form) }}

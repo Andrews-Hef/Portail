@@ -66,37 +66,35 @@
             <div class='text-center'>
               <p> Vous devez avoir un abonnement pour visualiser ce trailer </p>
             </div>
-        {% endif %}
-    {% endif %}
+        
     
     
-  </div>  
-  {# Fin Affichage #}  
+        </div>  
+        {# Fin Affichage #}  
 
-  <div class="" style="padding-top:50px;">
-	  <div id="content" style="" class="content">
-      <div class="movies-container">
+        <div style="padding-top:50px;">
+          <div id="content" class="content">
+            <div class="movies-container">
 
-      
-        {% for videos in videosAll|slice(0, 5) %}
-          {% if videos.categories.first() == video.categories.first() and videos.titre != video.titre %}
-            <a href="/video/show/{{ videos.id }}" draggable="false" style="color:white;">
+            
+              {% for videos in videosAll|slice(0, 5) %}
+                {% if videos.categories.first() == video.categories.first() and videos.titre != video.titre %}
+                  <a href="/video/show/{{ videos.id }}" draggable="false" style="color:white;">
 
-            <div class="boxNew">
-              <div class="box-img">
-                <img src="{{ videos.image }}">
-              </div>
-              <h3 class="maxTailleTitre">{{ videos.titre }}</h3>
-              <span>{{ videos.typeVideo.libelleTypeVideo }}</span>
+                  <div class="boxNew">
+                    <h3 class="maxTailleTitre">{{ videos.titre }}</h3>
+                    <span>{{ videos.typeVideo.libelleTypeVideo }}</span>
+                  </div>
+
+                  </a>
+                {% endif %}
+              {% endfor %}
             </div>
+          </div>
+        </div>
 
-            </a>
-          {% endif %}
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-
+      {% endif %}
+    {% endif %}
 
 		<div class="row mx-5">
       <div class="col-sm-6">
@@ -105,7 +103,6 @@
 
       {% if user.abonnement != null %}
         <b> {{ app.user.prenom }} {{ app.user.nom }} </b>
-        {# Ajouter un if pour le s de commentaire / avec ou sans / sans 0-1 || avec 2 - + #}
         {{ form_start(form) }}
         {{ form_widget(form) }}
         {{ form_end(form) }}

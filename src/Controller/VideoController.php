@@ -111,19 +111,19 @@ class VideoController extends AbstractController
 
     #[Route('/video/new', name:'video.new', methods: ['get', 'post'])]
     public function new(Request $request,EntityManagerInterface $manager): Response{
-        //create a new video 
+        // Creation d'un objet video
         $video = new Video();
         
-        //bind form with videoType reference
+        // Relie le formulaire au type de video
         $form = $this->createForm(VideoType::class,$video);
         $categories = $this->categories;
         $typesVideos = $this->typesVideos;
-        //send request to the database
+        // Demande de requête a la bdd
         $form->handleRequest($request);
-        //if is submitt is clicked and all valid in form
+        // Si le form est bien valide, envoie les données a la bdd
         if($form->isSubmitted() && $form->isValid()) {
             $video = $form->getData();
-            //manager send new video "object" in the database
+            // Le manager envoie l'objet video dans la bdd
             $manager->persist($video);
             $manager->flush();
             
