@@ -2,8 +2,8 @@
 
 namespace App\Controller\Admin;
 
-use UserType;
 use App\Entity\User;
+use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\TypeVideoRepository;
