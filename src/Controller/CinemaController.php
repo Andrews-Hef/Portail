@@ -203,7 +203,7 @@ class CinemaController extends AbstractController
         $titre = $request->query->get('titre');
         $user = $security->getUser();
         $mail->send(
-            'demoineret.denis78@gmail.com',
+            'hefborg@gmail.com',
             $user->getEmail(),
             'Comfirmation réservation séance',
             'resa',

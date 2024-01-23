@@ -18,13 +18,13 @@
               <h4 class="text-primary"></h4> 
               <img style="max-height:25%" src="https://image.tmdb.org/t/p/original{{Movie.poster_path}}">
               <div style="margin-top:15%">
-                <div class="col-md-6" style="margin-left:50%; margin-top:-30%" >
+                <div class="col-md-6" style="margin-left:50%; margin-top:-50%" >
                   <h3> genres</h3>
                   {% for genre in Movie.genres %}
                     <ul>{{ genre.name }}</il>
                   {% endfor %}
                 </div>
-                <div class="col-md-6" style="margin-left:50%,">
+                <div class="col-md-6" style="margin-left:50%;">
                   <h3> synospis</h3>
                   <p class="text-secondary" style="" >{{Movie.overview}}</p>
                 </div>
@@ -33,7 +33,7 @@
             </div>
         </div>
 
-    <div class= "d-flex align-items"  style ="">
+    <div class= "d-flex align-items"  style ="margin-top: -130%;">
       <h3> reserver une seance a {{ cinema.nom }}!</h3>
 
       <table>

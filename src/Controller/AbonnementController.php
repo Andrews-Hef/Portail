@@ -150,7 +150,7 @@ class AbonnementController extends AbstractController
       $prix = $abo->getPrix();
       $titre = $abo->getLibelleAbonnement();
       $mail->send(
-        'demoineret.denis78@gmail.com',
+        'hefborg@gmail.com',
         $user->getEmail(),
         'Activation de votre compte sur le site Portail',
         'paiementAccept',
