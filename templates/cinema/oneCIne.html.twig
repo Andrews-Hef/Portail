@@ -15,21 +15,17 @@
 
     <h3> Trouver votre film !</h3>
     <div class="container">
-        {{ form_start(form) }}
-        <div class="form-errors">
-            {{ form_errors(form) }}
-        </div>
-        <div class="row">
-            {{  form_end(form) }}
+        <div class="card bg-dark mb-3">
+        <div class="card-header">Recherche</div>
+            <div class="card-body">
+                {{ form_start(form) }}
+                <div class="form-errors">
+                    {{ form_errors(form) }}
+                </div>
+                <div class="row">
+                    {{  form_end(form) }}
+                </div>
+            </div>
         </div>
     </div>
-    
-
-
-
-    
-
-
-</div>
-
 {% endblock %}
