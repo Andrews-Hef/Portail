@@ -1,30 +1,30 @@
 {% extends 'base.html.twig' %}
 
+  {% block stylesheets %}
+    <link rel="stylesheet" href="../css/cineCss.css">
+  {% endblock %}
+
 {% block title %}show{% endblock %}
 
 {% block body %}
 
 
-<div class="container">
-    <br><br><br><br>
-    <h2>tous nos cinémas</h2>
-    
+
+
+<div class="container-fluid" style="padding-top: 120px; width:65%">
+    <h2>Tous nos cinémas</h2>
+    <hr class="styled-hr">
+
    {% for item in allCinema %}
-    <div class= "card-columms text-center mx-2"  style ="display: inline-block">
-        <div class="card bg-dark" style="width: 18rem;">
+    <div class= "card-columms text-center mx-2"  style ="display: inline-block;">
+        <div class="card bg-dark" style="width: 18rem; background-color: #072130 !important">
             <img src="../image/cinema.jpg" > 
-            <h4 class="text-light">{{ item.nom }} </h4> {#item.field avec l'api |'commune':item.fields.commune#}
-            <small class="text-muted">
+            <h5 class="text-light fontToUse" style="padding-top:8px">{{ item.nom }} </h4> 
+            <small class="text-muted fontToUse" style="padding-bottom:2px">
                 <a class="text-light" href="{{ path('cinema.findOne',{'Name':item.nom,'adresse':item.adresse,'id':item.id}) }}">cliquez ici </a>
             </small>   
         </div>
     </div> 
     {% endfor %} 
-
-
-    
-
-
 </div>
-
 {% endblock %}

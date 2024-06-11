@@ -1,31 +1,41 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/cineCss.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/searchMovie.scss') }}">
+{% endblock %}
 
 {% block title %}show{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="container-fluid" style="width: 60%; padding-top: 110px; margin-top: -10px; padding-bottom: 110px;">
 
-<div class="example-wrapper">
-    <br><br><br><br>
-    <h2>{{Name}}</h2>
-    <span>{{Adresse}}</span> 
-
-    <h3> Trouver votre film !</h3>
-    <div class="container">
-        <div class="card bg-dark mb-3">
-        <div class="card-header">Recherche</div>
-            <div class="card-body">
-                {{ form_start(form) }}
-                <div class="form-errors">
-                    {{ form_errors(form) }}
-                </div>
-                <div class="row">
-                    {{  form_end(form) }}
-                </div>
-            </div>
-        </div>
+    <div class="center" style="text-align: center;">
+        <h2>{{ Name }}</h2>
+        <span>{{ Adresse }}</span>
     </div>
+
+
+  <hr>
+<h3 style="padding-top:20px">Trouvez votre film !</h3>
+<div class="container custom-container" style="min-height:450px">
+            {{ form_start(form) }}
+            <div class="form-errors">
+                {{ form_errors(form) }}
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.title, {'label': 'Titre', 'attr': {'class': 'form-control custom-field-class'}}) }}
+                </div>
+                {# <div class="col-md-6">
+                    {{ form_row(form.id, {'label': 'ID', 'attr': {'class': 'form-control custom-field-class'}}) }}
+                </div> #}
+            </div>
+            <div class="form-buttons mt-3">
+                {{ form_widget(form.send, {'attr': {'class': 'btn btn-primary'}}) }}
+            </div>
+
+            {{ form_end(form) }}
+</div>
+</div>
+
 {% endblock %}
