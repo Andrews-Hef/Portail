@@ -84,41 +84,45 @@ class CinemaController extends AbstractController
     {   
         $categories = $this->categories;
         $typesVideos = $this->typesVideos;
-        // we retrieve data given in path invocation function
-        $idCine=$request->query->get('id');
-        $Name=$request->query->get('Name');
-        $adr=$request->query->get('adresse');
+        
+        // Récupération des paramètres de la requête
+        $idCine = $request->query->get('id');
+        $Name = $request->query->get('Name');
+        $adr = $request->query->get('adresse');
 
-        $defaultData = ['message' => 'Type your message here'];
+        $defaultData = ['message' => 'Titre'];
         $form = $this->createFormBuilder($defaultData)
-        ->add('title', TextType::class)
-        ->add('id',HiddenType::class,[
-            'data'=> $idCine,
-        ])
-        ->add('send', SubmitType::class)
+            ->add('title', TextType::class, [
+                'attr' => ['placeholder' => 'Entrer le nom du film']
+            ])
+            ->add('id', HiddenType::class, [
+                'data' => $idCine,
+            ])
+            ->add('send', SubmitType::class, [
+                'label' => 'Rechercher'
+            ])
+            ->getForm();
 
-        ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // data is an array with "name", "email", and "message" keys
+            // Récupération des données du formulaire
             $data = $form->getData();
             $id = $data['id'];
-            $data= $data['title'];
+            $title = $data['title'];
 
-            return $this->redirectToRoute("cinema.researchMovie",['data'=>$data,'id'=>$id]);
+            return $this->redirectToRoute("cinema.researchMovie", ['data' => $title, 'id' => $id]);
         } 
 
         return $this->render('cinema/oneCine.html.twig', [
             'controller_name' => 'CinemaController',
-            'form'=>$form->createView(),
+            'form' => $form->createView(),
             'categories' => $categories,
             'typesVideos' => $typesVideos,
-            'Adresse'=> $adr,
-            'Name'=> $Name
-
+            'Adresse' => $adr,
+            'Name' => $Name
         ]);
     }
-    #
+
 
     /**
      * affiche un film
@@ -154,7 +158,7 @@ class CinemaController extends AbstractController
      * @return Response
      */
     #[Route('/cinema/researchMovie', name: 'cinema.researchMovie')]
-    public function researchMovie(CallApiService $apiService,Request $request): Response
+    public function researchMovie(CallApiService $apiService,Request $request, CinemaRepository $cinemaRepository): Response
     {   
         $categories = $this->categories;
         $typesVideos = $this->typesVideos;
@@ -164,6 +168,9 @@ class CinemaController extends AbstractController
         //once we retrieve cinema id we do findByID
         $idCine=$request->query->get('id');
 
+        $cinema = $cinemaRepository->find($idCine);
+
+
         $results=$apiService->researchMovie($Name);
 
         return $this->render('cinema/researchMovie.html.twig', [
@@ -171,7 +178,8 @@ class CinemaController extends AbstractController
             'categories' => $categories,
             'typesVideos' => $typesVideos,
             'researchResults'=>$results,
-            'idCine'=> $idCine
+            'idCine'=> $idCine,
+            'cinema' => $cinema
         ]);
     }
 
