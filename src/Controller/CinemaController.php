@@ -113,7 +113,7 @@ class CinemaController extends AbstractController
             return $this->redirectToRoute("cinema.researchMovie", ['data' => $title, 'id' => $id]);
         } 
 
-        return $this->render('cinema/oneCine.html.twig', [
+        return $this->render('cinema/oneCIne.html.twig', [
             'controller_name' => 'CinemaController',
             'form' => $form->createView(),
             'categories' => $categories,
@@ -211,7 +211,7 @@ class CinemaController extends AbstractController
         $titre = $request->query->get('titre');
         $user = $security->getUser();
         $mail->send(
-            'demoineret.denis78@gmail.com',
+            'hefborg@gmail.com',
             $user->getEmail(),
             'Comfirmation réservation séance',
             'resa',

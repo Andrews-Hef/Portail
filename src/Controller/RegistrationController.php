@@ -65,7 +65,7 @@ class RegistrationController extends AbstractController
           $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
             $mail->send(
-              'demoineret.denis78@gmail.com',
+              'hefborg@gmail.com',
               $user->getEmail(),
               'Activation de votre compte sur le site Portail',
               'register',
@@ -144,7 +144,7 @@ class RegistrationController extends AbstractController
 
         // On envoie un mail
         $mail->send(
-            'demoineret.denis78@gmail.com',
+            'hefborg@gmail.com',
             $user->getEmail(),
             'Activation de votre compte sur le site e-commerce',
             'register',
