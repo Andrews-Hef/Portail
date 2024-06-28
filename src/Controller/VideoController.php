@@ -62,11 +62,16 @@ class VideoController extends AbstractController
         $videosAll = $repoVideo->findAll();
         $commentaires = $repoCom->findByVideoscom($id);
         $categories = $repoCate->findAll();
-        $video = $repoVideo->findVideoById($id);
+        $video = $repoVideo->find($id);
         $commentaire = new Commentaire();
         $commentaire->setVideoscom($video);
         $commentaire->setUsers($user);
         
+        if(!$video){
+          $this->addFlash("warning","Video not found :(");
+          return $this->redirectToRoute("cataTest");
+        }
+
         $categories = $video->getCategories();
 
         if (!$categories->isEmpty()) {
